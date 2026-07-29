@@ -1,0 +1,74 @@
+{
+  "name": "@chaosops/design",
+  "version": "0.1.0",
+  "description": "Shared design system for ChaosOps — tokens, theme, cross-platform primitives (React Native + react-native-web), icons, and mascot assets.",
+  "license": "UNLICENSED",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lu2aDev80/chaosops-design.git"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./tokens": {
+      "types": "./dist/tokens/index.d.ts",
+      "import": "./dist/tokens/index.js",
+      "require": "./dist/tokens/index.cjs"
+    },
+    "./icons": {
+      "types": "./dist/icons/index.d.ts",
+      "react-native": "./dist/icons/native.js",
+      "import": "./dist/icons/web.js",
+      "require": "./dist/icons/web.cjs"
+    },
+    "./assets/*": "./src/assets/*"
+  },
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-native": "*",
+    "react-native-web": "*",
+    "lucide-react": "*",
+    "lucide-react-native": "*"
+  },
+  "peerDependenciesMeta": {
+    "react-native": { "optional": true },
+    "react-native-web": { "optional": true },
+    "lucide-react": { "optional": true },
+    "lucide-react-native": { "optional": true }
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.5",
+    "@types/react-native": "^0.72.8",
+    "lucide-react": "^0.555.0",
+    "lucide-react-native": "^0.555.0",
+    "react": "^19.2.0",
+    "react-native": "^0.86.0",
+    "tsup": "^8.3.0",
+    "typescript": "~5.9.3",
+    "vitest": "^4.1.10"
+  }
+}
