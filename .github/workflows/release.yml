@@ -29,7 +29,7 @@ jobs:
 
   publish:
     needs: detect-version
-    if: needs.detect-version.outputs.bumped == 'true' || github.event_name == 'workflow_dispatch'
+    if: (needs.detect-version.outputs.bumped == 'true' || github.event_name == 'workflow_dispatch') && github.repository_owner == 'chaosops'
     runs-on: ubuntu-latest
     permissions:
       contents: write
