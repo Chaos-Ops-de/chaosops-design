@@ -106,6 +106,11 @@ npm run test        # vitest run
 
 ## Releasing
 
-Bump the version in `package.json`, commit, tag `vX.Y.Z`, push the tag.
-The GitHub Actions workflow publishes to GitHub Packages on push of a
-`v*` tag.
+Releases are automated. Bump the version in `package.json` and merge to
+`main` — the `release` workflow detects the version change, runs
+typecheck/test/build, publishes to GitHub Packages, then creates the
+`vX.Y.Z` tag and GitHub release for you.
+
+No manual tagging or `npm publish` needed. To re-publish the current
+version manually (e.g. after a failed run), trigger the `release`
+workflow via `workflow_dispatch` in the Actions tab.
