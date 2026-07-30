@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "Shared design system for ChaosOps — tokens, theme, cross-platform primitives (React Native + react-native-web), icons, and mascot assets.",
   "license": "UNLICENSED",
-  "private": true,
   "type": "module",
   "sideEffects": false,
   "publishConfig": {
