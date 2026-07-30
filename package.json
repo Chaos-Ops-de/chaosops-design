@@ -1,5 +1,5 @@
 {
-  "name": "@chaosops/design",
+  "name": "@chaos-ops-de/design",
   "version": "0.1.0",
   "description": "Shared design system for ChaosOps — tokens, theme, cross-platform primitives (React Native + react-native-web), icons, and mascot assets.",
   "license": "UNLICENSED",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lu2aDev80/chaosops-design.git"
+    "url": "git+https://github.com/Chaos-Ops-de/chaosops-design.git"
   },
   "files": [
     "dist",

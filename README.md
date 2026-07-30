@@ -1,4 +1,4 @@
-# @chaosops/design
+# @chaos-ops-de/design
 
 Shared design system for **ChaosOps**. One source of truth for tokens,
 theme, cross-platform primitives, icons, and mascot assets — consumed
@@ -12,11 +12,11 @@ apps look identical because they read the same tokens.
 
 ```bash
 # .npmrc (in each consumer)
-@chaosops:registry=https://npm.pkg.github.com
+@chaos-ops-de:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 
 # then
-npm install @chaosops/design
+npm install @chaos-ops-de/design
 ```
 
 Peer requirements: `react >= 18`. On native additionally `react-native`;
@@ -24,7 +24,7 @@ on web additionally `react-native-web` (`^0.19` or newer).
 
 ## What's inside
 
-### Tokens (`@chaosops/design/tokens`)
+### Tokens (`@chaos-ops-de/design/tokens`)
 
 - `palettes.light` / `palettes.dark` — full flipchart palette
 - `fontFamilies`, `webFontStack`, `googleFontsHref`, `fontSizes`, `fontWeights`
@@ -40,16 +40,16 @@ on web additionally `react-native-web` (`^0.19` or newer).
 - `renderCssVariables(theme)` — SSR helper
 - `createLocalStorageAdapter()`, `memoryStorage`, `ThemeStorage` type
 
-### Primitives (`@chaosops/design`)
+### Primitives (`@chaos-ops-de/design`)
 
 `PillButton`, `StickerCard`, `Chip`, `DashedDivider`, `ActionButton`,
 `Text`, `Gremlin` + `gremlinCss`, `FlipchartBackground`.
 
-### Icons (`@chaosops/design/icons`)
+### Icons (`@chaos-ops-de/design/icons`)
 
 Re-exports `lucide-react` on web, `lucide-react-native` on native.
 
-### Assets (`@chaosops/design/assets/*`)
+### Assets (`@chaos-ops-de/design/assets/*`)
 
 - `assets/logo.png`
 - `assets/gremlins/{404, buy, down, erfolg, hide, loadingbar, login, mail, maintance, sleep}.png`
@@ -57,8 +57,8 @@ Re-exports `lucide-react` on web, `lucide-react-native` on native.
 ## Usage — Web
 
 ```tsx
-import { ThemeProvider, CssVariables, createLocalStorageAdapter } from '@chaosops/design';
-import { PillButton, FlipchartBackground } from '@chaosops/design';
+import { ThemeProvider, CssVariables, createLocalStorageAdapter } from '@chaos-ops-de/design';
+import { PillButton, FlipchartBackground } from '@chaos-ops-de/design';
 
 <ThemeProvider storage={createLocalStorageAdapter()}>
   <CssVariables />
@@ -85,7 +85,7 @@ optimizeDeps: { include: ['react-native-web'] },
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useColorScheme } from 'react-native';
 import * as Haptics from 'expo-haptics';
-import { ThemeProvider, PillButton } from '@chaosops/design';
+import { ThemeProvider, PillButton } from '@chaos-ops-de/design';
 
 <ThemeProvider storage={AsyncStorage} systemScheme={useColorScheme() ?? 'light'}>
   <PillButton
