@@ -1,0 +1,311 @@
+.chaos-clock-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fbbf24;
+}
+
+.chaos-clock-side {
+  position: fixed;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  background: #181818;
+  color: #fff;
+  padding: 1rem 1.25rem 1.1rem 1.25rem;
+  border: 3px solid #181818;
+  border-radius: 26px;
+  font-family: 'Inter', 'Roboto Mono', 'Roboto', Arial, sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  box-shadow: 6px 8px 0 #fbbf24, 0 6px 24px rgba(0,0,0,0.30);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  z-index: 120;
+  pointer-events: none;
+}
+.chaos-clock-side span { line-height: 1; }
+
+@media (max-width: 1024px) {
+  .chaos-clock-side {
+    font-size: 2.1rem;
+    padding: 0.9rem 1.1rem 1rem 1.1rem;
+    box-shadow: 5px 7px 0 #fbbf24, 0 5px 20px rgba(0,0,0,0.28);
+  }
+}
+
+@media (max-width: 900px) {
+  .chaos-clock-side {
+    font-size: 1.9rem;
+    padding: 0.85rem 1rem 0.95rem 1rem;
+    box-shadow: 4px 6px 0 #fbbf24, 0 4px 18px rgba(0,0,0,0.28);
+    border-radius: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chaos-clock-side {
+    font-size: 1.6rem;
+    padding: 0.75rem 0.9rem 0.85rem 0.9rem;
+    box-shadow: 3px 5px 0 #fbbf24, 0 3px 15px rgba(0,0,0,0.25);
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 320px) {
+  .chaos-clock-side {
+    font-size: 1.4rem;
+    padding: 0.65rem 0.8rem 0.75rem 0.8rem;
+    box-shadow: 2px 4px 0 #fbbf24, 0 2px 12px rgba(0,0,0,0.22);
+    border-radius: 18px;
+    gap: 0.5rem;
+  }
+}
+
+.chaos-clock-widget-container {
+  position: fixed;
+  top: 50%;
+  right: 1.5rem;
+  left: auto;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* PERFECTLY centers under the clock's core box */
+  z-index: 120;
+  pointer-events: none;
+}
+
+/* Override fixed position of original clock when inside container */
+.chaos-clock-widget-container .chaos-clock-side {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  z-index: 2;
+  /* Normalize width to ensure paper fits perfectly */
+  width: 250px;
+  box-sizing: border-box;
+}
+
+.chaos-clock-suggestion-panel-wrapper {
+  overflow: hidden;
+  /* Pull wrapper slightly under the clock */
+  margin-top: -16px;
+  /* Add padding to prevent clock box-shadow from being clipped early */
+  padding-top: 16px;
+  /* Extra space for the drop shadow and jagged edge at the bottom */
+  padding-bottom: 30px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.chaos-clock-suggestion-panel-wrapper--open {
+  pointer-events: auto;
+}
+
+/* The suggestion panel unfurls underneath the clock like
+   a paper sheet being pulled down. */
+.chaos-clock-suggestion-panel {
+  /* Slightly narrower than clock to look like slot paper */
+  width: 210px;
+  background: #fffdf5;
+  /* Unified brutalist border matching the clock */
+  border: 3px solid #181818;
+  border-top: none;
+  border-radius: 0;
+  padding: 1.25rem 1rem 2.5rem 1rem;
+  color: #1e293b;
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  pointer-events: auto;
+
+  /* Slide out animation */
+  transform: translateY(-120%);
+  opacity: 0;
+  transition:
+    transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.4s ease;
+
+  /* Subtle drop shadow overlaid on torn edge */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.08);
+
+  /* Torn paper jagged edge at the bottom */
+  -webkit-mask-image: radial-gradient(circle at 6px 100%, transparent 6px, black 6.5px);
+  -webkit-mask-size: 12px 100%;
+  -webkit-mask-repeat: repeat-x;
+  /* Offset mask downwards so the top is flat */
+  -webkit-mask-position: 0 6px;
+  mask-image: radial-gradient(circle at 6px 100%, transparent 6px, black 6.5px);
+  mask-size: 12px 100%;
+  mask-repeat: repeat-x;
+  mask-position: 0 6px;
+
+  /* Subtle texture */
+  background-image:
+    linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      #fffdf5 85%,
+      #fefce8 100%
+    );
+}
+
+.chaos-clock-suggestion-panel--open {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.chaos-clock-countdown-box {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px dashed #cbd5e1;
+  text-align: center;
+}
+
+.chaos-clock-countdown-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.chaos-clock-countdown-timer {
+  font-family: 'Roboto Mono', 'Inter', monospace;
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  text-shadow: none;
+  line-height: 1;
+}
+
+.chaos-clock-suggestion-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.chaos-clock-suggestion-heading {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.02em;
+}
+
+.chaos-clock-suggestion-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.chaos-clock-suggestion-list li {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  padding-left: 1.2rem;
+  position: relative;
+  color: #475569;
+}
+
+.chaos-clock-suggestion-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #f59e0b;
+  font-weight: bold;
+}
+
+/* ── Responsive: Clock Widget ─────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .chaos-clock-widget-container {
+    right: 1.25rem;
+  }
+}
+
+@media (max-width: 900px) {
+  /* On mobile / small screens: slim sticky bar at the top */
+  .chaos-clock-widget-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    transform: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 120;
+  }
+
+  /* Turn the clock box into a compact horizontal pill */
+  .chaos-clock-widget-container .chaos-clock-side {
+    width: auto !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
+    padding: 0.4rem 1.25rem 0.45rem 1.25rem !important;
+    font-size: 1.3rem !important;
+    border-radius: 0 0 14px 14px !important;
+    box-shadow: 3px 4px 0 #fbbf24, 0 3px 12px rgba(0,0,0,0.22) !important;
+  }
+
+  .chaos-clock-widget-container .chaos-clock-label {
+    font-size: 0.65rem;
+  }
+
+  /* Hide the suggestion panel on mobile — it won't fit a top bar */
+  .chaos-clock-widget-container .chaos-clock-suggestion-panel-wrapper {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .chaos-clock-suggestion-panel {
+    width: 200px;
+    padding: 1rem 1rem 2rem 1rem;
+  }
+  .chaos-clock-countdown-timer {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chaos-clock-widget-container .chaos-clock-side {
+    font-size: 1.15rem !important;
+    padding: 0.35rem 1rem 0.4rem 1rem !important;
+    border-radius: 0 0 12px 12px !important;
+    box-shadow: 2px 3px 0 #fbbf24, 0 2px 10px rgba(0,0,0,0.20) !important;
+  }
+  .chaos-clock-suggestion-panel {
+    width: 180px;
+    padding: 0.875rem 0.875rem 1.8rem 0.875rem;
+  }
+  .chaos-clock-countdown-timer {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .chaos-clock-widget-container .chaos-clock-side {
+    font-size: 1rem !important;
+    padding: 0.3rem 0.85rem 0.35rem 0.85rem !important;
+    gap: 0.4rem !important;
+  }
+  .chaos-clock-suggestion-panel {
+    width: 170px;
+    padding: 0.75rem 0.75rem 1.8rem 0.75rem;
+  }
+  .chaos-clock-countdown-timer {
+    font-size: 1.5rem;
+  }
+}

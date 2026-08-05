@@ -7,3 +7,6 @@ dist
 coverage
 .turbo
 .vite
+storybook-static
+package-lock.json
+yarn.lock

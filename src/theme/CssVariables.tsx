@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
-import { paletteKeys, palettes, type ThemeName } from '../tokens/colors';
+import { paletteKeys, palettes, amberShades, type ThemeName } from '../tokens/colors';
 import { cssShadows } from '../tokens/shadows';
 import { radii } from '../tokens/radii';
 import { spacing } from '../tokens/spacing';
+import { itemTypeStyles } from '../tokens/itemTypes';
 import { useTheme } from './ThemeContext';
 
 const kebab = (s: string) => s.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase());
@@ -21,6 +22,8 @@ export const staticCssVars: Record<string, string> = (() => {
   for (const [k, v] of Object.entries(cssShadows)) out[`--chaos-shadow-${kebab(k)}`] = v;
   for (const [k, v] of Object.entries(radii)) out[`--chaos-radius-${kebab(k)}`] = typeof v === 'number' ? `${v}px` : String(v);
   for (const [k, v] of Object.entries(spacing)) out[`--chaos-space-${kebab(k)}`] = typeof v === 'number' ? `${v}px` : String(v);
+  for (const [k, v] of Object.entries(amberShades)) out[`--chaos-amber-${k}`] = v;
+  for (const [type, style] of Object.entries(itemTypeStyles)) out[`--chaos-item-${kebab(type)}`] = style.bgLight;
   return out;
 })();
 

@@ -1,0 +1,50 @@
+.chaos-cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--chaos-bg);
+  color: var(--chaos-ink);
+  border-top: 2.5px solid var(--chaos-ink);
+  border-radius: 1.2rem 1.2rem 0 0;
+  box-shadow: 0 -4px 24px 0 rgba(0,0,0,0.09);
+  padding: 1.2rem 2.5rem 1.2rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  font-size: 1.05rem;
+  font-family: 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif;
+  gap: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+.chaos-cookie-banner__text {
+  flex: 1;
+  margin-right: 1.5rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+
+.chaos-cookie-banner__button {
+  padding: 0.5rem 1.5rem;
+  background: var(--chaos-amber-700);
+  color: var(--chaos-bg);
+  border: 2px solid var(--chaos-ink);
+  border-radius: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.chaos-cookie-banner__button:hover {
+  background: var(--chaos-amber-900);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}

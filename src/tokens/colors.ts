@@ -57,3 +57,12 @@ export const paletteKeys: Array<keyof Palette> = [
   'tabBarBg', 'tabBarBorder', 'amber', 'green', 'danger',
   'inputBg', 'inputBorder', 'chipInactiveBg',
 ];
+
+/**
+ * Darker amber shades used for hover/pressed states (e.g. CTA buttons).
+ * Same values in both themes, so they aren't part of the light/dark Palette.
+ */
+export const amberShades = {
+  700: '#a16207',
+  900: '#7c2d12',
+};

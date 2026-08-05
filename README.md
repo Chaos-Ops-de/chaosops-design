@@ -99,9 +99,10 @@ import { ThemeProvider, PillButton } from '@chaos-ops-de/design';
 ## Scripts
 
 ```bash
-npm run build       # tsup → dist/
-npm run typecheck   # tsc --noEmit
-npm run test        # vitest run
+pnpm run build       # tsup → dist/
+pnpm run typecheck   # tsc --noEmit
+pnpm run test        # vitest run
+pnpm run storybook   # storybook dev -p 6007
 ```
 
 ## Releasing
@@ -111,6 +112,6 @@ Releases are automated. Bump the version in `package.json` and merge to
 typecheck/test/build, publishes to GitHub Packages, then creates the
 `vX.Y.Z` tag and GitHub release for you.
 
-No manual tagging or `npm publish` needed. To re-publish the current
+No manual tagging or `pnpm publish` needed. To re-publish the current
 version manually (e.g. after a failed run), trigger the `release`
 workflow via `workflow_dispatch` in the Actions tab.

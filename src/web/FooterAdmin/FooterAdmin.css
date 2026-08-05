@@ -1,0 +1,19 @@
+.chaos-admin-footer {
+  grid-area: footer;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--chaos-ink);
+  font-size: 1rem;
+  font-family: 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif;
+  text-shadow: 0 1px 4px #fff7ae;
+  padding: 0.8rem 0 0.2rem 0;
+}
+
+.chaos-admin-footer-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.6rem;
+  stroke-width: 2.5;
+  color: var(--chaos-ink);
+}

@@ -6,11 +6,16 @@ export default defineConfig({
     'tokens/index': 'src/tokens/index.ts',
     'icons/web': 'src/icons/web.ts',
     'icons/native': 'src/icons/native.ts',
+    'web/index': 'src/web/index.ts',
   },
   format: ['esm', 'cjs'],
   dts: true,
   sourcemap: true,
   clean: true,
-  external: ['react', 'react-native', 'react-native-web', 'lucide-react', 'lucide-react-native'],
+  external: [
+    'react', 'react-dom', 'react-native', 'react-native-web',
+    'lucide-react', 'lucide-react-native',
+    '@sentry/react', 'react-router-dom',
+  ],
   splitting: false,
 });

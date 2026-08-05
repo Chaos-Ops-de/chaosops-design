@@ -1,0 +1,18 @@
+.chaos-app-footer {
+  margin: 3rem auto 2.5rem auto;
+  text-align: center;
+  color: var(--chaos-ink);
+  font-size: 1.2rem;
+  font-family: 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif;
+  text-shadow: 0 2px 8px #fff7ae;
+  padding: 1.2rem 0 0.5rem 0;
+}
+
+.chaos-app-footer-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.6rem;
+  stroke-width: 2.5;
+  color: var(--chaos-ink);
+}

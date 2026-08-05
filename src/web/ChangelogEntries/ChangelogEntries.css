@@ -1,0 +1,64 @@
+.chaos-changelog-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.chaos-changelog-entry {
+  border-left: 3px solid #e5e7eb;
+  padding-left: 1rem;
+}
+
+.chaos-changelog-entry__header {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.375rem;
+  flex-wrap: wrap;
+}
+
+.chaos-changelog-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  color: #181818;
+}
+
+.chaos-changelog-tag--neu { background: var(--chaos-item-game); }
+.chaos-changelog-tag--verbessert { background: var(--chaos-item-session); }
+.chaos-changelog-tag--behoben { background: var(--chaos-item-transition); }
+
+.chaos-changelog-date {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+}
+
+.chaos-changelog-title {
+  font-family: 'Gloria Hallelujah', 'Caveat', cursive, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #181818;
+  margin: 0 0 0.25rem;
+}
+
+.chaos-changelog-description {
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #475569;
+  margin: 0;
+}
+
+.chaos-changelog-empty {
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-size: 0.92rem;
+  color: #64748b;
+}
