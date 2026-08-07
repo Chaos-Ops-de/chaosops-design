@@ -1,7 +1,20 @@
 import * as Sentry from '@sentry/react'
 import type { ReactNode } from 'react'
 import { isCloudflareError, type CloudflareError } from '../../utils/errors'
-import { Gremlin } from '../../primitives/Gremlin'
+
+// Plain <img> rather than the React Native <Gremlin /> primitive — this file
+// is part of the web-only `./web` entry and must not pull in react-native.
+function GremlinMascot({ src, size = 128 }: { src: string; size?: number }) {
+  return (
+    <img
+      src={src}
+      alt=""
+      width={size}
+      height={size}
+      style={{ width: size, height: size, objectFit: 'contain' }}
+    />
+  )
+}
 
 function GenericErrorFallback({ error, downGremlinSrc }: { error: unknown; downGremlinSrc: string }) {
   const message = error instanceof Error ? error.message : String(error)
@@ -32,7 +45,7 @@ function GenericErrorFallback({ error, downGremlinSrc }: { error: unknown; downG
         }}
       >
         <div style={{ marginBottom: '1rem' }}>
-          <Gremlin source={{ uri: downGremlinSrc }} size={128} />
+          <GremlinMascot src={downGremlinSrc} size={128} />
         </div>
 
         <h2
@@ -146,7 +159,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareE
       >
         {/* Gremlin mascot */}
         <div style={{ marginBottom: '1rem' }}>
-          <Gremlin source={{ uri: downGremlinSrc }} size={128} />
+          <GremlinMascot src={downGremlinSrc} size={128} />
         </div>
 
         {/* Cloudflare attribution badge */}
