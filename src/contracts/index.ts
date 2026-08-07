@@ -3,7 +3,7 @@
 // independently. Source of truth for these shapes is `prisma/schema.prisma`
 // in the ChaosOps repo — when the schema changes, update here too.
 
-export type DeviceStatus = 'PENDING' | 'PAIRED' | 'OFFLINE';
+export type DeviceStatus = 'PENDING' | 'PAIRED' | 'ACTIVE';
 
 export interface User {
   id: string;
@@ -138,6 +138,7 @@ export interface Display {
   currentEventId: string | null;
   zoneId: string | null;
   lastSeenAt: string;
+  refreshRequestedAt: string | null;
   createdAt: string;
   updatedAt: string;
 }
