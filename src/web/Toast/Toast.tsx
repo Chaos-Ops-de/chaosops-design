@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { CheckCircle2, AlertCircle, AlertTriangle, Info, X } from 'lucide-react';
 
@@ -74,15 +74,27 @@ export const Toast: React.FC<ToastProps> = ({
   const config = toastConfig[type];
   const Icon = config.Icon;
 
+  // onClose is read through a ref rather than being a dependency below.
+  // Callers commonly pass an inline arrow (e.g. ToastContainer's
+  // `onClose={() => onRemove(toast.id)}`), which is a new function every
+  // render — if it were a dependency, any re-render of the page while a
+  // toast is visible (routine here: polling, typing, pagination, ...)
+  // would tear down and restart the auto-dismiss timer, so the toast could
+  // outlive `duration` indefinitely instead of dismissing on schedule.
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
   useEffect(() => {
     if (duration > 0) {
       const timer = setTimeout(() => {
         setIsExiting(true);
-        setTimeout(onClose, 200);
+        setTimeout(() => onCloseRef.current(), 200);
       }, duration);
       return () => clearTimeout(timer);
     }
-  }, [duration, onClose]);
+  }, [duration]);
 
   const handleClose = () => {
     setIsExiting(true);
