@@ -19,5 +19,13 @@ export default defineConfig({
     'lucide-react', 'lucide-react-native',
     '@sentry/react', 'react-router-dom',
   ],
-  splitting: false,
+  // Must be true: index/theme and primitives/index both import the same
+  // internal theme/ThemeContext module. With splitting disabled, esbuild
+  // duplicates that module into each output bundle, producing two separate
+  // React Context instances at runtime — useTheme() then throws "must be
+  // used within ThemeProvider" even when the tree is nested correctly,
+  // because a primitive's Provider and a consumer end up on different
+  // Context objects. Splitting extracts shared internal modules into a
+  // common chunk both entries import, so context identity is preserved.
+  splitting: true,
 });
