@@ -7,6 +7,8 @@ export default defineConfig({
     'icons/web': 'src/icons/web.ts',
     'icons/native': 'src/icons/native.ts',
     'web/index': 'src/web/index.ts',
+    'primitives/index': 'src/primitives/index.ts',
+    'contracts/index': 'src/contracts/index.ts',
   },
   format: ['esm', 'cjs'],
   dts: true,

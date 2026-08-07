@@ -1,6 +1,6 @@
 {
   "name": "@chaos-ops-de/design",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Shared design system for ChaosOps — tokens, theme, cross-platform primitives (React Native + react-native-web), icons, and mascot assets.",
   "license": "UNLICENSED",
   "type": "module",
@@ -46,6 +46,16 @@
       "require": "./dist/web/index.cjs"
     },
     "./web.css": "./dist/web/index.css",
+    "./primitives": {
+      "types": "./dist/primitives/index.d.ts",
+      "import": "./dist/primitives/index.js",
+      "require": "./dist/primitives/index.cjs"
+    },
+    "./contracts": {
+      "types": "./dist/contracts/index.d.ts",
+      "import": "./dist/contracts/index.js",
+      "require": "./dist/contracts/index.cjs"
+    },
     "./assets/*": "./src/assets/*"
   },
   "scripts": {

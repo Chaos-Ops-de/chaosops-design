@@ -5,8 +5,11 @@ theme, cross-platform primitives, icons, and mascot assets — consumed
 by both `ChaosOps` (web) and `ChaosOps_Mobile_App`.
 
 Primitives are written in **React Native** and run in the browser via
-[`react-native-web`](https://necolas.github.io/react-native-web/). Both
-apps look identical because they read the same tokens.
+[`react-native-web`](https://necolas.github.io/react-native-web/), but
+live under a separate `./primitives` entry point (see below) so that
+pure-web consumers who only need tokens/theme never pull in the
+React Native module graph. Both apps look identical because they read
+the same tokens.
 
 ## Install
 
@@ -40,10 +43,23 @@ on web additionally `react-native-web` (`^0.19` or newer).
 - `renderCssVariables(theme)` — SSR helper
 - `createLocalStorageAdapter()`, `memoryStorage`, `ThemeStorage` type
 
-### Primitives (`@chaos-ops-de/design`)
+### Primitives (`@chaos-ops-de/design/primitives`)
+
+React Native components — only import this entry from React Native /
+`react-native-web` consumers (i.e. the mobile app). Web-only consumers
+(e.g. the landing site) that just need tokens/theme should stick to the
+root entry and never touch this one.
 
 `PillButton`, `StickerCard`, `Chip`, `DashedDivider`, `ActionButton`,
 `Text`, `Gremlin` + `gremlinCss`, `FlipchartBackground`.
+
+### Contracts (`@chaos-ops-de/design/contracts`)
+
+Shared API domain types (`User`, `Organisation`, `Event`, `DayPlan`,
+`ScheduleItem`, `Display`, `Tag`, ...) mirroring the ChaosOps backend's
+Prisma schema, so the web app and mobile app aren't hand-retyping the
+same server contract independently. Plain TypeScript types, no runtime
+code — safe to import from anywhere.
 
 ### Icons (`@chaos-ops-de/design/icons`)
 
@@ -56,19 +72,25 @@ Re-exports `lucide-react` on web, `lucide-react-native` on native.
 
 ## Usage — Web
 
+Web consumers that only need tokens/theme (e.g. the landing site) import
+from the root only, and never need `react-native-web` at all:
+
 ```tsx
 import { ThemeProvider, CssVariables, createLocalStorageAdapter } from '@chaos-ops-de/design';
-import { PillButton, FlipchartBackground } from '@chaos-ops-de/design';
 
 <ThemeProvider storage={createLocalStorageAdapter()}>
   <CssVariables />
-  <FlipchartBackground>
-    <PillButton label="Los geht's" onPress={() => alert('!')} />
-  </FlipchartBackground>
+  {children}
 </ThemeProvider>
 ```
 
-Vite must alias `react-native` → `react-native-web`:
+If a web consumer does need the React Native primitives rendered via
+`react-native-web`, import them from `./primitives` and alias
+`react-native` → `react-native-web` in that consumer's bundler config:
+
+```tsx
+import { PillButton, FlipchartBackground } from '@chaos-ops-de/design/primitives';
+```
 
 ```ts
 // vite.config.ts
@@ -85,7 +107,8 @@ optimizeDeps: { include: ['react-native-web'] },
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useColorScheme } from 'react-native';
 import * as Haptics from 'expo-haptics';
-import { ThemeProvider, PillButton } from '@chaos-ops-de/design';
+import { ThemeProvider } from '@chaos-ops-de/design';
+import { PillButton } from '@chaos-ops-de/design/primitives';
 
 <ThemeProvider storage={AsyncStorage} systemScheme={useColorScheme() ?? 'light'}>
   <PillButton
