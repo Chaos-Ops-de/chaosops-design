@@ -1,6 +1,6 @@
 {
   "name": "@chaos-ops-de/design",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Shared design system for ChaosOps — tokens, theme, cross-platform primitives (React Native + react-native-web), icons, and mascot assets.",
   "license": "UNLICENSED",
   "type": "module",
@@ -66,6 +66,9 @@
     "clean": "rm -rf dist",
     "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "motion": "^13.0.0"
   },
   "peerDependencies": {
     "@sentry/react": "*",

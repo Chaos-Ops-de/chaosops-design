@@ -16,6 +16,7 @@ import {
     FileText, Wrench, PauseCircle, Gamepad2, Megaphone, Utensils
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import './IconPicker.css';
 
 export interface IconPickerProps {
     value: string;
@@ -89,7 +90,7 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
                 fontFamily: '"Gloria Hallelujah", "Caveat", cursive',
                 fontSize: 'clamp(0.9rem, 2.25vw, 1rem)',
                 fontWeight: '700',
-                color: '#0f172a',
+                color: 'var(--chaos-ink)',
             }}>
                 {label}
             </label>
@@ -97,16 +98,19 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
             <button
                 ref={buttonRef}
                 type="button"
+                className="chaos-iconpicker-trigger"
                 onClick={() => setIsOpen(!isOpen)}
+                aria-haspopup="listbox"
+                aria-expanded={isOpen}
                 style={{
                     width: '100%',
                     padding: '0.75rem',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    border: '2px solid #cbd5e1',
+                    border: '2px solid var(--chaos-input-border, #cbd5e1)',
                     borderRadius: '8px',
-                    backgroundColor: '#fff',
+                    backgroundColor: 'var(--chaos-input-bg, #fff)',
                     cursor: 'pointer',
                     transition: 'all 0.2s ease',
                 }}
@@ -118,17 +122,17 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
                         backgroundColor: `${color}20`,
                         color: color
                     }}>
-                        <SelectedIcon size={20} />
+                        <SelectedIcon size={20} aria-hidden="true" />
                     </div>
                     <span style={{
                         fontFamily: '"Inter", "Roboto", Arial, sans-serif',
                         fontSize: '0.95rem',
-                        color: '#334155'
+                        color: 'var(--chaos-ink)'
                     }}>
                         {value || 'Icon wählen'}
                     </span>
                 </div>
-                <ChevronDown size={16} color="#94a3b8" />
+                <ChevronDown size={16} color="var(--chaos-ink-muted, #94a3b8)" aria-hidden="true" />
             </button>
 
             {isOpen && isPositioned && createPortal(
@@ -138,50 +142,45 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
                     left: position.left,
                     width: position.width,
                     minWidth: '300px',
-                    backgroundColor: '#fff',
+                    backgroundColor: 'var(--chaos-surface-elevated, #fff)',
                     borderRadius: '12px',
-                    border: '1px solid #e2e8f0',
+                    border: '1px solid var(--chaos-input-border, #e2e8f0)',
                     boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
                     zIndex: 9999,
                     padding: '1rem',
-                }}>
+                }} role="listbox" aria-label={label}>
                     <div style={{
                         position: 'relative',
                         marginBottom: '1rem'
                     }}>
                         <Search
                             size={16}
+                            aria-hidden="true"
                             style={{
                                 position: 'absolute',
                                 left: '0.75rem',
                                 top: '50%',
                                 transform: 'translateY(-50%)',
-                                color: '#94a3b8'
+                                color: 'var(--chaos-ink-muted, #94a3b8)'
                             }}
                         />
                         <input
                             type="text"
+                            className="chaos-iconpicker-search"
                             placeholder="Suchen..."
+                            aria-label="Icons durchsuchen"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             autoFocus
                             style={{
                                 width: '100%',
                                 padding: '0.6rem 0.6rem 0.6rem 2.5rem',
-                                border: '2px solid #e2e8f0',
+                                border: '2px solid var(--chaos-input-border, #e2e8f0)',
                                 borderRadius: '8px',
                                 fontSize: '0.95rem',
-                                outline: 'none',
+                                background: 'var(--chaos-input-bg)',
+                                color: 'var(--chaos-ink)',
                                 fontFamily: '"Inter", "Roboto", Arial, sans-serif',
-                                transition: 'all 0.2s ease',
-                            }}
-                            onFocus={(e) => {
-                                e.target.style.borderColor = '#3b82f6';
-                                e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
-                            }}
-                            onBlur={(e) => {
-                                e.target.style.borderColor = '#e2e8f0';
-                                e.target.style.boxShadow = 'none';
                             }}
                         />
                     </div>
@@ -202,19 +201,23 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
                                 <button
                                     key={iconName}
                                     type="button"
+                                    role="option"
+                                    aria-selected={isSelected}
+                                    className="chaos-iconpicker-option"
                                     onClick={() => {
                                         onChange(iconName);
                                         setIsOpen(false);
                                     }}
                                     title={iconName}
+                                    aria-label={iconName}
                                     style={{
                                         width: '100%',
                                         aspectRatio: '1',
                                         padding: '0',
                                         borderRadius: '8px',
-                                        border: isSelected ? `2px solid ${color}` : '1px solid #e2e8f0',
-                                        backgroundColor: isSelected ? `${color}10` : '#fff',
-                                        color: isSelected ? color : '#64748b',
+                                        border: isSelected ? `2px solid ${color}` : '1px solid var(--chaos-input-border, #e2e8f0)',
+                                        backgroundColor: isSelected ? `${color}10` : 'var(--chaos-surface-elevated, #fff)',
+                                        color: isSelected ? color : 'var(--chaos-ink-muted, #64748b)',
                                         cursor: 'pointer',
                                         display: 'flex',
                                         alignItems: 'center',
@@ -223,22 +226,20 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
                                     }}
                                     onMouseEnter={(e) => {
                                         if (!isSelected) {
-                                            e.currentTarget.style.backgroundColor = '#f8fafc';
-                                            e.currentTarget.style.color = '#334155';
+                                            e.currentTarget.style.backgroundColor = 'color-mix(in srgb, var(--chaos-ink) 6%, transparent)';
                                             e.currentTarget.style.transform = 'translateY(-1px)';
                                             e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
                                         }
                                     }}
                                     onMouseLeave={(e) => {
                                         if (!isSelected) {
-                                            e.currentTarget.style.backgroundColor = '#fff';
-                                            e.currentTarget.style.color = '#64748b';
+                                            e.currentTarget.style.backgroundColor = 'var(--chaos-surface-elevated, #fff)';
                                             e.currentTarget.style.transform = 'translateY(0)';
                                             e.currentTarget.style.boxShadow = 'none';
                                         }
                                     }}
                                 >
-                                    <Icon size={20} strokeWidth={isSelected ? 2.5 : 2} />
+                                    <Icon size={20} strokeWidth={isSelected ? 2.5 : 2} aria-hidden="true" />
                                 </button>
                             );
                         })}
@@ -248,7 +249,7 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
                         <div style={{
                             textAlign: 'center',
                             padding: '1.5rem',
-                            color: '#94a3b8',
+                            color: 'var(--chaos-ink-muted, #94a3b8)',
                             fontSize: '0.9rem',
                             fontFamily: '"Inter", "Roboto", Arial, sans-serif',
                         }}>

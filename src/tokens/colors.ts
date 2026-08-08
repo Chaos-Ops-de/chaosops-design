@@ -15,6 +15,14 @@ export interface Palette {
   inputBg: string;
   inputBorder: string;
   chipInactiveBg: string;
+  /** Generic informational accent (info toasts/icons, help affordances). */
+  info: string;
+  /** Elevated-vs-base surface for floating chrome (modals, dropdowns, sheets) — brighter than cardBg in dark mode, per "dim, don't invert". */
+  surfaceElevated: string;
+  /** Modal/sheet backdrop scrim. */
+  overlayScrim: string;
+  /** :focus-visible ring color. */
+  focusRing: string;
 }
 
 export const palettes: Record<ThemeName, Palette> = {
@@ -33,6 +41,10 @@ export const palettes: Record<ThemeName, Palette> = {
     inputBg: '#ffffff',
     inputBorder: '#d1d5db',
     chipInactiveBg: '#f4f1e6',
+    info: '#0ea5e9',
+    surfaceElevated: '#ffffff',
+    overlayScrim: 'rgba(24, 20, 14, 0.5)',
+    focusRing: '#0ea5e9',
   },
   dark: {
     bg: '#171310',
@@ -49,6 +61,10 @@ export const palettes: Record<ThemeName, Palette> = {
     inputBg: '#231d16',
     inputBorder: '#4a4030',
     chipInactiveBg: '#2a231a',
+    info: '#38bdf8',
+    surfaceElevated: '#2c2519',
+    overlayScrim: 'rgba(0, 0, 0, 0.65)',
+    focusRing: '#38bdf8',
   },
 };
 
@@ -56,6 +72,7 @@ export const paletteKeys: Array<keyof Palette> = [
   'bg', 'cardBg', 'ink', 'inkMuted', 'border', 'headerBg',
   'tabBarBg', 'tabBarBorder', 'amber', 'green', 'danger',
   'inputBg', 'inputBorder', 'chipInactiveBg',
+  'info', 'surfaceElevated', 'overlayScrim', 'focusRing',
 ];
 
 /**

@@ -1,0 +1,6 @@
+.chaos-iconpicker-trigger:focus-visible,
+.chaos-iconpicker-search:focus-visible,
+.chaos-iconpicker-option:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring, #3b82f6);
+  outline-offset: 2px;
+}

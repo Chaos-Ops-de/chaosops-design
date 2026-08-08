@@ -1,7 +1,11 @@
-import React, { useEffect } from 'react';
-import { X, AlertCircle, CheckCircle, Info, AlertTriangle } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { AnimatePresence, MotionConfig } from 'motion/react';
+import { AlertCircle, CheckCircle, Info, AlertTriangle } from 'lucide-react';
 import { useUnsavedChangesGuard } from '../useUnsavedChangesGuard';
 import { UnsavedChangesPrompt } from '../UnsavedChangesPrompt';
+import { usePalette } from '../../theme/ThemeContext';
+import { DialogOverlay, DialogCard, DialogCloseButton, DialogButton } from './DialogPrimitives';
+import { useFocusTrap, useScrollLock } from './useFocusTrap';
 
 interface ModalProps {
   isOpen: boolean;
@@ -33,21 +37,14 @@ export const Modal: React.FC<ModalProps> = ({
   discardText = 'Verwerfen',
   keepEditingText = 'Weiterbearbeiten',
 }) => {
+  const palette = usePalette();
+  const cardRef = useRef<HTMLDivElement>(null);
   const { showConfirm, guardedClose, confirmClose, cancelConfirm, dirtyTrackingProps } = useUnsavedChangesGuard({
     enabled: confirmOnClose && isOpen,
   });
 
-  // Scroll lock
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
+  useScrollLock(isOpen);
+  useFocusTrap(isOpen && !showConfirm, cardRef);
 
   const handleClose = () => guardedClose(onClose);
 
@@ -63,164 +60,98 @@ export const Modal: React.FC<ModalProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   const getIcon = () => {
     switch (type) {
       case 'success':
-        return <CheckCircle size={24} color="#10b981" />;
+        return <CheckCircle size={24} color={palette.green} aria-hidden="true" />;
       case 'error':
-        return <AlertCircle size={24} color="#ef4444" />;
+        return <AlertCircle size={24} color={palette.danger} aria-hidden="true" />;
       case 'warning':
-        return <AlertTriangle size={24} color="#f59e0b" />;
+        return <AlertTriangle size={24} color={palette.amber} aria-hidden="true" />;
       default:
-        return <Info size={24} color="#3b82f6" />;
+        return <Info size={24} color={palette.info} aria-hidden="true" />;
     }
   };
 
   const getTypeColor = () => {
     switch (type) {
       case 'success':
-        return '#10b981';
+        return palette.green;
       case 'error':
-        return '#ef4444';
+        return palette.danger;
       case 'warning':
-        return '#f59e0b';
+        return palette.amber;
       default:
-        return '#3b82f6';
+        return palette.info;
     }
   };
 
   return (
     <>
-      <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-          zIndex: 9999,
-          padding: '4rem 1rem',
-          backdropFilter: 'blur(4px)',
-          overflowY: 'auto',
-        }}
-        onClick={handleClose}
-        role="dialog"
-        aria-modal="true"
-      >
-        <div
-          style={{
-            background: '#fff',
-            margin: 'auto',
-            borderRadius: '1.2rem 1.35rem 1.15rem 1.25rem',
-            boxShadow: '0 20px 50px rgba(0,0,0,0.3), 4px 8px 0 rgba(0,0,0,0.1)',
-            border: '3px solid #181818',
-            maxWidth: maxWidth,
-            width: '100%',
-            position: 'relative',
-            transform: 'rotate(-0.3deg)',
-            animation: 'modalSlideIn 0.2s ease-out',
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <style>
-            {`
-              @keyframes modalSlideIn {
-                from {
-                  opacity: 0;
-                  transform: scale(0.95) rotate(-0.3deg) translateY(-20px);
-                }
-                to {
-                  opacity: 1;
-                  transform: scale(1) rotate(-0.3deg) translateY(0);
-                }
-              }
-            `}
-          </style>
+      <MotionConfig reducedMotion="user">
+        <AnimatePresence>
+          {isOpen && (
+            <DialogOverlay onClick={handleClose} role="dialog" aria-modal="true">
+              <DialogCard ref={cardRef} maxWidth={maxWidth} onClick={(e) => e.stopPropagation()}>
+                {/* Decorative tape */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '-14px',
+                    left: '40%',
+                    width: '90px',
+                    height: '28px',
+                    background: `repeating-linear-gradient(92deg, transparent 0px, rgba(255,255,255,0.12) 1px, transparent 2px, transparent 5px), linear-gradient(105deg, rgba(255,255,255,0.22) 0%, transparent 30%, transparent 55%, rgba(255,255,255,0.18) 70%, transparent 85%), linear-gradient(180deg, color-mix(in srgb, ${getTypeColor()} 85%, white) 0%, ${getTypeColor()} 40%, color-mix(in srgb, ${getTypeColor()} 90%, #806030) 100%)`,
+                    borderRadius: '1px',
+                    border: 'none',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.08), inset 0 0 8px rgba(0,0,0,0.06)',
+                    opacity: 0.82,
+                    transform: 'translateX(-50%) rotate(-2.5deg)',
+                    zIndex: 10,
+                    clipPath: 'polygon(0% 8%, 2% 0%, 5% 12%, 8% 2%, 12% 6%, 15% 0%, 18% 10%, 22% 3%, 100% 0%, 100% 5%, 98% 14%, 100% 28%, 99% 45%, 100% 62%, 98% 78%, 100% 90%, 99% 100%, 22% 100%, 18% 92%, 15% 100%, 12% 95%, 8% 100%, 5% 90%, 2% 100%, 0% 94%, 1% 78%, 0% 60%, 1% 42%, 0% 25%)',
+                  }}
+                />
 
-          {/* Decorative tape */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '-14px',
-              left: '40%',
-              width: '90px',
-              height: '28px',
-              background: `repeating-linear-gradient(92deg, transparent 0px, rgba(255,255,255,0.12) 1px, transparent 2px, transparent 5px), linear-gradient(105deg, rgba(255,255,255,0.22) 0%, transparent 30%, transparent 55%, rgba(255,255,255,0.18) 70%, transparent 85%), linear-gradient(180deg, color-mix(in srgb, ${getTypeColor()} 85%, white) 0%, ${getTypeColor()} 40%, color-mix(in srgb, ${getTypeColor()} 90%, #806030) 100%)`,
-              borderRadius: '1px',
-              border: 'none',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.08), inset 0 0 8px rgba(0,0,0,0.06)',
-              opacity: 0.82,
-              transform: 'translateX(-50%) rotate(-2.5deg)',
-              zIndex: 10,
-              clipPath: 'polygon(0% 8%, 2% 0%, 5% 12%, 8% 2%, 12% 6%, 15% 0%, 18% 10%, 22% 3%, 100% 0%, 100% 5%, 98% 14%, 100% 28%, 99% 45%, 100% 62%, 98% 78%, 100% 90%, 99% 100%, 22% 100%, 18% 92%, 15% 100%, 12% 95%, 8% 100%, 5% 90%, 2% 100%, 0% 94%, 1% 78%, 0% 60%, 1% 42%, 0% 25%)',
-            }}
-          />
-
-          {/* Header */}
-          {(title || showCloseButton) && (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '1.5rem 1.5rem 1rem',
-                borderBottom: '2px dashed #e5e7eb',
-              }}
-            >
-              {title && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  {getIcon()}
-                  <h2
+                {/* Header */}
+                {(title || showCloseButton) && (
+                  <div
                     style={{
-                      fontFamily: '"Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif',
-                      fontSize: '1.5rem',
-                      fontWeight: '700',
-                      color: '#0f172a',
-                      margin: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '1.5rem 1.5rem 1rem',
+                      borderBottom: `2px dashed var(--chaos-tab-bar-border)`,
                     }}
                   >
-                    {title}
-                  </h2>
-                </div>
-              )}
-              {showCloseButton && (
-                <button
-                  onClick={handleClose}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    padding: '0.5rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: '6px',
-                    transition: 'background 0.2s',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = '#f1f5f9';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'none';
-                  }}
-                  aria-label="Modal schließen"
-                >
-                  <X size={24} color="#64748b" />
-                </button>
-              )}
-            </div>
-          )}
+                    {title && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                        {getIcon()}
+                        <h2
+                          style={{
+                            fontFamily: '"Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif',
+                            fontSize: '1.5rem',
+                            fontWeight: '700',
+                            color: 'var(--chaos-ink)',
+                            margin: 0,
+                          }}
+                        >
+                          {title}
+                        </h2>
+                      </div>
+                    )}
+                    {showCloseButton && <DialogCloseButton onClick={handleClose} aria-label="Modal schließen" />}
+                  </div>
+                )}
 
-          {/* Content */}
-          <div {...dirtyTrackingProps} style={{ padding: '1.5rem' }}>{children}</div>
-        </div>
-      </div>
+                {/* Content */}
+                <div {...dirtyTrackingProps} style={{ padding: '1.5rem' }}>
+                  {children}
+                </div>
+              </DialogCard>
+            </DialogOverlay>
+          )}
+        </AnimatePresence>
+      </MotionConfig>
 
       <UnsavedChangesPrompt
         show={showConfirm}
@@ -268,7 +199,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
           style={{
             fontFamily: '"Inter", "Roboto", Arial, sans-serif',
             fontSize: '1rem',
-            color: '#475569',
+            color: 'var(--chaos-ink-muted)',
             lineHeight: '1.6',
             margin: 0,
           }}
@@ -278,59 +209,12 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
       </div>
 
       <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
-        <button
-          onClick={onClose}
-          style={{
-            padding: '0.75rem 1.5rem',
-            border: '2px solid #64748b',
-            borderRadius: '8px',
-            fontSize: '1rem',
-            fontWeight: '600',
-            fontFamily: '"Inter", "Roboto", Arial, sans-serif',
-            backgroundColor: '#fff',
-            color: '#64748b',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            boxShadow: '2px 4px 0 #64748b',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '3px 6px 0 #64748b';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '2px 4px 0 #64748b';
-          }}
-        >
+        <DialogButton variant="secondary" onClick={onClose}>
           {cancelText}
-        </button>
-
-        <button
-          onClick={handleConfirm}
-          style={{
-            padding: '0.75rem 1.5rem',
-            border: '2px solid #181818',
-            borderRadius: '8px',
-            fontSize: '1rem',
-            fontWeight: '600',
-            fontFamily: '"Inter", "Roboto", Arial, sans-serif',
-            backgroundColor: type === 'error' ? '#ef4444' : '#fbbf24',
-            color: '#fff',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            boxShadow: '2px 4px 0 #181818',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '3px 6px 0 #181818';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '2px 4px 0 #181818';
-          }}
-        >
+        </DialogButton>
+        <DialogButton variant={type === 'error' ? 'danger' : 'primary'} onClick={handleConfirm}>
           {confirmText}
-        </button>
+        </DialogButton>
       </div>
     </Modal>
   );
@@ -345,14 +229,7 @@ interface AlertModalProps {
   buttonText?: string;
 }
 
-export const AlertModal: React.FC<AlertModalProps> = ({
-  isOpen,
-  onClose,
-  title,
-  message,
-  type = 'info',
-  buttonText = 'OK',
-}) => {
+export const AlertModal: React.FC<AlertModalProps> = ({ isOpen, onClose, title, message, type = 'info', buttonText = 'OK' }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} type={type} showCloseButton={false}>
       <div style={{ marginBottom: '1.5rem' }}>
@@ -360,7 +237,7 @@ export const AlertModal: React.FC<AlertModalProps> = ({
           style={{
             fontFamily: '"Inter", "Roboto", Arial, sans-serif',
             fontSize: '1rem',
-            color: '#475569',
+            color: 'var(--chaos-ink-muted)',
             lineHeight: '1.6',
             margin: 0,
           }}
@@ -370,32 +247,9 @@ export const AlertModal: React.FC<AlertModalProps> = ({
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <button
-          onClick={onClose}
-          style={{
-            padding: '0.75rem 1.5rem',
-            border: '2px solid #181818',
-            borderRadius: '8px',
-            fontSize: '1rem',
-            fontWeight: '600',
-            fontFamily: '"Inter", "Roboto", Arial, sans-serif',
-            backgroundColor: '#fbbf24',
-            color: '#fff',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            boxShadow: '2px 4px 0 #181818',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '3px 6px 0 #181818';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '2px 4px 0 #181818';
-          }}
-        >
+        <DialogButton variant="primary" onClick={onClose}>
           {buttonText}
-        </button>
+        </DialogButton>
       </div>
     </Modal>
   );

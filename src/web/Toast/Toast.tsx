@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { motion, AnimatePresence, MotionConfig } from 'motion/react';
 import { CheckCircle2, AlertCircle, AlertTriangle, Info, X } from 'lucide-react';
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
@@ -13,53 +14,57 @@ export interface ToastProps {
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left' | 'bottom-center' | 'top-center';
 }
 
-const toastConfig = {
+const toastConfig: Record<ToastType, { background: string; border: string; shadow: string; color: string; Icon: React.FC<{ size?: number; style?: React.CSSProperties }> }> = {
   success: {
-    background: '#dcfce7',
+    background: 'light-dark(#dcfce7, #103322)',
     border: '#22c55e',
     shadow: '#16a34a',
-    color: '#166534',
+    color: 'light-dark(#166534, #86efac)',
     Icon: CheckCircle2,
   },
   error: {
-    background: '#fef2f2',
+    background: 'light-dark(#fef2f2, #3a1414)',
     border: '#ef4444',
     shadow: '#dc2626',
-    color: '#dc2626',
+    color: 'light-dark(#dc2626, #fca5a5)',
     Icon: AlertCircle,
   },
   warning: {
-    background: '#fffbeb',
+    background: 'light-dark(#fffbeb, #3a2a0a)',
     border: '#f59e0b',
     shadow: '#d97706',
-    color: '#92400e',
+    color: 'light-dark(#92400e, #fcd34d)',
     Icon: AlertTriangle,
   },
   info: {
-    background: '#eff6ff',
+    background: 'light-dark(#eff6ff, #0f2a44)',
     border: '#3b82f6',
     shadow: '#2563eb',
-    color: '#1e40af',
+    color: 'light-dark(#1e40af, #93c5fd)',
     Icon: Info,
   },
 };
 
-const positionStyles: Record<string, React.CSSProperties> = {
+type ToastPosition = NonNullable<ToastProps['position']>;
+
+const positionStyles: Record<ToastPosition, React.CSSProperties> = {
   'bottom-right': { bottom: '2rem', right: '2rem' },
   'bottom-left': { bottom: '2rem', left: '2rem' },
   'top-right': { top: '2rem', right: '2rem' },
   'top-left': { top: '2rem', left: '2rem' },
-  'bottom-center': { bottom: '2rem', left: '50%', transform: 'translateX(-50%)' },
-  'top-center': { top: '2rem', left: '50%', transform: 'translateX(-50%)' },
+  'bottom-center': { bottom: '2rem', left: '50%' },
+  'top-center': { top: '2rem', left: '50%' },
 };
 
-const animationKeyframes: Record<string, string> = {
-  'bottom-right': 'slideInRight',
-  'bottom-left': 'slideInLeft',
-  'top-right': 'slideInRight',
-  'top-left': 'slideInLeft',
-  'bottom-center': 'slideInUp',
-  'top-center': 'slideInDown',
+// Each position slides in from the direction it's anchored to, and reverses
+// along the same path on exit (skill: enter/exit along the same path).
+const slideVariants: Record<ToastPosition, { hidden: Record<string, number>; visible: Record<string, number> }> = {
+  'bottom-right': { hidden: { x: 40, opacity: 0 }, visible: { x: 0, opacity: 1 } },
+  'top-right': { hidden: { x: 40, opacity: 0 }, visible: { x: 0, opacity: 1 } },
+  'bottom-left': { hidden: { x: -40, opacity: 0 }, visible: { x: 0, opacity: 1 } },
+  'top-left': { hidden: { x: -40, opacity: 0 }, visible: { x: 0, opacity: 1 } },
+  'bottom-center': { hidden: { y: 40, opacity: 0 }, visible: { y: 0, opacity: 1 } },
+  'top-center': { hidden: { y: -40, opacity: 0 }, visible: { y: 0, opacity: 1 } },
 };
 
 export const Toast: React.FC<ToastProps> = ({
@@ -70,7 +75,7 @@ export const Toast: React.FC<ToastProps> = ({
   showCloseButton = false,
   position = 'bottom-right',
 }) => {
-  const [isExiting, setIsExiting] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const config = toastConfig[type];
   const Icon = config.Icon;
 
@@ -88,95 +93,79 @@ export const Toast: React.FC<ToastProps> = ({
 
   useEffect(() => {
     if (duration > 0) {
-      const timer = setTimeout(() => {
-        setIsExiting(true);
-        setTimeout(() => onCloseRef.current(), 200);
-      }, duration);
+      const timer = setTimeout(() => setIsVisible(false), duration);
       return () => clearTimeout(timer);
     }
   }, [duration]);
 
-  const handleClose = () => {
-    setIsExiting(true);
-    setTimeout(onClose, 200);
-  };
-
-  const animation = animationKeyframes[position];
+  const handleClose = () => setIsVisible(false);
+  const variants = slideVariants[position];
   const posStyle = positionStyles[position];
+  const centered = position.includes('center');
 
   const toastElement = (
-    <div
-      style={{
-        position: 'fixed',
-        ...posStyle,
-        padding: '1rem 1.5rem',
-        paddingRight: showCloseButton ? '3rem' : '1.5rem',
-        background: config.background,
-        border: `2px solid ${config.border}`,
-        borderRadius: '12px',
-        boxShadow: `3px 4px 0 ${config.shadow}, 0 4px 12px rgba(0,0,0,0.15)`,
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.75rem',
-        zIndex: 10000,
-        animation: isExiting ? 'fadeOut 0.2s ease forwards' : `${animation} 0.3s ease`,
-        fontFamily: '"Inter", "Roboto", Arial, sans-serif',
-        fontWeight: 600,
-        color: config.color,
-        maxWidth: 'calc(100vw - 4rem)',
-      }}
-    >
-      <Icon size={20} style={{ flexShrink: 0 }} />
-      <span style={{ lineHeight: 1.4 }}>{message}</span>
-      {showCloseButton && (
-        <button
-          onClick={handleClose}
-          style={{
-            position: 'absolute',
-            top: '50%',
-            right: '0.75rem',
-            transform: 'translateY(-50%)',
-            background: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '0.25rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: config.color,
-            opacity: 0.7,
-            transition: 'opacity 0.2s',
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.7'; }}
-          aria-label="Schließen"
-        >
-          <X size={16} />
-        </button>
-      )}
-      <style>{`
-        @keyframes slideInRight {
-          from { transform: translateX(100%); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideInLeft {
-          from { transform: translateX(-100%); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideInUp {
-          from { transform: translateX(-50%) translateY(100%); opacity: 0; }
-          to { transform: translateX(-50%) translateY(0); opacity: 1; }
-        }
-        @keyframes slideInDown {
-          from { transform: translateX(-50%) translateY(-100%); opacity: 0; }
-          to { transform: translateX(-50%) translateY(0); opacity: 1; }
-        }
-        @keyframes fadeOut {
-          from { opacity: 1; }
-          to { opacity: 0; }
-        }
-      `}</style>
-    </div>
+    <MotionConfig reducedMotion="user">
+      <AnimatePresence onExitComplete={() => onCloseRef.current()}>
+        {isVisible && (
+          <motion.div
+            style={{
+              position: 'fixed',
+              ...posStyle,
+              translateX: centered ? '-50%' : undefined,
+              padding: '1rem 1.5rem',
+              paddingRight: showCloseButton ? '3rem' : '1.5rem',
+              background: config.background,
+              border: `2px solid ${config.border}`,
+              borderRadius: '12px',
+              boxShadow: `3px 4px 0 ${config.shadow}, 0 4px 12px rgba(0,0,0,0.15)`,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              zIndex: 10000,
+              fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+              fontWeight: 600,
+              color: config.color,
+              maxWidth: 'calc(100vw - 4rem)',
+            }}
+            initial={variants.hidden}
+            animate={variants.visible}
+            exit={variants.hidden}
+            transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
+            role="status"
+            aria-live="polite"
+          >
+            <Icon size={20} style={{ flexShrink: 0 }} />
+            <span style={{ lineHeight: 1.4 }}>{message}</span>
+            {showCloseButton && (
+              <button
+                onClick={handleClose}
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  right: '0.75rem',
+                  transform: 'translateY(-50%)',
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '0.25rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: config.color,
+                  opacity: 0.7,
+                  transition: 'opacity 0.2s',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.7'; }}
+                aria-label="Schließen"
+              >
+                <X size={16} />
+              </button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </MotionConfig>
   );
 
   return createPortal(toastElement, document.body);

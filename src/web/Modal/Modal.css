@@ -1,0 +1,107 @@
+/* Shared chrome for Modal / ConfirmModal / AlertModal / UnsavedChangesPrompt.
+   Colors come from --chaos-* custom properties (written by <CssVariables/>),
+   so every dialog is dark-mode correct automatically — no hardcoded hex. */
+
+.dlg-overlay {
+  background: var(--chaos-overlay-scrim);
+  backdrop-filter: blur(4px);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .dlg-overlay {
+    background: color-mix(in srgb, var(--chaos-overlay-scrim) 100%, black 25%);
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .dlg-card {
+    border-width: 4px !important;
+  }
+}
+
+.dlg-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--chaos-radius-sm, 6px);
+  color: var(--chaos-ink-muted);
+  transition: background-color var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease),
+    transform var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease);
+}
+
+.dlg-close-btn:hover {
+  background: color-mix(in srgb, var(--chaos-ink) 8%, transparent);
+}
+
+.dlg-close-btn:active {
+  transform: scale(0.92);
+}
+
+.dlg-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--chaos-radius-md, 8px);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  cursor: pointer;
+  transition: transform var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease),
+    box-shadow var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease);
+}
+
+.dlg-btn:active {
+  transform: scale(0.97);
+}
+
+.dlg-btn--secondary {
+  border: 2px solid var(--chaos-ink-muted);
+  background: var(--chaos-surface-elevated);
+  color: var(--chaos-ink-muted);
+  box-shadow: 2px 4px 0 var(--chaos-ink-muted);
+}
+
+.dlg-btn--secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 3px 6px 0 var(--chaos-ink-muted);
+}
+
+.dlg-btn--primary {
+  border: 2px solid var(--chaos-border);
+  background: var(--chaos-amber);
+  color: var(--chaos-ink);
+  box-shadow: 2px 4px 0 var(--chaos-border);
+}
+
+.dlg-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 3px 6px 0 var(--chaos-border);
+}
+
+.dlg-btn--danger {
+  border: 2px solid var(--chaos-border);
+  background: var(--chaos-danger);
+  color: #fff;
+  box-shadow: 2px 4px 0 var(--chaos-border);
+}
+
+.dlg-btn--danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 3px 6px 0 var(--chaos-border);
+}
+
+.dlg-close-btn:focus-visible,
+.dlg-btn:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dlg-btn:active,
+  .dlg-close-btn:active {
+    transform: none;
+  }
+}

@@ -9,7 +9,7 @@
 }
 
 .chaos-changelog-entry {
-  border-left: 3px solid #e5e7eb;
+  border-left: 3px solid var(--chaos-tab-bar-border, #e5e7eb);
   padding-left: 1rem;
 }
 
@@ -28,7 +28,7 @@
   letter-spacing: 0.04em;
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
-  color: #181818;
+  color: var(--chaos-ink, #181818);
 }
 
 .chaos-changelog-tag--neu { background: var(--chaos-item-game); }
@@ -37,7 +37,7 @@
 
 .chaos-changelog-date {
   font-size: 0.78rem;
-  color: #64748b;
+  color: var(--chaos-ink-muted, #64748b);
   font-family: 'Inter', 'Roboto', Arial, sans-serif;
 }
 
@@ -45,7 +45,7 @@
   font-family: 'Gloria Hallelujah', 'Caveat', cursive, sans-serif;
   font-size: 1.15rem;
   font-weight: 700;
-  color: #181818;
+  color: var(--chaos-ink, #181818);
   margin: 0 0 0.25rem;
 }
 
@@ -53,12 +53,12 @@
   font-family: 'Inter', 'Roboto', Arial, sans-serif;
   font-size: 0.92rem;
   line-height: 1.55;
-  color: #475569;
+  color: var(--chaos-ink-muted, #475569);
   margin: 0;
 }
 
 .chaos-changelog-empty {
   font-family: 'Inter', 'Roboto', Arial, sans-serif;
   font-size: 0.92rem;
-  color: #64748b;
+  color: var(--chaos-ink-muted, #64748b);
 }

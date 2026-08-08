@@ -7,7 +7,7 @@
   display: block;
   font-size: 0.7rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--chaos-ink-muted, #64748b);
   margin-bottom: 0.25rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -17,29 +17,31 @@
 .chaos-select-button {
   width: 100%;
   padding: 0.6rem;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--chaos-input-border, #e2e8f0);
   border-radius: 8px;
-  background: #fff;
+  background: var(--chaos-input-bg, #fff);
+  color: var(--chaos-ink);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: all 0.2s ease;
+  transition: all var(--chaos-duration-base, 200ms) var(--chaos-ease-standard, ease);
   font-family: "Inter", "Roboto", Arial, sans-serif;
 }
 
 .chaos-select-button:hover {
-  border-color: #cbd5e1;
-  background: #f8fafc;
+  border-color: var(--chaos-ink-muted, #cbd5e1);
 }
 
-.chaos-select-button.chaos-select-button--active {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+.chaos-select-button.chaos-select-button--active,
+.chaos-select-button:focus-visible {
+  border-color: var(--chaos-focus-ring, #3b82f6);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--chaos-focus-ring, #3b82f6) 15%, transparent);
+  outline: none;
 }
 
 .chaos-select-placeholder {
-  color: #94a3b8;
+  color: var(--chaos-ink-muted, #94a3b8);
   font-size: 0.95rem;
 }
 
@@ -49,7 +51,7 @@
   gap: 0.5rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--chaos-ink);
 }
 
 .chaos-select-multiple-values {
@@ -76,9 +78,9 @@
   left: 0;
   right: 0;
   margin-top: 0.5rem;
-  background: #fff;
+  background: var(--chaos-surface-elevated, #fff);
   border-radius: 8px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--chaos-input-border, #e2e8f0);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   z-index: 50;
   max-height: 250px;
@@ -93,20 +95,25 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  transition: all 0.1s ease;
+  transition: background-color 100ms ease;
   font-family: "Inter", "Roboto", Arial, sans-serif;
-  color: #1e293b;
+  color: var(--chaos-ink);
   font-size: 0.95rem;
   font-weight: 500;
 }
 
 .chaos-select-option:hover {
-  background: #f1f5f9;
+  background: color-mix(in srgb, var(--chaos-ink) 6%, transparent);
+}
+
+.chaos-select-option:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring, #3b82f6);
+  outline-offset: -2px;
 }
 
 .chaos-select-option.chaos-select-option--selected {
-  background: #eff6ff;
-  color: #1d4ed8;
+  background: color-mix(in srgb, var(--chaos-info, #3b82f6) 12%, transparent);
+  color: var(--chaos-info, #1d4ed8);
   font-weight: 600;
 }
 
@@ -123,5 +130,5 @@
 
 .chaos-select-checkmark {
   margin-left: auto;
-  color: #3b82f6;
+  color: var(--chaos-info, #3b82f6);
 }
