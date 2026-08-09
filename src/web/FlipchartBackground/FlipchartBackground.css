@@ -1,3 +1,17 @@
+.chaos-flipchart-lines {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 39px,
+    color-mix(in srgb, var(--chaos-tab-bar-border) 45%, transparent) 40px,
+    transparent 41px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
 .chaos-flipchart-hole {
   position: absolute;
   background: var(--chaos-tab-bar-border);

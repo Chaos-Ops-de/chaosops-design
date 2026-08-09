@@ -2,6 +2,8 @@ import React from 'react';
 import './FlipchartBackground.css';
 
 export interface FlipchartBackgroundProps {
+  /** Show the fixed, viewport-wide ruled-paper lines. Default false. */
+  lines?: boolean;
   /** Show the three notebook-style holes along the top edge. Default true. */
   holes?: boolean;
   /** Diameter of each hole, in px. Default 24. */
@@ -19,12 +21,13 @@ export interface FlipchartBackgroundProps {
 }
 
 /**
- * Decorative "flipchart paper" accents — notebook holes, a torn top edge,
- * and playful doodles. Renders as absolutely-positioned overlays, so the
- * parent must be a positioned (or otherwise stacking-relevant) container
- * that already carries the ruled-paper background.
+ * Decorative "flipchart paper" accents — ruled lines, notebook holes, a
+ * torn top edge, and playful doodles. Renders as absolutely/fixed-positioned
+ * overlays; `lines` covers the whole viewport on its own, while holes/
+ * tornEdge/doodles anchor to the nearest positioned ancestor.
  */
 export const FlipchartBackground: React.FC<FlipchartBackgroundProps> = ({
+  lines = false,
   holes = true,
   holeSize = 24,
   holeTop = 6,
@@ -37,6 +40,7 @@ export const FlipchartBackground: React.FC<FlipchartBackgroundProps> = ({
 
   return (
     <>
+      {lines && <div className="chaos-flipchart-lines" aria-hidden="true" />}
       {holes && (
         <>
           <div

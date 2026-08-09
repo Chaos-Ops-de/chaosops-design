@@ -5,7 +5,7 @@ import { FlipchartBackground } from './FlipchartBackground';
 const wrapperStyle: React.CSSProperties = {
   position: 'relative',
   minHeight: 320,
-  background: 'repeating-linear-gradient(0deg, var(--chaos-bg) 0px, var(--chaos-bg) 39px, var(--chaos-tab-bar-border) 40px, var(--chaos-bg) 41px)',
+  background: 'var(--chaos-bg)',
   overflow: 'hidden',
 };
 
@@ -27,7 +27,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: { lines: true },
+};
+
+export const LinesOnly: Story = {
+  args: { lines: true, holes: false, tornEdge: false, doodles: false },
+};
 
 export const HolesOnly: Story = {
   args: { tornEdge: false, doodles: false },
