@@ -1,15 +1,28 @@
-.chaos-landing-navbar {
+/* ─── Sticky wrap ─────────────────────────────────────────────── */
+
+.chaos-landing-navbar-sticky {
   position: sticky;
   top: 0;
   z-index: 100;
+  padding: 1rem clamp(1rem, 4vw, 3rem) 0.5rem;
+  background: color-mix(in srgb, var(--chaos-bg) 85%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+/* ─── Pill navbar ─────────────────────────────────────────────── */
+
+.chaos-landing-navbar {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0;
-  padding: 0.875rem clamp(1.25rem, 5vw, 4rem);
-  background: color-mix(in srgb, var(--chaos-bg) 96%, transparent);
-  backdrop-filter: blur(8px);
-  border-bottom: 2px solid var(--chaos-ink);
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.04);
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0.6rem 0.6rem 0.6rem 1rem;
+  background: var(--chaos-bg);
+  border: 3px solid var(--chaos-ink);
+  border-radius: 999px;
+  box-shadow: 3px 4px 0 var(--chaos-ink);
 }
 
 .chaos-landing-nav-logo-btn {
@@ -23,7 +36,7 @@
 }
 
 .chaos-landing-nav-logo {
-  height: 38px;
+  height: 36px;
   width: auto;
 }
 
@@ -60,48 +73,78 @@
   font-weight: 700;
 }
 
+/* ─── Right-hand action cluster ──────────────────────────────── */
+
+.chaos-landing-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.chaos-landing-nav-locale {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 0.8rem;
+  padding: 0 0.25rem;
+  white-space: nowrap;
+}
+
+.chaos-landing-nav-locale-active {
+  color: var(--chaos-ink);
+  font-weight: 700;
+}
+
+.chaos-landing-nav-locale-sep {
+  color: var(--chaos-ink-muted);
+  opacity: 0.6;
+}
+
+.chaos-landing-nav-locale-disabled {
+  color: var(--chaos-ink-muted);
+  opacity: 0.5;
+  cursor: default;
+}
+
 .chaos-landing-nav-display-btn {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
   padding: 0.5rem 1.1rem;
-  background: color-mix(in srgb, var(--chaos-info) 20%, var(--chaos-bg));
+  background: var(--chaos-bg);
   color: var(--chaos-ink);
   border: 2px solid var(--chaos-ink);
-  border-radius: 8px;
-  box-shadow: 2px 3px 0 var(--chaos-ink);
+  border-radius: 999px;
   font-family: 'Inter', Arial, sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 110ms ease-out, box-shadow 110ms ease-out;
+  transition: transform 110ms ease-out, background 110ms ease-out;
   white-space: nowrap;
   flex-shrink: 0;
-  margin-right: 0.5rem;
 }
 
 .chaos-landing-nav-display-btn:hover {
+  background: var(--chaos-chip-inactive-bg);
   transform: translateY(-1px);
-  box-shadow: 3px 4px 0 var(--chaos-ink);
 }
 
 .chaos-landing-nav-display-btn:active {
   transform: translateY(1px);
-  box-shadow: 1px 1px 0 var(--chaos-ink);
 }
 
 .chaos-landing-nav-login-btn {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
   padding: 0.5rem 1.2rem;
   background: var(--chaos-amber);
   color: var(--chaos-ink);
   border: 2px solid var(--chaos-ink);
-  border-radius: 8px;
-  box-shadow: 2px 3px 0 var(--chaos-ink);
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 var(--chaos-ink);
   font-family: 'Gloria Hallelujah', cursive;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
   transition: transform 110ms ease-out, box-shadow 110ms ease-out;
@@ -111,12 +154,37 @@
 
 .chaos-landing-nav-login-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 3px 4px 0 var(--chaos-ink);
+  box-shadow: 3px 3px 0 var(--chaos-ink);
 }
 
 .chaos-landing-nav-login-btn:active {
   transform: translateY(1px);
   box-shadow: 1px 1px 0 var(--chaos-ink);
+}
+
+/* ─── Tape sticker ────────────────────────────────────────────── */
+
+.chaos-landing-nav-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 68px;
+  height: 20px;
+  --tape-color: var(--chaos-amber);
+  background:
+    linear-gradient(
+      105deg,
+      rgba(255, 255, 255, 0.35) 0%,
+      transparent 30%,
+      transparent 55%,
+      rgba(255, 255, 255, 0.25) 70%,
+      transparent 85%
+    ),
+    var(--tape-color);
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  transform: translateX(-50%) rotate(-2deg);
+  pointer-events: none;
 }
 
 /* ─── Hamburger (mobile only) ────────────────────────────────── */
@@ -137,12 +205,17 @@
 
 .chaos-landing-nav-mobile-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 0.5rem);
   left: 0;
   right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   background: var(--chaos-bg);
-  border-bottom: 2px solid var(--chaos-ink);
-  padding: 1rem clamp(1.25rem, 5vw, 4rem);
+  border: 3px solid var(--chaos-ink);
+  border-radius: 20px;
+  box-shadow: 3px 4px 0 var(--chaos-ink);
+  padding: 1rem;
   z-index: 99;
   animation: slideDown 160ms ease-out;
 }
@@ -186,17 +259,20 @@
   font-weight: 700;
 }
 
+.chaos-landing-nav-locale--mobile {
+  padding: 0.5rem 0.875rem;
+  font-size: 0.9rem;
+}
+
 .chaos-landing-nav-mobile-display-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  margin-top: 0.75rem;
+  justify-content: center;
   padding: 0.6rem 1.25rem;
-  background: color-mix(in srgb, var(--chaos-info) 20%, var(--chaos-bg));
+  background: var(--chaos-bg);
   color: var(--chaos-ink);
   border: 2px solid var(--chaos-ink);
-  border-radius: 8px;
-  box-shadow: 2px 3px 0 var(--chaos-ink);
+  border-radius: 999px;
   font-family: 'Inter', Arial, sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
@@ -206,16 +282,15 @@
 .chaos-landing-nav-mobile-login-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  margin-top: 0.75rem;
+  justify-content: center;
   padding: 0.6rem 1.25rem;
   background: var(--chaos-amber);
   color: var(--chaos-ink);
   border: 2px solid var(--chaos-ink);
-  border-radius: 8px;
-  box-shadow: 2px 3px 0 var(--chaos-ink);
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 var(--chaos-ink);
   font-family: 'Gloria Hallelujah', cursive;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
 }
@@ -224,10 +299,8 @@
 
 @media (max-width: 640px) {
   .chaos-landing-nav-links   { display: none; }
-  .chaos-landing-nav-login-btn   { display: none; }
-  .chaos-landing-nav-display-btn { display: none; }
+  .chaos-landing-nav-actions { display: none; }
   .chaos-landing-nav-hamburger  { display: flex; }
-  .chaos-landing-navbar     { position: relative; } /* so mobile drawer is anchored */
 }
 
 @media (prefers-reduced-motion: reduce) {
