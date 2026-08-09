@@ -3,6 +3,7 @@ export * from './BackButton';
 export * from './ChangelogEntries';
 export * from './Clock';
 export * from './CookieBanner';
+export * from './FlipchartBackground';
 export * from './Footer';
 export * from './FooterAdmin';
 export * from './HelpChat';

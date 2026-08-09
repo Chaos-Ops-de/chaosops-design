@@ -1,0 +1,57 @@
+.chaos-flipchart-hole {
+  position: absolute;
+  background: var(--chaos-tab-bar-border);
+  border-radius: 50%;
+  box-shadow: inset 0 2px 6px var(--chaos-ink-muted);
+  z-index: 10;
+}
+
+.chaos-flipchart-hole-center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.chaos-flipchart-torn-edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--chaos-bg);
+  z-index: 9;
+  clip-path: polygon(0 0, 2% 40%, 4% 20%, 6% 50%, 8% 30%, 10% 60%, 12% 25%, 14% 55%, 16% 35%, 18% 65%, 20% 30%, 22% 50%, 24% 40%, 26% 60%, 28% 35%, 30% 55%, 32% 45%, 34% 65%, 36% 40%, 38% 60%, 40% 30%, 42% 50%, 44% 35%, 46% 55%, 48% 40%, 50% 60%, 52% 35%, 54% 55%, 56% 45%, 58% 65%, 60% 40%, 62% 60%, 64% 30%, 66% 50%, 68% 35%, 70% 55%, 72% 45%, 74% 65%, 76% 40%, 78% 60%, 80% 30%, 82% 50%, 84% 35%, 86% 55%, 88% 40%, 90% 60%, 92% 35%, 94% 55%, 96% 45%, 98% 65%, 100% 40%, 100% 100%, 0 100%);
+}
+
+.chaos-flipchart-doodle-star {
+  position: absolute;
+  top: 30px;
+  left: 8vw;
+  width: 40px;
+  height: 40px;
+  background: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="20,3 24,15 37,15 26,23 30,34 20,27 10,34 14,23 3,15 16,15" fill="%23ffe066" stroke="%23f59e42" stroke-width="2"/></svg>') no-repeat center/contain;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.chaos-flipchart-doodle-circle {
+  position: absolute;
+  bottom: 40px;
+  right: 6vw;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--chaos-info) 40%, var(--chaos-bg)) 70%, var(--chaos-info) 100%);
+  border-radius: 50%;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+.chaos-flipchart-doodle-squiggle {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  width: 60px;
+  height: 20px;
+  background: url('data:image/svg+xml;utf8,<svg width="60" height="20" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 13 Q 15 3, 30 13 T 57 13" stroke="%23f472b6" stroke-width="3" fill="none"/></svg>') no-repeat center/contain;
+  opacity: 0.4;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+}
