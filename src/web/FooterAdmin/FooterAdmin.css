@@ -5,7 +5,7 @@
   color: var(--chaos-ink);
   font-size: 1rem;
   font-family: 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif;
-  text-shadow: 0 1px 4px #fff7ae;
+  text-shadow: 0 1px 4px color-mix(in srgb, var(--chaos-amber) 45%, transparent);
   padding: 0.8rem 0 0.2rem 0;
 }
 

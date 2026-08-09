@@ -40,7 +40,7 @@ export const ICON_MAP: Record<string, LucideIcon> = {
     FileText, Wrench, PauseCircle, Gamepad2, Megaphone, Utensils
 };
 
-export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color = '#64748b', label = 'Icon' }) => {
+export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color = 'var(--chaos-ink-muted)', label = 'Icon' }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });

@@ -86,7 +86,7 @@ export const Clock: React.FC<ClockProps> = ({ time, nextEventTime, viewType = 'p
               <div
                 className="chaos-clock-countdown-timer"
                 style={{
-                  color: diffMinutes < 2 ? '#dc2626' : diffMinutes < 5 ? '#d97706' : '#15803d'
+                  color: diffMinutes < 2 ? 'var(--chaos-danger)' : diffMinutes < 5 ? 'var(--chaos-amber-700, #a16207)' : 'var(--chaos-green)'
                 }}
               >
                 {String(diffMinutes).padStart(2, '0')}:{String(diffSeconds).padStart(2, '0')}
@@ -97,7 +97,7 @@ export const Clock: React.FC<ClockProps> = ({ time, nextEventTime, viewType = 'p
             {showCountdown && diffMinutes < 2 ? (
               <div
                 className="chaos-clock-suggestion-heading"
-                style={{ textAlign: 'center', fontSize: '1.05rem', margin: '0.5rem 0', color: '#d97706' }}
+                style={{ textAlign: 'center', fontSize: '1.05rem', margin: '0.5rem 0', color: 'var(--chaos-amber-700, #a16207)' }}
               >
                 Schonmal in den Raum gehen!
               </div>

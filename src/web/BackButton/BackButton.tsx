@@ -39,7 +39,7 @@ export const BackButton: React.FC<BackButtonProps> = ({
     backgroundColor: 'var(--chaos-bg)',
     color: 'var(--chaos-ink)',
     cursor: 'pointer',
-    boxShadow: '2px 4px 0 #e5e7eb',
+    boxShadow: '2px 4px 0 var(--chaos-tab-bar-border)',
     transition: 'transform 0.15s, box-shadow 0.15s',
   } : {
     padding: '0.625rem 1rem',
@@ -55,7 +55,7 @@ export const BackButton: React.FC<BackButtonProps> = ({
     alignItems: 'center',
     gap: '0.5rem',
     transition: 'all 0.2s ease',
-    boxShadow: '2px 4px 0 #e5e7eb',
+    boxShadow: '2px 4px 0 var(--chaos-tab-bar-border)',
   };
 
   return (
@@ -67,11 +67,11 @@ export const BackButton: React.FC<BackButtonProps> = ({
       style={{ ...baseStyle, ...style }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-2px)';
-        e.currentTarget.style.boxShadow = '3px 6px 0 #e5e7eb';
+        e.currentTarget.style.boxShadow = '3px 6px 0 var(--chaos-tab-bar-border)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = '2px 4px 0 #e5e7eb';
+        e.currentTarget.style.boxShadow = '2px 4px 0 var(--chaos-tab-bar-border)';
       }}
     >
       <ArrowLeft size={16} />

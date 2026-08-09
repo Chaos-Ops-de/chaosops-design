@@ -4,10 +4,10 @@
   right: 2.5rem;
   width: 320px;
   max-width: 95vw;
-  background: #fffbe7;
+  background: var(--chaos-bg);
   border-radius: 1.2rem 1.2rem 1.2rem 1.2rem;
   box-shadow: 0 4px 32px rgba(0,0,0,0.18);
-  border: 2.5px solid #fbbf24;
+  border: 2.5px solid var(--chaos-amber);
   font-family: 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif;
   z-index: 10000;
   display: flex;
@@ -15,8 +15,8 @@
   overflow: hidden;
 }
 .chaos-help-chat-header {
-  background: #fbbf24;
-  color: #fff;
+  background: var(--chaos-amber);
+  color: var(--chaos-ink);
   font-size: 1.2rem;
   font-weight: bold;
   padding: 0.8rem 1.2rem;
@@ -32,7 +32,7 @@
   right: 0.6rem;
   background: none;
   border: none;
-  color: #fff;
+  color: var(--chaos-ink);
   font-size: 2rem;
   font-weight: bold;
   cursor: pointer;
@@ -53,15 +53,15 @@
   z-index: 2;
 }
 .chaos-help-chat-close-btn:hover, .chaos-help-chat-close-btn:focus {
-  color: #fbbf24;
-  background: #fff;
+  color: var(--chaos-amber);
+  background: var(--chaos-surface-elevated);
   opacity: 1;
   outline: none;
-  box-shadow: 0 0 0 2px #fbbf24;
+  box-shadow: 0 0 0 2px var(--chaos-amber);
 }
 .chaos-help-chat-body {
   padding: 1.5rem 1.2rem;
-  color: #181818;
+  color: var(--chaos-ink);
   font-size: 1.1rem;
   min-height: 80px;
   text-align: center;

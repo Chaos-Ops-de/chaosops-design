@@ -27,15 +27,15 @@ function GenericErrorFallback({ error, downGremlinSrc }: { error: unknown; downG
         alignItems: 'center',
         justifyContent: 'center',
         padding: '2rem',
-        background: 'repeating-linear-gradient(0deg, #fffbe7 0px, #fffbe7 39px, #e5e7eb 40px, #fffbe7 41px)',
+        background: 'repeating-linear-gradient(0deg, var(--chaos-bg, #fffbe7) 0px, var(--chaos-bg, #fffbe7) 39px, var(--chaos-tab-bar-border, #e5e7eb) 40px, var(--chaos-bg, #fffbe7) 41px)',
         fontFamily: '"Inter", "Roboto", Arial, sans-serif',
       }}
     >
       <div
         style={{
-          background: '#fff',
+          background: 'var(--chaos-surface-elevated, #fff)',
           borderRadius: '1.2rem 1.35rem 1.15rem 1.25rem',
-          border: '3px solid #181818',
+          border: '3px solid var(--chaos-ink, #181818)',
           boxShadow: '4px 8px 0 rgba(0,0,0,0.12)',
           maxWidth: '480px',
           width: '100%',
@@ -53,7 +53,7 @@ function GenericErrorFallback({ error, downGremlinSrc }: { error: unknown; downG
             fontFamily: '"Gloria Hallelujah", "Caveat", cursive, sans-serif',
             fontSize: '1.3rem',
             fontWeight: '700',
-            color: '#0f172a',
+            color: 'var(--chaos-ink, #0f172a)',
             margin: '0 0 0.75rem',
           }}
         >
@@ -63,7 +63,7 @@ function GenericErrorFallback({ error, downGremlinSrc }: { error: unknown; downG
         <p
           style={{
             fontSize: '0.95rem',
-            color: '#475569',
+            color: 'var(--chaos-ink-muted, #475569)',
             lineHeight: '1.6',
             margin: '0 0 1rem',
           }}
@@ -76,9 +76,9 @@ function GenericErrorFallback({ error, downGremlinSrc }: { error: unknown; downG
             style={{
               fontFamily: 'monospace',
               fontSize: '0.78rem',
-              color: '#94a3b8',
-              background: '#f8fafc',
-              border: '1px solid #e2e8f0',
+              color: 'var(--chaos-ink-muted, #94a3b8)',
+              background: 'var(--chaos-chip-inactive-bg, #f8fafc)',
+              border: '1px solid var(--chaos-input-border, #e2e8f0)',
               borderRadius: '6px',
               padding: '0.5rem 0.75rem',
               margin: '0 0 1.5rem',
@@ -94,24 +94,24 @@ function GenericErrorFallback({ error, downGremlinSrc }: { error: unknown; downG
           onClick={() => window.location.reload()}
           style={{
             padding: '0.75rem 1.75rem',
-            border: '2px solid #181818',
+            border: '2px solid var(--chaos-ink, #181818)',
             borderRadius: '8px',
             fontSize: '1rem',
             fontWeight: '700',
             fontFamily: '"Inter", "Roboto", Arial, sans-serif',
-            backgroundColor: '#fbbf24',
-            color: '#fff',
+            backgroundColor: 'var(--chaos-amber, #fbbf24)',
+            color: 'var(--chaos-ink, #181818)',
             cursor: 'pointer',
-            boxShadow: '3px 5px 0 #181818',
+            boxShadow: '3px 5px 0 var(--chaos-ink, #181818)',
             transition: 'all 0.15s ease',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'translateY(-2px)'
-            e.currentTarget.style.boxShadow = '4px 7px 0 #181818'
+            e.currentTarget.style.boxShadow = '4px 7px 0 var(--chaos-ink, #181818)'
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'translateY(0)'
-            e.currentTarget.style.boxShadow = '3px 5px 0 #181818'
+            e.currentTarget.style.boxShadow = '3px 5px 0 var(--chaos-ink, #181818)'
           }}
         >
           Seite neu laden
@@ -140,15 +140,15 @@ function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareE
         alignItems: 'center',
         justifyContent: 'center',
         padding: '2rem',
-        background: '#f8fafc',
+        background: 'var(--chaos-bg, #f8fafc)',
         fontFamily: '"Inter", "Roboto", Arial, sans-serif',
       }}
     >
       <div
         style={{
-          background: '#fff',
+          background: 'var(--chaos-surface-elevated, #fff)',
           borderRadius: '1.2rem 1.35rem 1.15rem 1.25rem',
-          border: '3px solid #181818',
+          border: '3px solid var(--chaos-ink, #181818)',
           boxShadow: '4px 8px 0 rgba(0,0,0,0.12)',
           maxWidth: '480px',
           width: '100%',
@@ -162,7 +162,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareE
           <GremlinMascot src={downGremlinSrc} size={128} />
         </div>
 
-        {/* Cloudflare attribution badge */}
+        {/* Cloudflare attribution badge — brand color, stays fixed regardless of theme */}
         <div
           style={{
             display: 'inline-flex',
@@ -176,8 +176,8 @@ function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareE
             fontWeight: '700',
             letterSpacing: '0.04em',
             marginBottom: '1.25rem',
-            border: '2px solid #181818',
-            boxShadow: '2px 3px 0 #181818',
+            border: '2px solid var(--chaos-ink, #181818)',
+            boxShadow: '2px 3px 0 var(--chaos-ink, #181818)',
           }}
         >
           {/* Cloudflare cloud icon (inline SVG) */}
@@ -215,7 +215,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareE
             fontFamily: '"Gloria Hallelujah", "Caveat", cursive, sans-serif',
             fontSize: '1.3rem',
             fontWeight: '700',
-            color: '#0f172a',
+            color: 'var(--chaos-ink, #0f172a)',
             margin: '0 0 0.75rem',
           }}
         >
@@ -226,7 +226,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareE
         <p
           style={{
             fontSize: '0.95rem',
-            color: '#475569',
+            color: 'var(--chaos-ink-muted, #475569)',
             lineHeight: '1.6',
             margin: '0 0 1.5rem',
           }}
@@ -240,7 +240,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareE
             style={{
               fontFamily: 'monospace',
               fontSize: '0.78rem',
-              color: '#94a3b8',
+              color: 'var(--chaos-ink-muted, #94a3b8)',
               margin: '0 0 1.5rem',
             }}
           >
@@ -253,24 +253,24 @@ function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareE
           onClick={() => window.location.reload()}
           style={{
             padding: '0.75rem 1.75rem',
-            border: '2px solid #181818',
+            border: '2px solid var(--chaos-ink, #181818)',
             borderRadius: '8px',
             fontSize: '1rem',
             fontWeight: '700',
             fontFamily: '"Inter", "Roboto", Arial, sans-serif',
-            backgroundColor: '#fbbf24',
-            color: '#fff',
+            backgroundColor: 'var(--chaos-amber, #fbbf24)',
+            color: 'var(--chaos-ink, #181818)',
             cursor: 'pointer',
-            boxShadow: '3px 5px 0 #181818',
+            boxShadow: '3px 5px 0 var(--chaos-ink, #181818)',
             transition: 'all 0.15s ease',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'translateY(-2px)'
-            e.currentTarget.style.boxShadow = '4px 7px 0 #181818'
+            e.currentTarget.style.boxShadow = '4px 7px 0 var(--chaos-ink, #181818)'
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'translateY(0)'
-            e.currentTarget.style.boxShadow = '3px 5px 0 #181818'
+            e.currentTarget.style.boxShadow = '3px 5px 0 var(--chaos-ink, #181818)'
           }}
         >
           Seite neu laden

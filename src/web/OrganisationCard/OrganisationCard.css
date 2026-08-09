@@ -1,8 +1,8 @@
 /* OrganisationCard styled like Planer */
 .chaos-org-card {
-  background: #fffbe7;
+  background: var(--chaos-bg);
   color: var(--chaos-ink);
-  border: 1.5px solid #e5e7eb;
+  border: 1.5px solid var(--chaos-tab-bar-border);
   border-radius: 12px;
   padding: 1.2rem 1.5rem;
   margin-bottom: 1.2rem;
@@ -30,14 +30,14 @@
   }
 }
 .chaos-org-card.chaos-org-card--selected {
-  background: var(--chaos-ink);
+  background: var(--chaos-border);
   color: #fff;
   border: 2px solid var(--chaos-ink);
   box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-  outline: 2px solid #2563eb;
+  outline: 2px solid var(--chaos-focus-ring);
 }
 .chaos-org-card:focus {
-  outline: 2px solid #2563eb;
+  outline: 2px solid var(--chaos-focus-ring);
   outline-offset: 2px;
 }
 .chaos-org-card .chaos-org-card__description {

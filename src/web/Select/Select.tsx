@@ -83,7 +83,7 @@ export const Select: React.FC<SelectProps> = ({
                                     <div
                                         key={opt.value}
                                         className="chaos-select-chip"
-                                        style={{ backgroundColor: opt.color || '#64748b' }}
+                                        style={{ backgroundColor: opt.color || 'var(--chaos-ink-muted)' }}
                                     >
                                         {opt.icon && ICON_MAP[opt.icon] && React.createElement(ICON_MAP[opt.icon]!, { size: 12 })}
                                         {opt.label}
@@ -124,7 +124,7 @@ export const Select: React.FC<SelectProps> = ({
                         )
                     )}
                 </div>
-                <ChevronDown size={16} color="#94a3b8" />
+                <ChevronDown size={16} color="var(--chaos-ink-muted)" />
             </div>
 
             {isOpen && (
@@ -160,7 +160,7 @@ export const Select: React.FC<SelectProps> = ({
                         );
                     })}
                     {options.length === 0 && !onCreateNew && (
-                        <div style={{ padding: '0.5rem', textAlign: 'center', color: '#94a3b8', fontSize: '0.9rem' }}>
+                        <div style={{ padding: '0.5rem', textAlign: 'center', color: 'var(--chaos-ink-muted)', fontSize: '0.9rem' }}>
                             Keine Optionen verfügbar
                         </div>
                     )}
@@ -169,25 +169,25 @@ export const Select: React.FC<SelectProps> = ({
                             style={{
                                 padding: '0.6rem 0.75rem',
                                 marginTop: '0.25rem',
-                                borderTop: '1px solid #e2e8f0',
-                                color: '#3b82f6',
+                                borderTop: '1px solid var(--chaos-input-border)',
+                                color: 'var(--chaos-info)',
                                 fontSize: '0.9rem',
                                 fontWeight: 600,
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: '0.5rem',
-                                backgroundColor: '#f8fafc',
+                                backgroundColor: 'var(--chaos-chip-inactive-bg)',
                                 borderRadius: '0 0 6px 6px',
                                 transition: 'all 0.2s',
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = '#eff6ff';
-                                e.currentTarget.style.color = '#2563eb';
+                                e.currentTarget.style.backgroundColor = 'color-mix(in srgb, var(--chaos-info) 12%, var(--chaos-bg))';
+                                e.currentTarget.style.color = 'color-mix(in srgb, var(--chaos-info) 80%, black)';
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.backgroundColor = '#f8fafc';
-                                e.currentTarget.style.color = '#3b82f6';
+                                e.currentTarget.style.backgroundColor = 'var(--chaos-chip-inactive-bg)';
+                                e.currentTarget.style.color = 'var(--chaos-info)';
                             }}
                             onMouseDown={(e) => {
                                 e.preventDefault();

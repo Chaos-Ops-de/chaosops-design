@@ -9,7 +9,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ gremlinSrc }) => {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'repeating-linear-gradient(0deg, var(--chaos-bg) 0px, var(--chaos-bg) 39px, #e5e7eb 40px, var(--chaos-bg) 41px)',
+      background: 'repeating-linear-gradient(0deg, var(--chaos-bg) 0px, var(--chaos-bg) 39px, var(--chaos-tab-bar-border) 40px, var(--chaos-bg) 41px)',
       color: 'var(--chaos-ink)',
       boxSizing: 'border-box',
       fontFamily: '"Inter", "Roboto", Arial, sans-serif',
@@ -17,11 +17,11 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ gremlinSrc }) => {
       padding: '4rem 2rem',
     }}>
       <div style={{
-        background: '#fff',
+        background: 'var(--chaos-surface-elevated)',
         borderRadius: '1.2rem',
-        boxShadow: '2px 4px 0 #e5e7eb, 0 2px 8px 0 rgba(0,0,0,0.08)',
+        boxShadow: '2px 4px 0 var(--chaos-tab-bar-border), 0 2px 8px 0 rgba(0,0,0,0.08)',
         padding: '3rem 2rem',
-        border: '2px solid #181818',
+        border: '2px solid var(--chaos-ink)',
         maxWidth: '500px',
         margin: '0 auto',
         transform: 'rotate(-0.5deg)',
@@ -40,7 +40,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ gremlinSrc }) => {
         <h1 style={{
           fontFamily: '"Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif',
           fontSize: '2.5rem',
-          color: '#181818',
+          color: 'var(--chaos-ink)',
           marginBottom: '1rem',
         }}>
           404 - Seite nicht gefunden
@@ -49,7 +49,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ gremlinSrc }) => {
         <p style={{
           fontFamily: '"Inter", "Roboto", Arial, sans-serif',
           fontSize: '1.1rem',
-          color: '#4a5568',
+          color: 'var(--chaos-ink-muted)',
           marginBottom: '2rem',
         }}>
           Ups! Dieser Gremlin konnte die gesuchte Seite nicht finden.
@@ -59,14 +59,14 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ gremlinSrc }) => {
           onClick={() => window.history.back()}
           style={{
             padding: '1rem 2rem',
-            border: '2px solid #181818',
+            border: '2px solid var(--chaos-ink)',
             borderRadius: '8px',
             fontSize: '1rem',
             fontWeight: '600',
-            backgroundColor: '#fbbf24',
-            color: '#fff',
+            backgroundColor: 'var(--chaos-amber)',
+            color: 'var(--chaos-ink)',
             cursor: 'pointer',
-            boxShadow: '2px 4px 0 #181818',
+            boxShadow: '2px 4px 0 var(--chaos-ink)',
           }}
         >
           Zurück

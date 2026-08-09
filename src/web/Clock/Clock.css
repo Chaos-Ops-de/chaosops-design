@@ -3,7 +3,7 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #fbbf24;
+  color: var(--chaos-amber, #fbbf24);
 }
 
 .chaos-clock-side {
@@ -11,16 +11,16 @@
   top: 50%;
   right: 1.5rem;
   transform: translateY(-50%);
-  background: #181818;
+  background: var(--chaos-border, #181818);
   color: #fff;
   padding: 1rem 1.25rem 1.1rem 1.25rem;
-  border: 3px solid #181818;
+  border: 3px solid var(--chaos-border, #181818);
   border-radius: 26px;
   font-family: 'Inter', 'Roboto Mono', 'Roboto', Arial, sans-serif;
   font-size: 2.4rem;
   font-weight: 700;
   letter-spacing: 0.06em;
-  box-shadow: 6px 8px 0 #fbbf24, 0 6px 24px rgba(0,0,0,0.30);
+  box-shadow: 6px 8px 0 var(--chaos-amber, #fbbf24), 0 6px 24px rgba(0,0,0,0.30);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,7 +35,7 @@
   .chaos-clock-side {
     font-size: 2.1rem;
     padding: 0.9rem 1.1rem 1rem 1.1rem;
-    box-shadow: 5px 7px 0 #fbbf24, 0 5px 20px rgba(0,0,0,0.28);
+    box-shadow: 5px 7px 0 var(--chaos-amber, #fbbf24), 0 5px 20px rgba(0,0,0,0.28);
   }
 }
 
@@ -43,7 +43,7 @@
   .chaos-clock-side {
     font-size: 1.9rem;
     padding: 0.85rem 1rem 0.95rem 1rem;
-    box-shadow: 4px 6px 0 #fbbf24, 0 4px 18px rgba(0,0,0,0.28);
+    box-shadow: 4px 6px 0 var(--chaos-amber, #fbbf24), 0 4px 18px rgba(0,0,0,0.28);
     border-radius: 22px;
   }
 }
@@ -52,7 +52,7 @@
   .chaos-clock-side {
     font-size: 1.6rem;
     padding: 0.75rem 0.9rem 0.85rem 0.9rem;
-    box-shadow: 3px 5px 0 #fbbf24, 0 3px 15px rgba(0,0,0,0.25);
+    box-shadow: 3px 5px 0 var(--chaos-amber, #fbbf24), 0 3px 15px rgba(0,0,0,0.25);
     border-radius: 20px;
   }
 }
@@ -61,7 +61,7 @@
   .chaos-clock-side {
     font-size: 1.4rem;
     padding: 0.65rem 0.8rem 0.75rem 0.8rem;
-    box-shadow: 2px 4px 0 #fbbf24, 0 2px 12px rgba(0,0,0,0.22);
+    box-shadow: 2px 4px 0 var(--chaos-amber, #fbbf24), 0 2px 12px rgba(0,0,0,0.22);
     border-radius: 18px;
     gap: 0.5rem;
   }
@@ -114,13 +114,13 @@
 .chaos-clock-suggestion-panel {
   /* Slightly narrower than clock to look like slot paper */
   width: 210px;
-  background: #fffdf5;
+  background: var(--chaos-bg, #fffdf5);
   /* Unified brutalist border matching the clock */
-  border: 3px solid #181818;
+  border: 3px solid var(--chaos-ink, #181818);
   border-top: none;
   border-radius: 0;
   padding: 1.25rem 1rem 2.5rem 1rem;
-  color: #1e293b;
+  color: var(--chaos-ink, #1e293b);
   font-family: 'Inter', 'Roboto', Arial, sans-serif;
   pointer-events: auto;
 
@@ -149,9 +149,9 @@
   background-image:
     linear-gradient(
       to bottom,
-      #ffffff 0%,
-      #fffdf5 85%,
-      #fefce8 100%
+      var(--chaos-card-bg, #ffffff) 0%,
+      var(--chaos-bg, #fffdf5) 85%,
+      var(--chaos-bg, #fefce8) 100%
     );
 }
 
@@ -163,7 +163,7 @@
 .chaos-clock-countdown-box {
   margin-bottom: 1.25rem;
   padding-bottom: 1.25rem;
-  border-bottom: 2px dashed #cbd5e1;
+  border-bottom: 2px dashed var(--chaos-input-border, #cbd5e1);
   text-align: center;
 }
 
@@ -171,7 +171,7 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #64748b;
+  color: var(--chaos-ink-muted, #64748b);
   margin-bottom: 0.5rem;
   font-weight: 700;
 }
@@ -180,7 +180,7 @@
   font-family: 'Roboto Mono', 'Inter', monospace;
   font-size: 2.25rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--chaos-ink, #0f172a);
   text-shadow: none;
   line-height: 1;
 }
@@ -194,7 +194,7 @@
 .chaos-clock-suggestion-heading {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #334155;
+  color: var(--chaos-ink, #334155);
   margin-bottom: 0.2rem;
   letter-spacing: 0.02em;
 }
@@ -213,7 +213,7 @@
   line-height: 1.4;
   padding-left: 1.2rem;
   position: relative;
-  color: #475569;
+  color: var(--chaos-ink-muted, #475569);
 }
 
 .chaos-clock-suggestion-list li::before {
@@ -221,7 +221,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  color: #f59e0b;
+  color: var(--chaos-amber-700, #f59e0b);
   font-weight: bold;
 }
 
@@ -256,7 +256,7 @@
     padding: 0.4rem 1.25rem 0.45rem 1.25rem !important;
     font-size: 1.3rem !important;
     border-radius: 0 0 14px 14px !important;
-    box-shadow: 3px 4px 0 #fbbf24, 0 3px 12px rgba(0,0,0,0.22) !important;
+    box-shadow: 3px 4px 0 var(--chaos-amber, #fbbf24), 0 3px 12px rgba(0,0,0,0.22) !important;
   }
 
   .chaos-clock-widget-container .chaos-clock-label {
@@ -284,7 +284,7 @@
     font-size: 1.15rem !important;
     padding: 0.35rem 1rem 0.4rem 1rem !important;
     border-radius: 0 0 12px 12px !important;
-    box-shadow: 2px 3px 0 #fbbf24, 0 2px 10px rgba(0,0,0,0.20) !important;
+    box-shadow: 2px 3px 0 var(--chaos-amber, #fbbf24), 0 2px 10px rgba(0,0,0,0.20) !important;
   }
   .chaos-clock-suggestion-panel {
     width: 180px;
