@@ -5,3 +5,4 @@ export * from './DashedDivider';
 export * from './ActionButton';
 export * from './Text';
 export * from './Gremlin';
+export * from './AuthScreen';

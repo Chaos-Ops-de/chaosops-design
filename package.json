@@ -1,6 +1,6 @@
 {
   "name": "@chaos-ops-de/design",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Shared design system for ChaosOps — tokens, theme, cross-platform primitives (React Native + react-native-web), icons, and mascot assets.",
   "license": "UNLICENSED",
   "type": "module",
@@ -77,11 +77,15 @@
     "react": ">=18",
     "react-dom": ">=18",
     "react-native": "*",
+    "react-native-safe-area-context": "*",
     "react-native-web": "*",
     "react-router-dom": "*"
   },
   "peerDependenciesMeta": {
     "react-native": {
+      "optional": true
+    },
+    "react-native-safe-area-context": {
       "optional": true
     },
     "react-native-web": {
@@ -117,6 +121,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.8",
     "react-native": "^0.86.0",
+    "react-native-safe-area-context": "~5.7.0",
     "react-native-web": "^0.21.2",
     "react-router-dom": "^7.18.2",
     "storybook": "^10.5.6",

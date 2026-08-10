@@ -53,6 +53,20 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
         name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    // Escape closes the popover and returns focus to the trigger — a
+    // popover must never trap keyboard focus (apple-design skill §22).
+    React.useEffect(() => {
+        if (!isOpen) return;
+        const handleKeydown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setIsOpen(false);
+                buttonRef.current?.focus();
+            }
+        };
+        document.addEventListener('keydown', handleKeydown);
+        return () => document.removeEventListener('keydown', handleKeydown);
+    }, [isOpen]);
+
     // Use useLayoutEffect to calculate position before paint to avoid flickering/jumping
     React.useLayoutEffect(() => {
         if (isOpen && buttonRef.current) {

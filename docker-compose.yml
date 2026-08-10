@@ -1,0 +1,31 @@
+services:
+  sketchbook:
+    # The published Storybook for @chaos-ops-de/design — a dev-reference
+    # tool, not part of the product. Independent stack: no api/postgres
+    # dependency, deployed by this repo's own workflow.
+    #
+    # On the production server: set SKETCHBOOK_IMAGE=ghcr.io/<owner>/chaosops-sketchbook:release
+    # Locally: docker compose up --build (ignores the image tag, builds from ./Dockerfile)
+    image: ${SKETCHBOOK_IMAGE:-chaosops-sketchbook:local}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chaosops-sketchbook
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sketchbook.rule=Host(`sketchbook.chaos-ops.de`)"
+      - "traefik.http.routers.sketchbook.entrypoints=websecure"
+      - "traefik.http.routers.sketchbook.tls=true"
+      - "traefik.http.routers.sketchbook.tls.certresolver=letsencrypt"
+      - "traefik.http.services.sketchbook.loadbalancer.server.port=80"
+      - "traefik.docker.network=traefik"
+      # Internal dev-reference tool, not customer-facing — same gate as
+      # the logs.chaos-ops.de dashboard.
+      - "traefik.http.routers.sketchbook.middlewares=authelia-chaos@docker"
+    restart: unless-stopped
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
