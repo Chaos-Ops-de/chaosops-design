@@ -46,6 +46,7 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
     const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
     const [isPositioned, setIsPositioned] = useState(false);
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const panelRef = useRef<HTMLDivElement>(null);
 
     const SelectedIcon = ICON_MAP[value] || Tag;
 
@@ -67,33 +68,50 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
         return () => document.removeEventListener('keydown', handleKeydown);
     }, [isOpen]);
 
-    // Use useLayoutEffect to calculate position before paint to avoid flickering/jumping
+    // Use useLayoutEffect to calculate position before paint to avoid flickering/jumping.
+    // The panel is kept mounted (just invisible) below regardless of isPositioned, so
+    // by the time this runs it's already in the DOM and its real height — search box +
+    // icon grid up to its own 240px cap + padding — can be measured instead of guessed,
+    // to decide whether it actually fits below the trigger or needs to open upward
+    // (e.g. "Icon wählen" is typically the last field in a form, right above the
+    // viewport edge, so opening downward unconditionally routinely ran off-screen).
     React.useLayoutEffect(() => {
-        if (isOpen && buttonRef.current) {
-            const updatePosition = () => {
-                const rect = buttonRef.current?.getBoundingClientRect();
-                if (rect) {
-                    setPosition({
-                        top: rect.bottom + window.scrollY + 8,
-                        left: rect.left + window.scrollX,
-                        width: rect.width
-                    });
-                    setIsPositioned(true);
-                }
-            };
-
-            updatePosition();
-            window.addEventListener('resize', updatePosition);
-            window.addEventListener('scroll', updatePosition, true);
-
-            return () => {
-                window.removeEventListener('resize', updatePosition);
-                window.removeEventListener('scroll', updatePosition, true);
-                setIsPositioned(false);
-            };
-        } else {
+        if (!isOpen || !buttonRef.current) {
             setIsPositioned(false);
+            return;
         }
+
+        const updatePosition = () => {
+            const rect = buttonRef.current?.getBoundingClientRect();
+            if (!rect) return;
+
+            const margin = 8;
+            const panelHeight = panelRef.current?.getBoundingClientRect().height || 360;
+            const spaceBelow = window.innerHeight - rect.bottom;
+            const spaceAbove = rect.top;
+            const openAbove = spaceBelow < panelHeight + margin && spaceAbove > spaceBelow;
+
+            const top = openAbove
+                ? rect.top + window.scrollY - panelHeight - margin
+                : rect.bottom + window.scrollY + margin;
+
+            setPosition({
+                top: Math.max(window.scrollY + margin, top),
+                left: rect.left + window.scrollX,
+                width: rect.width
+            });
+            setIsPositioned(true);
+        };
+
+        updatePosition();
+        window.addEventListener('resize', updatePosition);
+        window.addEventListener('scroll', updatePosition, true);
+
+        return () => {
+            window.removeEventListener('resize', updatePosition);
+            window.removeEventListener('scroll', updatePosition, true);
+            setIsPositioned(false);
+        };
     }, [isOpen]);
 
     return (
@@ -149,13 +167,19 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
                 <ChevronDown size={16} color="var(--chaos-ink-muted, #94a3b8)" aria-hidden="true" />
             </button>
 
-            {isOpen && isPositioned && createPortal(
-                <div style={{
+            {isOpen && createPortal(
+                <div ref={panelRef} style={{
                     position: 'absolute',
                     top: position.top,
                     left: position.left,
                     width: position.width,
                     minWidth: '300px',
+                    // Stays mounted (so its real height is measurable — see the
+                    // positioning effect above) but invisible and non-interactive
+                    // until placement is resolved, to avoid a visible jump.
+                    // opacity (not visibility/display) so autoFocus below still works.
+                    opacity: isPositioned ? 1 : 0,
+                    pointerEvents: isPositioned ? 'auto' : 'none',
                     backgroundColor: 'var(--chaos-surface-elevated, #fff)',
                     borderRadius: '12px',
                     border: '1px solid var(--chaos-input-border, #e2e8f0)',
