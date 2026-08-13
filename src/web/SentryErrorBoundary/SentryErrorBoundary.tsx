@@ -1,6 +1,11 @@
 import * as Sentry from '@sentry/react'
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { isCloudflareError, type CloudflareError } from '../../utils/errors'
+
+export interface ErrorReportDetails {
+  message: string
+  stack?: string
+}
 
 // Plain <img> rather than the React Native <Gremlin /> primitive — this file
 // is part of the web-only `./web` entry and must not pull in react-native.
@@ -16,7 +21,92 @@ function GremlinMascot({ src, size = 128 }: { src: string; size?: number }) {
   )
 }
 
-function GenericErrorFallback({ error, downGremlinSrc }: { error: unknown; downGremlinSrc: string }) {
+function prefersReducedMotion(): boolean {
+  return typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true
+}
+
+// Shared "sticker" button used by both fallbacks. Feedback starts on
+// pointer-down rather than waiting for click (Apple HIG: respond on press,
+// not release), and the hover lift is skipped for prefers-reduced-motion —
+// the color/shadow change still communicates state without the transform.
+function ActionButton({ children, onClick, primary = true }: { children: ReactNode; onClick: () => void; primary?: boolean }) {
+  const reduced = prefersReducedMotion()
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        padding: '0.75rem 1.75rem',
+        border: '2px solid var(--chaos-ink, #181818)',
+        borderRadius: '8px',
+        fontSize: '1rem',
+        fontWeight: '700',
+        fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+        backgroundColor: primary ? 'var(--chaos-amber, #fbbf24)' : 'var(--chaos-surface-elevated, #fff)',
+        color: 'var(--chaos-ink, #181818)',
+        cursor: 'pointer',
+        boxShadow: '3px 5px 0 var(--chaos-ink, #181818)',
+        transition: reduced
+          ? 'background-color var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease)'
+          : 'transform var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease), box-shadow var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease)',
+      }}
+      onMouseEnter={(e) => {
+        if (reduced) return
+        e.currentTarget.style.transform = 'translateY(-2px)'
+        e.currentTarget.style.boxShadow = '4px 7px 0 var(--chaos-ink, #181818)'
+      }}
+      onMouseLeave={(e) => {
+        if (reduced) return
+        e.currentTarget.style.transform = 'translateY(0)'
+        e.currentTarget.style.boxShadow = '3px 5px 0 var(--chaos-ink, #181818)'
+      }}
+      onPointerDown={(e) => {
+        // Feedback on press, not on release — the tactile "sticker being
+        // pushed in" cue should land the instant the finger/cursor commits.
+        e.currentTarget.style.transform = reduced ? 'none' : 'translateY(1px) scale(0.98)'
+        e.currentTarget.style.boxShadow = '1px 2px 0 var(--chaos-ink, #181818)'
+      }}
+      onPointerUp={(e) => {
+        e.currentTarget.style.transform = reduced ? 'none' : 'translateY(-2px)'
+        e.currentTarget.style.boxShadow = '4px 7px 0 var(--chaos-ink, #181818)'
+      }}
+    >
+      {children}
+    </button>
+  )
+}
+
+// Secondary action next to "Seite neu laden" — sends the error to the
+// Product Control Center (audit log + ntfy push, see server/routes/errors.ts)
+// so a user hitting a crash can proactively flag it instead of it only
+// surfacing later in Sentry. Optional: only renders when a consumer app
+// wires up `onReport` (it needs its own API base URL, so the design
+// package can't hardcode the endpoint).
+function ReportButton({ onReport }: { onReport: () => Promise<void> | void }) {
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+
+  async function handleClick() {
+    if (status === 'sending' || status === 'sent') return
+    setStatus('sending')
+    try {
+      await onReport()
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  const label = status === 'sending' ? 'Sende…' : status === 'sent' ? 'Gemeldet ✓' : status === 'error' ? 'Fehlgeschlagen — erneut?' : 'Fehler melden'
+
+  return (
+    <ActionButton onClick={handleClick} primary={false}>
+      {label}
+    </ActionButton>
+  )
+}
+
+function GenericErrorFallback({ error, downGremlinSrc, onReport }: { error: unknown; downGremlinSrc: string; onReport?: (details: ErrorReportDetails) => Promise<void> | void }) {
   const message = error instanceof Error ? error.message : String(error)
 
   return (
@@ -32,6 +122,8 @@ function GenericErrorFallback({ error, downGremlinSrc }: { error: unknown; downG
       }}
     >
       <div
+        role="alert"
+        aria-live="assertive"
         style={{
           background: 'var(--chaos-surface-elevated, #fff)',
           borderRadius: '1.2rem 1.35rem 1.15rem 1.25rem',
@@ -53,6 +145,7 @@ function GenericErrorFallback({ error, downGremlinSrc }: { error: unknown; downG
             fontFamily: '"Gloria Hallelujah", "Caveat", cursive, sans-serif',
             fontSize: '1.3rem',
             fontWeight: '700',
+            letterSpacing: '-0.01em',
             color: 'var(--chaos-ink, #0f172a)',
             margin: '0 0 0.75rem',
           }}
@@ -90,32 +183,10 @@ function GenericErrorFallback({ error, downGremlinSrc }: { error: unknown; downG
           </p>
         )}
 
-        <button
-          onClick={() => window.location.reload()}
-          style={{
-            padding: '0.75rem 1.75rem',
-            border: '2px solid var(--chaos-ink, #181818)',
-            borderRadius: '8px',
-            fontSize: '1rem',
-            fontWeight: '700',
-            fontFamily: '"Inter", "Roboto", Arial, sans-serif',
-            backgroundColor: 'var(--chaos-amber, #fbbf24)',
-            color: 'var(--chaos-ink, #181818)',
-            cursor: 'pointer',
-            boxShadow: '3px 5px 0 var(--chaos-ink, #181818)',
-            transition: 'all 0.15s ease',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)'
-            e.currentTarget.style.boxShadow = '4px 7px 0 var(--chaos-ink, #181818)'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)'
-            e.currentTarget.style.boxShadow = '3px 5px 0 var(--chaos-ink, #181818)'
-          }}
-        >
-          Seite neu laden
-        </button>
+        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <ActionButton onClick={() => window.location.reload()}>Seite neu laden</ActionButton>
+          {onReport && <ReportButton onReport={() => onReport({ message, stack: error instanceof Error ? error.stack : undefined })} />}
+        </div>
       </div>
     </div>
   )
@@ -126,12 +197,18 @@ export interface SentryErrorBoundaryProps {
   fallback?: ReactNode
   /** URL of the "down" gremlin mascot image (app-specific bundler resolves the path). */
   downGremlinSrc: string
+  /**
+   * Sends the caught error to the app's own backend (Control Center audit
+   * log + ntfy push) when the user clicks "Fehler melden". Omit to hide
+   * the button entirely — Sentry still captures every error regardless.
+   */
+  onReport?: (details: ErrorReportDetails) => Promise<void> | void
 }
 
 // Cloudflare brand orange
 const CF_ORANGE = '#F48120'
 
-function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareError; downGremlinSrc: string }) {
+function CloudflareErrorFallback({ error, downGremlinSrc, onReport }: { error: CloudflareError; downGremlinSrc: string; onReport?: (details: ErrorReportDetails) => Promise<void> | void }) {
   return (
     <div
       style={{
@@ -145,6 +222,8 @@ function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareE
       }}
     >
       <div
+        role="alert"
+        aria-live="assertive"
         style={{
           background: 'var(--chaos-surface-elevated, #fff)',
           borderRadius: '1.2rem 1.35rem 1.15rem 1.25rem',
@@ -195,9 +274,9 @@ function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareE
           <span
             style={{
               display: 'inline-block',
-              background: '#fef3c7',
-              color: '#92400e',
-              border: '2px solid #f59e0b',
+              background: 'color-mix(in srgb, var(--chaos-orange, #f97316) 16%, var(--chaos-surface-elevated, #fff))',
+              color: 'var(--chaos-orange-ink, #c2410c)',
+              border: '2px solid var(--chaos-orange, #f97316)',
               borderRadius: '6px',
               padding: '0.2rem 0.6rem',
               fontFamily: 'monospace',
@@ -215,6 +294,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareE
             fontFamily: '"Gloria Hallelujah", "Caveat", cursive, sans-serif',
             fontSize: '1.3rem',
             fontWeight: '700',
+            letterSpacing: '-0.01em',
             color: 'var(--chaos-ink, #0f172a)',
             margin: '0 0 0.75rem',
           }}
@@ -249,44 +329,22 @@ function CloudflareErrorFallback({ error, downGremlinSrc }: { error: CloudflareE
         )}
 
         {/* Retry button */}
-        <button
-          onClick={() => window.location.reload()}
-          style={{
-            padding: '0.75rem 1.75rem',
-            border: '2px solid var(--chaos-ink, #181818)',
-            borderRadius: '8px',
-            fontSize: '1rem',
-            fontWeight: '700',
-            fontFamily: '"Inter", "Roboto", Arial, sans-serif',
-            backgroundColor: 'var(--chaos-amber, #fbbf24)',
-            color: 'var(--chaos-ink, #181818)',
-            cursor: 'pointer',
-            boxShadow: '3px 5px 0 var(--chaos-ink, #181818)',
-            transition: 'all 0.15s ease',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)'
-            e.currentTarget.style.boxShadow = '4px 7px 0 var(--chaos-ink, #181818)'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)'
-            e.currentTarget.style.boxShadow = '3px 5px 0 var(--chaos-ink, #181818)'
-          }}
-        >
-          Seite neu laden
-        </button>
+        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <ActionButton onClick={() => window.location.reload()}>Seite neu laden</ActionButton>
+          {onReport && <ReportButton onReport={() => onReport({ message: error.message, stack: error.stack })} />}
+        </div>
       </div>
     </div>
   )
 }
 
-export function SentryErrorBoundary({ children, fallback, downGremlinSrc }: SentryErrorBoundaryProps) {
+export function SentryErrorBoundary({ children, fallback, downGremlinSrc, onReport }: SentryErrorBoundaryProps) {
   return (
     <Sentry.ErrorBoundary
       fallback={({ error }) => {
         if (fallback) return <>{fallback}</>
-        if (isCloudflareError(error)) return <CloudflareErrorFallback error={error} downGremlinSrc={downGremlinSrc} />
-        return <GenericErrorFallback error={error} downGremlinSrc={downGremlinSrc} />
+        if (isCloudflareError(error)) return <CloudflareErrorFallback error={error} downGremlinSrc={downGremlinSrc} onReport={onReport} />
+        return <GenericErrorFallback error={error} downGremlinSrc={downGremlinSrc} onReport={onReport} />
       }}
     >
       {children}
