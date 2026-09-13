@@ -78,9 +78,9 @@ function RadiiTokens() {
       <p style={{ color: '#666', marginBottom: 24, fontSize: 14, maxWidth: 640 }}>
         Corner radii used across cards, buttons, inputs, and dialogs. The app consumes these as{' '}
         <code>--chaos-radius-*</code> CSS custom properties on web (via <code>CssVariables</code>), and as
-        numeric/string values from <code>radii</code> directly on React Native — nothing downstream should
-        hardcode a radius. <code>full</code> is used for fully-rounded chips/buttons; <code>card</code> is the
-        hand-drawn irregular corner shared by dialogs, sheets, and error/404 fallbacks.
+        numeric values from <code>radii</code> directly on React Native — nothing downstream should
+        hardcode a radius. <code>full</code> is used for fully-rounded chips/buttons; dialogs, sheets, and
+        error/404 fallbacks use <code>xl</code>.
       </p>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: 12 }}>

@@ -18,7 +18,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ gremlinSrc }) => {
     }}>
       <div style={{
         background: 'var(--chaos-surface-elevated)',
-        borderRadius: 'var(--chaos-radius-card)',
+        borderRadius: 'var(--chaos-radius-xl)',
         boxShadow: '2px 4px 0 var(--chaos-tab-bar-border), 0 2px 8px 0 rgba(0,0,0,0.08)',
         padding: '3rem 2rem',
         border: '2px solid var(--chaos-ink)',

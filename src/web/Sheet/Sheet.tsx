@@ -117,7 +117,9 @@ export const Sheet: React.FC<SheetProps> = ({
                 overflowY: 'auto',
                 position: 'relative',
                 margin: useDragSheet ? 0 : 'auto',
-                borderRadius: useDragSheet ? '1.2rem 1.2rem 0 0' : 'var(--chaos-radius-card)',
+                borderRadius: useDragSheet
+                  ? 'var(--chaos-radius-xl) var(--chaos-radius-xl) 0 0'
+                  : 'var(--chaos-radius-xl)',
                 borderBottom: useDragSheet ? 'none' : '3px solid var(--chaos-border)',
                 boxShadow: '0 20px 50px rgba(0,0,0,0.3), 4px 8px 0 rgba(0,0,0,0.1)',
               }}

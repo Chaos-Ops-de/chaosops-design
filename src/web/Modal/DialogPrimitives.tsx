@@ -70,7 +70,7 @@ export const DialogCard = forwardRef<HTMLDivElement, DialogCardProps>(function D
       style={{
         background: 'var(--chaos-surface-elevated)',
         margin: 'auto',
-        borderRadius: 'var(--chaos-radius-card)',
+        borderRadius: 'var(--chaos-radius-xl)',
         boxShadow: '0 20px 50px rgba(0,0,0,0.3), 4px 8px 0 rgba(0,0,0,0.1)',
         border: '3px solid var(--chaos-border)',
         maxWidth,

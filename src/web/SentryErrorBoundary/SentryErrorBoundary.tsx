@@ -126,7 +126,7 @@ function GenericErrorFallback({ error, downGremlinSrc, onReport }: { error: unkn
         aria-live="assertive"
         style={{
           background: 'var(--chaos-surface-elevated, #fff)',
-          borderRadius: 'var(--chaos-radius-card, 1.2rem 1.35rem 1.15rem 1.25rem)',
+          borderRadius: 'var(--chaos-radius-xl, 16px)',
           border: '3px solid var(--chaos-ink, #181818)',
           boxShadow: '4px 8px 0 rgba(0,0,0,0.12)',
           maxWidth: '480px',
@@ -226,7 +226,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc, onReport }: { error: C
         aria-live="assertive"
         style={{
           background: 'var(--chaos-surface-elevated, #fff)',
-          borderRadius: 'var(--chaos-radius-card, 1.2rem 1.35rem 1.15rem 1.25rem)',
+          borderRadius: 'var(--chaos-radius-xl, 16px)',
           border: '3px solid var(--chaos-ink, #181818)',
           boxShadow: '4px 8px 0 rgba(0,0,0,0.12)',
           maxWidth: '480px',
