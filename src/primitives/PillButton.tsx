@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     minHeight: 44,
     paddingHorizontal: spacing.lg + 2,
     paddingVertical: spacing.sm,
-    borderRadius: radii.pill,
+    borderRadius: radii.full,
     borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',

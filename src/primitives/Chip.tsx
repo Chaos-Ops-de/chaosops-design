@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   chip: {
     height: 32,
     paddingHorizontal: spacing.md,
-    borderRadius: radii.pill,
+    borderRadius: radii.full,
     borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
