@@ -116,7 +116,7 @@ export const Toast: React.FC<ToastProps> = ({
               paddingRight: showCloseButton ? '3rem' : '1.5rem',
               background: config.background,
               border: `2px solid ${config.border}`,
-              borderRadius: '12px',
+              borderRadius: 'var(--chaos-radius-lg)',
               boxShadow: `3px 4px 0 ${config.shadow}, 0 4px 12px rgba(0,0,0,0.15)`,
               display: 'flex',
               alignItems: 'center',

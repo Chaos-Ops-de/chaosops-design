@@ -234,7 +234,7 @@ export const Select: React.FC<SelectProps> = ({
                                         alignItems: 'center',
                                         gap: '0.5rem',
                                         backgroundColor: 'var(--chaos-chip-inactive-bg)',
-                                        borderRadius: '0 0 6px 6px',
+                                        borderRadius: '0 0 var(--chaos-radius-sm) var(--chaos-radius-sm)',
                                         transition: 'all 0.2s',
                                     }}
                                     onMouseEnter={(e) => {

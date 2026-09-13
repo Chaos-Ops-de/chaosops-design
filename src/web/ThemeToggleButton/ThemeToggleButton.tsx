@@ -36,7 +36,7 @@ export const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = ({ className,
     background: 'var(--chaos-surface-elevated)',
     color: 'var(--chaos-ink)',
     cursor: 'pointer',
-    boxShadow: '2px 3px 0 var(--chaos-ink)',
+    boxShadow: 'var(--chaos-shadow-offset-ink-sm)',
     transition: 'transform 120ms ease-out, box-shadow 120ms ease-out',
     flexShrink: 0,
     ...(variant === 'floating' ? {
@@ -57,11 +57,11 @@ export const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = ({ className,
       style={{ ...baseStyle, ...style }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-1px)';
-        e.currentTarget.style.boxShadow = '3px 4px 0 var(--chaos-ink)';
+        e.currentTarget.style.boxShadow = 'var(--chaos-shadow-offset-ink-hover)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = '2px 3px 0 var(--chaos-ink)';
+        e.currentTarget.style.boxShadow = 'var(--chaos-shadow-offset-ink-sm)';
       }}
     >
       <Icon size={18} aria-hidden="true" />

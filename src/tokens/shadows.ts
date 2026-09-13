@@ -8,10 +8,17 @@ export interface RNShadow {
   elevation: number;
 }
 
+// Web sticker shadows key off `var(--chaos-ink)` (not a hardcoded hex) so
+// they stay themed light/dark, matching how components already used them
+// before this token existed.
 export const cssShadows = {
-  offsetInkSm: '2px 3px 0 #181818',
-  offsetInk: '2px 4px 0 #181818',
-  offsetInkLg: '3px 6px 0 #181818',
+  offsetInkPress: '1px 2px 0 var(--chaos-ink)',
+  offsetInkSm: '2px 3px 0 var(--chaos-ink)',
+  offsetInk: '2px 4px 0 var(--chaos-ink)',
+  offsetInkHover: '3px 4px 0 var(--chaos-ink)',
+  offsetInkMd: '3px 5px 0 var(--chaos-ink)',
+  offsetInkLg: '3px 6px 0 var(--chaos-ink)',
+  offsetInkMdHover: '4px 7px 0 var(--chaos-ink)',
   none: 'none',
 } as const;
 

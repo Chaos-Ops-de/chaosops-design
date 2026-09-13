@@ -39,14 +39,14 @@ function ActionButton({ children, onClick, primary = true }: { children: ReactNo
       style={{
         padding: '0.75rem 1.75rem',
         border: '2px solid var(--chaos-ink, #181818)',
-        borderRadius: '8px',
+        borderRadius: 'var(--chaos-radius-md, 8px)',
         fontSize: '1rem',
         fontWeight: '700',
         fontFamily: '"Inter", "Roboto", Arial, sans-serif',
         backgroundColor: primary ? 'var(--chaos-amber, #fbbf24)' : 'var(--chaos-surface-elevated, #fff)',
         color: 'var(--chaos-ink, #181818)',
         cursor: 'pointer',
-        boxShadow: '3px 5px 0 var(--chaos-ink, #181818)',
+        boxShadow: 'var(--chaos-shadow-offset-ink-md, 3px 5px 0 #181818)',
         transition: reduced
           ? 'background-color var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease)'
           : 'transform var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease), box-shadow var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease)',
@@ -54,22 +54,22 @@ function ActionButton({ children, onClick, primary = true }: { children: ReactNo
       onMouseEnter={(e) => {
         if (reduced) return
         e.currentTarget.style.transform = 'translateY(-2px)'
-        e.currentTarget.style.boxShadow = '4px 7px 0 var(--chaos-ink, #181818)'
+        e.currentTarget.style.boxShadow = 'var(--chaos-shadow-offset-ink-md-hover, 4px 7px 0 #181818)'
       }}
       onMouseLeave={(e) => {
         if (reduced) return
         e.currentTarget.style.transform = 'translateY(0)'
-        e.currentTarget.style.boxShadow = '3px 5px 0 var(--chaos-ink, #181818)'
+        e.currentTarget.style.boxShadow = 'var(--chaos-shadow-offset-ink-md, 3px 5px 0 #181818)'
       }}
       onPointerDown={(e) => {
         // Feedback on press, not on release — the tactile "sticker being
         // pushed in" cue should land the instant the finger/cursor commits.
         e.currentTarget.style.transform = reduced ? 'none' : 'translateY(1px) scale(0.98)'
-        e.currentTarget.style.boxShadow = '1px 2px 0 var(--chaos-ink, #181818)'
+        e.currentTarget.style.boxShadow = 'var(--chaos-shadow-offset-ink-press, 1px 2px 0 #181818)'
       }}
       onPointerUp={(e) => {
         e.currentTarget.style.transform = reduced ? 'none' : 'translateY(-2px)'
-        e.currentTarget.style.boxShadow = '4px 7px 0 var(--chaos-ink, #181818)'
+        e.currentTarget.style.boxShadow = 'var(--chaos-shadow-offset-ink-md-hover, 4px 7px 0 #181818)'
       }}
     >
       {children}
@@ -126,7 +126,7 @@ function GenericErrorFallback({ error, downGremlinSrc, onReport }: { error: unkn
         aria-live="assertive"
         style={{
           background: 'var(--chaos-surface-elevated, #fff)',
-          borderRadius: '1.2rem 1.35rem 1.15rem 1.25rem',
+          borderRadius: 'var(--chaos-radius-card, 1.2rem 1.35rem 1.15rem 1.25rem)',
           border: '3px solid var(--chaos-ink, #181818)',
           boxShadow: '4px 8px 0 rgba(0,0,0,0.12)',
           maxWidth: '480px',
@@ -172,7 +172,7 @@ function GenericErrorFallback({ error, downGremlinSrc, onReport }: { error: unkn
               color: 'var(--chaos-ink-muted, #94a3b8)',
               background: 'var(--chaos-chip-inactive-bg, #f8fafc)',
               border: '1px solid var(--chaos-input-border, #e2e8f0)',
-              borderRadius: '6px',
+              borderRadius: 'var(--chaos-radius-sm, 6px)',
               padding: '0.5rem 0.75rem',
               margin: '0 0 1.5rem',
               textAlign: 'left',
@@ -226,7 +226,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc, onReport }: { error: C
         aria-live="assertive"
         style={{
           background: 'var(--chaos-surface-elevated, #fff)',
-          borderRadius: '1.2rem 1.35rem 1.15rem 1.25rem',
+          borderRadius: 'var(--chaos-radius-card, 1.2rem 1.35rem 1.15rem 1.25rem)',
           border: '3px solid var(--chaos-ink, #181818)',
           boxShadow: '4px 8px 0 rgba(0,0,0,0.12)',
           maxWidth: '480px',
@@ -249,14 +249,14 @@ function CloudflareErrorFallback({ error, downGremlinSrc, onReport }: { error: C
             gap: '0.5rem',
             background: CF_ORANGE,
             color: '#fff',
-            borderRadius: '6px',
+            borderRadius: 'var(--chaos-radius-sm, 6px)',
             padding: '0.35rem 0.75rem',
             fontSize: '0.85rem',
             fontWeight: '700',
             letterSpacing: '0.04em',
             marginBottom: '1.25rem',
             border: '2px solid var(--chaos-ink, #181818)',
-            boxShadow: '2px 3px 0 var(--chaos-ink, #181818)',
+            boxShadow: 'var(--chaos-shadow-offset-ink-sm, 2px 3px 0 #181818)',
           }}
         >
           {/* Cloudflare cloud icon (inline SVG) */}
@@ -277,7 +277,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc, onReport }: { error: C
               background: 'color-mix(in srgb, var(--chaos-orange, #f97316) 16%, var(--chaos-surface-elevated, #fff))',
               color: 'var(--chaos-orange-ink, #c2410c)',
               border: '2px solid var(--chaos-orange, #f97316)',
-              borderRadius: '6px',
+              borderRadius: 'var(--chaos-radius-sm, 6px)',
               padding: '0.2rem 0.6rem',
               fontFamily: 'monospace',
               fontWeight: '700',
