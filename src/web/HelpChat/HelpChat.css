@@ -5,7 +5,7 @@
   width: 320px;
   max-width: 95vw;
   background: var(--chaos-bg);
-  border-radius: 1.2rem 1.2rem 1.2rem 1.2rem;
+  border-radius: var(--chaos-radius-xl);
   box-shadow: 0 4px 32px rgba(0,0,0,0.18);
   border: 2.5px solid var(--chaos-amber);
   font-family: 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif;

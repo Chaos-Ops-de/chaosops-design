@@ -3,7 +3,7 @@
   background: var(--chaos-bg);
   color: var(--chaos-ink);
   border: 1.5px solid var(--chaos-tab-bar-border);
-  border-radius: 12px;
+  border-radius: var(--chaos-radius-lg);
   padding: 1.2rem 1.5rem;
   margin-bottom: 1.2rem;
   width: 100%;

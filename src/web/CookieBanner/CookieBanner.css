@@ -6,7 +6,7 @@
   background: var(--chaos-bg);
   color: var(--chaos-ink);
   border-top: 2.5px solid var(--chaos-ink);
-  border-radius: 1.2rem 1.2rem 0 0;
+  border-radius: var(--chaos-radius-xl) var(--chaos-radius-xl) 0 0;
   box-shadow: 0 -4px 24px 0 rgba(0,0,0,0.09);
   padding: 1.2rem 2.5rem 1.2rem 2.5rem;
   display: flex;
@@ -35,7 +35,7 @@
   background: var(--chaos-amber-700);
   color: var(--chaos-bg);
   border: 2px solid var(--chaos-ink);
-  border-radius: 1rem;
+  border-radius: var(--chaos-radius-xl);
   font-weight: 700;
   font-family: inherit;
   font-size: 1rem;

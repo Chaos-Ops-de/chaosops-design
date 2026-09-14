@@ -21,7 +21,7 @@
   padding: 0.6rem 1.5rem;
   background: var(--chaos-bg);
   border: 3px solid var(--chaos-ink);
-  border-radius: 999px;
+  border-radius: var(--chaos-radius-full);
   box-shadow: 3px 4px 0 var(--chaos-ink);
 }
 
@@ -58,7 +58,7 @@
   font-weight: 500;
   color: var(--chaos-ink-muted);
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: var(--chaos-radius-sm);
   transition: color 110ms, background 110ms;
   white-space: nowrap;
 }
@@ -115,7 +115,7 @@
   background: var(--chaos-bg);
   color: var(--chaos-ink);
   border: 2px solid var(--chaos-ink);
-  border-radius: 999px;
+  border-radius: var(--chaos-radius-full);
   font-family: 'Inter', Arial, sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
@@ -141,7 +141,7 @@
   background: var(--chaos-amber);
   color: var(--chaos-ink);
   border: 2px solid var(--chaos-ink);
-  border-radius: 999px;
+  border-radius: var(--chaos-radius-full);
   box-shadow: 2px 2px 0 var(--chaos-ink);
   font-family: 'Gloria Hallelujah', cursive;
   font-size: 0.85rem;
@@ -181,7 +181,7 @@
       transparent 85%
     ),
     var(--tape-color);
-  border-radius: 2px;
+  border-radius: var(--chaos-radius-sm);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   transform: translateX(-50%) rotate(-2deg);
   pointer-events: none;
@@ -213,7 +213,7 @@
   gap: 0.5rem;
   background: var(--chaos-bg);
   border: 3px solid var(--chaos-ink);
-  border-radius: 20px;
+  border-radius: var(--chaos-radius-xl);
   box-shadow: 3px 4px 0 var(--chaos-ink);
   padding: 1rem;
   z-index: 99;
@@ -245,7 +245,7 @@
   font-weight: 500;
   color: var(--chaos-ink-muted);
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: var(--chaos-radius-md);
   transition: background 110ms, color 110ms;
 }
 
@@ -272,7 +272,7 @@
   background: var(--chaos-bg);
   color: var(--chaos-ink);
   border: 2px solid var(--chaos-ink);
-  border-radius: 999px;
+  border-radius: var(--chaos-radius-full);
   font-family: 'Inter', Arial, sans-serif;
   font-size: 0.875rem;
   font-weight: 600;
@@ -287,7 +287,7 @@
   background: var(--chaos-amber);
   color: var(--chaos-ink);
   border: 2px solid var(--chaos-ink);
-  border-radius: 999px;
+  border-radius: var(--chaos-radius-full);
   box-shadow: 2px 2px 0 var(--chaos-ink);
   font-family: 'Gloria Hallelujah', cursive;
   font-size: 0.9rem;

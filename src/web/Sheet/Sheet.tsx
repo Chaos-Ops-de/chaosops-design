@@ -141,7 +141,7 @@ export const Sheet: React.FC<SheetProps> = ({
                     style={{
                       width: '40px',
                       height: '4px',
-                      borderRadius: '2px',
+                      borderRadius: 'var(--chaos-radius-full)',
                       background: 'var(--chaos-tab-bar-border)',
                     }}
                   />

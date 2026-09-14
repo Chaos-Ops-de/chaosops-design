@@ -14,7 +14,7 @@ export const Footer: React.FC<FooterProps> = ({ logoHref }) => (
         style={{
             width: '100%',
             background: 'var(--chaos-bg)',
-            borderRadius: '0 0 1.2rem 1.2rem',
+            borderRadius: '0 0 var(--chaos-radius-xl) var(--chaos-radius-xl)',
             margin: '0 auto',
             position: 'relative',
             display: 'flex',

@@ -27,7 +27,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 0.2rem 0.55rem;
-  border-radius: 999px;
+  border-radius: var(--chaos-radius-full);
   color: var(--chaos-ink, #181818);
 }
 

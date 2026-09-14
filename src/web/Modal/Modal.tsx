@@ -102,7 +102,7 @@ export const Modal: React.FC<ModalProps> = ({
                     width: '90px',
                     height: '28px',
                     background: `repeating-linear-gradient(92deg, transparent 0px, rgba(255,255,255,0.12) 1px, transparent 2px, transparent 5px), linear-gradient(105deg, rgba(255,255,255,0.22) 0%, transparent 30%, transparent 55%, rgba(255,255,255,0.18) 70%, transparent 85%), linear-gradient(180deg, color-mix(in srgb, ${getTypeColor()} 85%, white) 0%, ${getTypeColor()} 40%, color-mix(in srgb, ${getTypeColor()} 90%, #806030) 100%)`,
-                    borderRadius: '1px',
+                    borderRadius: 'var(--chaos-radius-sm)',
                     border: 'none',
                     boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.08), inset 0 0 8px rgba(0,0,0,0.06)',
                     opacity: 0.82,

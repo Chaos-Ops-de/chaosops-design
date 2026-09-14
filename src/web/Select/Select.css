@@ -18,7 +18,7 @@
   width: 100%;
   padding: 0.6rem;
   border: 2px solid var(--chaos-input-border, #e2e8f0);
-  border-radius: 8px;
+  border-radius: var(--chaos-radius-md, 8px);
   background: var(--chaos-input-bg, #fff);
   color: var(--chaos-ink);
   cursor: pointer;
@@ -65,7 +65,7 @@
   align-items: center;
   gap: 0.25rem;
   padding: 0.2rem 0.5rem;
-  border-radius: 6px;
+  border-radius: var(--chaos-radius-sm, 4px);
   font-size: 0.8rem;
   font-weight: 600;
   color: #ffffff;
@@ -79,7 +79,7 @@
   right: 0;
   margin-top: 0.5rem;
   background: var(--chaos-surface-elevated, #fff);
-  border-radius: 8px;
+  border-radius: var(--chaos-radius-md, 8px);
   border: 2px solid var(--chaos-input-border, #e2e8f0);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   z-index: 50;
@@ -95,7 +95,7 @@
   background: none;
   text-align: left;
   padding: 0.6rem 0.75rem;
-  border-radius: 6px;
+  border-radius: var(--chaos-radius-sm, 4px);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -128,7 +128,7 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: 8px;
+  border-radius: var(--chaos-radius-md, 8px);
   border: 1.5px solid currentColor;
   flex-shrink: 0;
 }

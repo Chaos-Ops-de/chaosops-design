@@ -128,7 +128,7 @@ function GenericErrorFallback({ error, downGremlinSrc, onReport }: { error: unkn
           background: 'var(--chaos-surface-elevated, #fff)',
           borderRadius: 'var(--chaos-radius-xl, 16px)',
           border: '3px solid var(--chaos-ink, #181818)',
-          boxShadow: '4px 8px 0 rgba(0,0,0,0.12)',
+          boxShadow: STICKER_CARD_SHADOW,
           maxWidth: '480px',
           width: '100%',
           padding: '2rem',
@@ -208,6 +208,9 @@ export interface SentryErrorBoundaryProps {
 // Cloudflare brand orange
 const CF_ORANGE = '#F48120'
 
+// Shared "sticker card" shadow used by both fallbacks below.
+const STICKER_CARD_SHADOW = '4px 8px 0 rgba(0,0,0,0.12)'
+
 function CloudflareErrorFallback({ error, downGremlinSrc, onReport }: { error: CloudflareError; downGremlinSrc: string; onReport?: (details: ErrorReportDetails) => Promise<void> | void }) {
   return (
     <div
@@ -228,7 +231,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc, onReport }: { error: C
           background: 'var(--chaos-surface-elevated, #fff)',
           borderRadius: 'var(--chaos-radius-xl, 16px)',
           border: '3px solid var(--chaos-ink, #181818)',
-          boxShadow: '4px 8px 0 rgba(0,0,0,0.12)',
+          boxShadow: STICKER_CARD_SHADOW,
           maxWidth: '480px',
           width: '100%',
           padding: '2rem',

@@ -27,7 +27,7 @@ export const OrganisationCard: React.FC<OrganisationCardProps> = ({ name, descri
               width: '32px',
               height: '32px',
               objectFit: 'contain',
-              borderRadius: '4px',
+              borderRadius: 'var(--chaos-radius-sm)',
               flexShrink: 0
             }}
             onError={(e) => {

@@ -150,7 +150,7 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <div style={{
                         padding: '4px',
-                        borderRadius: '4px',
+                        borderRadius: 'var(--chaos-radius-sm)',
                         backgroundColor: `${color}20`,
                         color: color
                     }}>
