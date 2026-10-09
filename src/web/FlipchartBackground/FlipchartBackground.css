@@ -1,3 +1,14 @@
+/* Lines and doodles sit at z-index:-1 so they paint below page content.
+   A positioned z-index:0 layer paints above every non-positioned sibling,
+   which ran the ruled lines across cards, headers and tab bars. The parent
+   is isolated so the -1 layer stays above the parent's own background
+   instead of dropping behind it. Holes and the torn edge stay on top on
+   purpose: they're "punched through" the paper. */
+:has(> .chaos-flipchart-lines),
+:has(> .chaos-flipchart-doodle-star) {
+  isolation: isolate;
+}
+
 .chaos-flipchart-lines {
   position: fixed;
   inset: 0;
@@ -9,7 +20,7 @@
     transparent 41px
   );
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 
 .chaos-flipchart-hole {
@@ -43,7 +54,7 @@
   height: 40px;
   background: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="20,3 24,15 37,15 26,23 30,34 20,27 10,34 14,23 3,15 16,15" fill="%23ffe066" stroke="%23f59e42" stroke-width="2"/></svg>') no-repeat center/contain;
   opacity: 0.6;
-  z-index: 0;
+  z-index: -1;
 }
 
 .chaos-flipchart-doodle-circle {
@@ -55,7 +66,7 @@
   background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--chaos-info) 40%, var(--chaos-bg)) 70%, var(--chaos-info) 100%);
   border-radius: 50%;
   opacity: 0.4;
-  z-index: 0;
+  z-index: -1;
 }
 
 .chaos-flipchart-doodle-squiggle {
@@ -66,6 +77,6 @@
   height: 20px;
   background: url('data:image/svg+xml;utf8,<svg width="60" height="20" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 13 Q 15 3, 30 13 T 57 13" stroke="%23f472b6" stroke-width="3" fill="none"/></svg>') no-repeat center/contain;
   opacity: 0.4;
-  z-index: 0;
+  z-index: -1;
   transform: translate(-50%, -50%);
 }
