@@ -152,3 +152,12 @@ export interface DisplayZone {
   updatedAt: string;
   _count?: { displays: number };
 }
+
+export * from './roster';
+export * from './staff';
+export * from './moderation';
+export * from './backup';
+export * from './organisation';
+export * from './room';
+export * from './sharedPlan';
+export * from './handbook';

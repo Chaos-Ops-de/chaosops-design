@@ -1,0 +1,10 @@
+.chaos-cf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 0.73rem;
+  color: var(--chaos-ink-muted);
+  user-select: none;
+  letter-spacing: 0.01em;
+}

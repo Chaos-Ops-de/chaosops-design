@@ -1,0 +1,67 @@
+/* Initial-letter / photo avatar. Size is a plain px prop (inline style) rather than an enum. */
+.chaos-avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid var(--chaos-ink);
+  background: var(--chaos-ink);
+  color: var(--chaos-bg);
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Id-derived hue: card-colored border so overlapping stacks separate cleanly. */
+.chaos-avatar--colored {
+  border-color: var(--chaos-card-bg);
+  color: var(--chaos-on-accent);
+}
+
+.chaos-avatar--overlap { margin-left: -8px; }
+
+/* Selection ring (e.g. "you" in a participant stack). */
+.chaos-avatar--ringed { box-shadow: 0 0 0 1.5px var(--chaos-ink); }
+
+/* ChaosOps staff ring — thick saturated amber band. */
+.chaos-avatar--staff { overflow: visible; }
+.chaos-avatar--staff::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2.5px solid var(--chaos-amber);
+  pointer-events: none;
+}
+
+.chaos-avatar__img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
+/* Interactive variant is a real <button> with sticker physics. */
+.chaos-avatar--interactive {
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: box-shadow 150ms ease, transform 100ms ease-out;
+  box-shadow: 2px 3px 0 var(--chaos-ink);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chaos-avatar--interactive:hover {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--chaos-ink) 15%, transparent), 2px 3px 0 var(--chaos-ink);
+  }
+}
+
+.chaos-avatar--interactive:active { transform: scale(0.95); }
+
+.chaos-avatar--interactive:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chaos-avatar--interactive:active { transform: none; }
+}

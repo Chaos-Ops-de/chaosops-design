@@ -33,6 +33,7 @@ on web additionally `react-native-web` (`^0.19` or newer).
 - `fontFamilies`, `webFontStack`, `googleFontsHref`, `fontSizes`, `fontWeights`
 - `spacing`, `radii`, `cssShadows`, `rnOffsetShadow`, `paletteShadow`
 - `durations`, `easings`
+- `brandColors` (`cloudflare: '#F48120'`), `amberShades`, `presetColors`, `resolveColorToken`
 - `SCHEDULE_ITEM_TYPES`, `getItemTypeColor(type, theme)`
 
 ### Theme
@@ -51,7 +52,10 @@ React Native components — only import this entry from React Native /
 root entry and never touch this one.
 
 `PillButton`, `StickerCard`, `Chip`, `DashedDivider`, `ActionButton`,
-`Text`, `Gremlin` + `gremlinCss`, `AuthScreen`.
+`Text`, `Gremlin` + `gremlinCss`, `AuthScreen`, and (0.12) `Avatar`,
+`ConfirmModal`, `PromptModal`, `Sheet` (bottom sheet). The modal/sheet
+primitives are React Native `Modal`s with an optional `onHaptic` callback
+(no Expo dependency) and `bottomInset` for safe-area padding.
 
 ### Web (`@chaos-ops-de/design/web`)
 
@@ -64,7 +68,16 @@ for any web consumer, including ones that never touch `./primitives`.
 `BackButton`, `Footer`, `FooterAdmin`, `Clock`, `Arrow22`,
 `ChangelogEntries`, `NotFoundPage`, `UnsavedChangesPrompt`,
 `ThemeToggleButton`, `ResponsiveContainer`, `FlipchartBackground`,
-`useUnsavedChangesGuard`.
+`useUnsavedChangesGuard`, and (0.12) `Avatar`, `Button`, `Input`/`Textarea`,
+`FormField`, `CloudflareBadge`, `useFocusTrap`/`useScrollLock`, `useIsMobile`.
+
+### Utils (root entry)
+
+Platform-neutral helpers: `formatDate`, `formatDateTime`, `formatTime`,
+`formatBytes`, `formatUptime`, `timeAgo`, `formatElapsed`, `formatDateInput`,
+`isValidDate`, `parseTimeString`, `isTimeBetween`, `getMinutesDifference`,
+`colorForUserId(id, palette?)`, `initialFor`, `AVATAR_COLORS`. The theme
+module also exports `useSystemScheme()` (SSR-safe OS/kiosk scheme).
 
 ### Contracts (`@chaos-ops-de/design/contracts`)
 
@@ -72,7 +85,10 @@ Shared API domain types (`User`, `Organisation`, `Event`, `DayPlan`,
 `ScheduleItem`, `Display`, `Tag`, ...) mirroring the ChaosOps backend's
 Prisma schema, so the web app and mobile app aren't hand-retyping the
 same server contract independently. Plain TypeScript types, no runtime
-code — safe to import from anywhere.
+code — safe to import from anywhere. 0.12 adds the roster, staff
+(Control Center), moderation, backup, organisation/auth-response, brainstorm
+room, shared-plan and handbook shapes; where the web and mobile hand-written
+copies disagreed, the file header documents how they were reconciled.
 
 ### Icons (`@chaos-ops-de/design/icons`)
 
@@ -82,6 +98,19 @@ Re-exports `lucide-react` on web, `lucide-react-native` on native.
 
 - `assets/logo.png`
 - `assets/gremlins/{404, buy, down, erfolg, hide, loadingbar, login, mail, maintance, sleep}.png`
+
+## 0.12.0 notes
+
+- New palette tokens (light + dark, exposed as `--chaos-*` CSS vars): `shadowColor`,
+  `glowInfo`/`glowGreen`/`glowAmber`, `tapeHighlight`, `tapeShade`,
+  `surfaceInverse`/`onInverse` (fixed dark chrome, does not flip),
+  `amberLight`/`amberDark`, `infoLight`/`infoDark`, `dangerLight`/`dangerDark`
+  (gradient pairs), `blueStrong` (#2563eb light / #3b82f6 dark), `hairline`.
+- `Button`/`Input`/`FormField` are DOM components in `./web` (not RN), because
+  they rely on `:focus-visible`, CSS glow and native `<input>` semantics.
+  `Avatar` exists twice: DOM in `./web`, React Native/RNW in `./primitives`.
+- `useFocusTrap` was already used internally by `Modal`/`Sheet`; it is now public.
+- Everything is additive; no renames or removals.
 
 ## Usage — Web
 

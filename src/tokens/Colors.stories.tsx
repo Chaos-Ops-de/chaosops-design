@@ -7,7 +7,12 @@ const GROUPS: { title: string; keys: (keyof Palette)[] }[] = [
   { title: 'Text & borders', keys: ['ink', 'inkMuted', 'border', 'tabBarBorder', 'inputBorder', 'focusRing'] },
   { title: 'Semantic accents', keys: ['amber', 'green', 'danger', 'info'] },
   { title: 'Extended accents', keys: ['violet', 'violetInk', 'blue', 'blueInk', 'pink', 'pinkInk', 'orange', 'orangeInk', 'teal', 'tealInk'] },
-  { title: 'Overlay', keys: ['overlayScrim'] },
+  { title: 'Overlay & shadow', keys: ['overlayScrim', 'scrimStrong', 'ripple', 'shadowColor', 'hairline'] },
+  { title: 'Glows', keys: ['glowInfo', 'glowGreen', 'glowAmber'] },
+  { title: 'Inverse chrome (does not flip)', keys: ['surfaceInverse', 'onInverse'] },
+  { title: 'Status gradient pairs', keys: ['amberLight', 'amberDark', 'infoLight', 'infoDark', 'dangerLight', 'dangerDark'] },
+  { title: 'Tape', keys: ['tapeHighlight', 'tapeShade'] },
+  { title: 'Links', keys: ['blueStrong'] },
 ];
 
 // Anything added to the Palette but not yet sorted into a group above still shows up here.

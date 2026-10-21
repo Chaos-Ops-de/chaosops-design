@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { palettes, paletteKeys, resolveColorToken } from './colors';
+import { palettes, paletteKeys, resolveColorToken, brandColors } from './colors';
 import { getItemTypeColor, SCHEDULE_ITEM_TYPES } from './itemTypes';
 import { spacing } from './spacing';
 import { radii, innerRadius, ringRadius } from './radii';
@@ -15,6 +15,44 @@ describe('tokens/colors', () => {
   it('keeps the brand amber identical across themes', () => {
     expect(palettes.light.amber).toBe('#fbbf24');
     expect(palettes.dark.amber).toBe('#fbbf24');
+  });
+});
+
+describe('tokens/colors 0.12 additions', () => {
+  it('has every Palette key listed in paletteKeys, with non-empty values in both themes', () => {
+    expect([...paletteKeys].sort()).toEqual(Object.keys(palettes.light).sort());
+    expect(Object.keys(palettes.dark).sort()).toEqual(Object.keys(palettes.light).sort());
+    for (const key of paletteKeys) {
+      expect(palettes.light[key]).toBeTruthy();
+      expect(palettes.dark[key]).toBeTruthy();
+    }
+  });
+
+  it('keeps the inverse chrome surface fixed across themes', () => {
+    expect(palettes.light.surfaceInverse).toBe('#181818');
+    expect(palettes.dark.surfaceInverse).toBe('#181818');
+    expect(palettes.light.onInverse).toBe('#fffbe7');
+    expect(palettes.dark.onInverse).toBe('#fffbe7');
+  });
+
+  it('keeps gradient shade pairs identical across themes', () => {
+    for (const k of ['amberLight', 'amberDark', 'infoLight', 'infoDark', 'dangerLight', 'dangerDark', 'tapeShade'] as const) {
+      expect(palettes.light[k]).toBe(palettes.dark[k]);
+    }
+  });
+
+  it('blueStrong differs from info', () => {
+    expect(palettes.light.blueStrong).toBe('#2563eb');
+    expect(palettes.dark.blueStrong).toBe('#3b82f6');
+    expect(palettes.light.blueStrong).not.toBe(palettes.light.info);
+  });
+
+  it('exposes the Cloudflare brand color', () => {
+    expect(brandColors.cloudflare).toBe('#F48120');
+  });
+
+  it('resolves new tokens through resolveColorToken', () => {
+    expect(resolveColorToken('var(--chaos-blue-strong)', palettes.light)).toBe('#2563eb');
   });
 });
 

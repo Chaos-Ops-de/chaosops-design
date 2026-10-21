@@ -6,3 +6,7 @@ export * from './ActionButton';
 export * from './Text';
 export * from './Gremlin';
 export * from './AuthScreen';
+export * from './Avatar';
+export * from './ConfirmModal';
+export * from './PromptModal';
+export * from './Sheet';

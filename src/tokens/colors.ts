@@ -60,7 +60,37 @@ export interface Palette {
   scrimStrong: string;
   /** Pressed/ripple overlay for tappable surfaces. */
   ripple: string;
+  /** Neutral drop-shadow color for soft (non-sticker) elevation — cards, popovers, toasts. */
+  shadowColor: string;
+  /** Soft focus/hover glow halos in each semantic hue (box-shadow `0 0 0 3px <glow>` or a blurred drop). */
+  glowInfo: string;
+  glowGreen: string;
+  glowAmber: string;
+  /** Sheen of the translucent "washi tape" accent (the repeating highlight stripes). */
+  tapeHighlight: string;
+  /** Dark edge shade the tape gradient mixes into at its far end (`color-mix(var(--tape-color) 90%, tapeShade)`). Same in both themes. */
+  tapeShade: string;
+  /** Fixed dark chrome surface (tour tooltips, kiosk bars, code blocks). Does NOT flip with the theme. */
+  surfaceInverse: string;
+  /** Text/icon color on `surfaceInverse`. Does NOT flip with the theme. */
+  onInverse: string;
+  /** Status gradient shade pairs (tape, CTA buttons): light stop / dark stop around the base hue. Same in both themes. */
+  amberLight: string;
+  amberDark: string;
+  infoLight: string;
+  infoDark: string;
+  dangerLight: string;
+  dangerDark: string;
+  /** Saturated blue for links/CTAs outside the sky-blue `info` accent (emails, PDFs, hyperlinks). */
+  blueStrong: string;
+  /** Neutral 1px divider / hairline border that is quieter than `border`. */
+  hairline: string;
 }
+
+/** Third-party brand colors (not themed). */
+export const brandColors = {
+  cloudflare: '#F48120',
+} as const;
 
 export const palettes: Record<ThemeName, Palette> = {
   light: {
@@ -109,6 +139,22 @@ export const palettes: Record<ThemeName, Palette> = {
     tealTint: '#ccfbf1',
     scrimStrong: 'rgba(0, 0, 0, 0.6)',
     ripple: 'rgba(0, 0, 0, 0.08)',
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
+    glowInfo: 'rgba(14, 165, 233, 0.3)',
+    glowGreen: 'rgba(16, 185, 129, 0.3)',
+    glowAmber: 'rgba(251, 191, 36, 0.45)',
+    tapeHighlight: 'rgba(255, 255, 255, 0.18)',
+    tapeShade: '#806030',
+    surfaceInverse: '#181818',
+    onInverse: '#fffbe7',
+    amberLight: '#ffd166',
+    amberDark: '#d99a1a',
+    infoLight: '#7dd3fc',
+    infoDark: '#0e9dd6',
+    dangerLight: '#fca5a5',
+    dangerDark: '#dc4c4c',
+    blueStrong: '#2563eb',
+    hairline: 'rgba(0, 0, 0, 0.08)',
   },
   dark: {
     bg: '#171310',
@@ -156,6 +202,22 @@ export const palettes: Record<ThemeName, Palette> = {
     tealTint: 'rgba(45, 212, 191, 0.16)',
     scrimStrong: 'rgba(0, 0, 0, 0.75)',
     ripple: 'rgba(255, 255, 255, 0.1)',
+    shadowColor: 'rgba(0, 0, 0, 0.4)',
+    glowInfo: 'rgba(56, 189, 248, 0.35)',
+    glowGreen: 'rgba(52, 211, 153, 0.35)',
+    glowAmber: 'rgba(251, 191, 36, 0.4)',
+    tapeHighlight: 'rgba(255, 255, 255, 0.14)',
+    tapeShade: '#806030',
+    surfaceInverse: '#181818',
+    onInverse: '#fffbe7',
+    amberLight: '#ffd166',
+    amberDark: '#d99a1a',
+    infoLight: '#7dd3fc',
+    infoDark: '#0e9dd6',
+    dangerLight: '#fca5a5',
+    dangerDark: '#dc4c4c',
+    blueStrong: '#3b82f6',
+    hairline: 'rgba(255, 245, 225, 0.12)',
   },
 };
 
@@ -168,6 +230,9 @@ export const paletteKeys: Array<keyof Palette> = [
   'onAccent', 'inkSoft', 'inkFaint', 'infoInk', 'greenInk', 'amberInk', 'dangerInk',
   'infoTint', 'greenTint', 'amberTint', 'dangerTint', 'violetTint', 'pinkTint', 'orangeTint', 'tealTint',
   'scrimStrong', 'ripple',
+  'shadowColor', 'glowInfo', 'glowGreen', 'glowAmber', 'tapeHighlight', 'tapeShade',
+  'surfaceInverse', 'onInverse', 'amberLight', 'amberDark', 'infoLight', 'infoDark',
+  'dangerLight', 'dangerDark', 'blueStrong', 'hairline',
 ];
 
 /**
