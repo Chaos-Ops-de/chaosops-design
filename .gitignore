@@ -11,3 +11,17 @@ coverage
 storybook-static
 package-lock.json
 yarn.lock
+
+# pnpm
+.pnpm-store
+.pnpm-debug.log*
+npm-debug.log*
+
+# Env variants
+.env.*.local
+
+# Editor / local tooling
+.idea
+.vscode
+.claude/settings.local.json
+Thumbs.db
