@@ -36,6 +36,30 @@ export interface Palette {
   orangeInk: string;
   teal: string;
   tealInk: string;
+  /** Text/icon color on a saturated accent fill (danger/violet/green buttons, badges). */
+  onAccent: string;
+  /** Mid-strength body text — between `ink` and `inkMuted`. */
+  inkSoft: string;
+  /** Faintest readable text (hints, timestamps). Not for essential copy. */
+  inkFaint: string;
+  /** Text-safe variants of the semantic accents for copy on a tinted background of the same hue. */
+  infoInk: string;
+  greenInk: string;
+  amberInk: string;
+  dangerInk: string;
+  /** Soft background tints of each accent hue (callouts, status pills, PDF/export fills). */
+  infoTint: string;
+  greenTint: string;
+  amberTint: string;
+  dangerTint: string;
+  violetTint: string;
+  pinkTint: string;
+  orangeTint: string;
+  tealTint: string;
+  /** Strong scrim for full-bleed overlays (camera, guided tour) — darker than `overlayScrim`. */
+  scrimStrong: string;
+  /** Pressed/ripple overlay for tappable surfaces. */
+  ripple: string;
 }
 
 export const palettes: Record<ThemeName, Palette> = {
@@ -68,6 +92,23 @@ export const palettes: Record<ThemeName, Palette> = {
     orangeInk: '#c2410c',
     teal: '#14b8a6',
     tealInk: '#0f766e',
+    onAccent: '#ffffff',
+    inkSoft: '#4b5563',
+    inkFaint: '#9ca3af',
+    infoInk: '#0369a1',
+    greenInk: '#047857',
+    amberInk: '#b45309',
+    dangerInk: '#b91c1c',
+    infoTint: '#e0f2fe',
+    greenTint: '#d1fae5',
+    amberTint: '#fef3c7',
+    dangerTint: '#fee2e2',
+    violetTint: '#f3e8ff',
+    pinkTint: '#ffe4e6',
+    orangeTint: '#ffedd5',
+    tealTint: '#ccfbf1',
+    scrimStrong: 'rgba(0, 0, 0, 0.6)',
+    ripple: 'rgba(0, 0, 0, 0.08)',
   },
   dark: {
     bg: '#171310',
@@ -98,6 +139,23 @@ export const palettes: Record<ThemeName, Palette> = {
     orangeInk: '#fdba74',
     teal: '#2dd4bf',
     tealInk: '#5eead4',
+    onAccent: '#181818',
+    inkSoft: '#d3c8b2',
+    inkFaint: '#8a7f6b',
+    infoInk: '#7dd3fc',
+    greenInk: '#6ee7b7',
+    amberInk: '#fcd34d',
+    dangerInk: '#fca5a5',
+    infoTint: 'rgba(56, 189, 248, 0.16)',
+    greenTint: 'rgba(52, 211, 153, 0.16)',
+    amberTint: 'rgba(251, 191, 36, 0.16)',
+    dangerTint: 'rgba(248, 113, 113, 0.16)',
+    violetTint: 'rgba(196, 181, 253, 0.16)',
+    pinkTint: 'rgba(251, 113, 133, 0.16)',
+    orangeTint: 'rgba(251, 146, 60, 0.16)',
+    tealTint: 'rgba(45, 212, 191, 0.16)',
+    scrimStrong: 'rgba(0, 0, 0, 0.75)',
+    ripple: 'rgba(255, 255, 255, 0.1)',
   },
 };
 
@@ -107,6 +165,9 @@ export const paletteKeys: Array<keyof Palette> = [
   'inputBg', 'inputBorder', 'chipInactiveBg',
   'info', 'surfaceElevated', 'overlayScrim', 'focusRing', 'violet', 'violetInk',
   'blue', 'blueInk', 'pink', 'pinkInk', 'orange', 'orangeInk', 'teal', 'tealInk',
+  'onAccent', 'inkSoft', 'inkFaint', 'infoInk', 'greenInk', 'amberInk', 'dangerInk',
+  'infoTint', 'greenTint', 'amberTint', 'dangerTint', 'violetTint', 'pinkTint', 'orangeTint', 'tealTint',
+  'scrimStrong', 'ripple',
 ];
 
 /**
@@ -141,3 +202,18 @@ export const presetColors: string[] = [
   '#ec4899', // pink
   'var(--chaos-ink-muted)', // slate
 ];
+
+const camel = (s: string) => s.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase());
+
+/**
+ * Resolves a stored color that may be a themed CSS-var reference
+ * (`var(--chaos-amber)` or `var(--chaos-teal, #14b8a6)`) to a concrete value for
+ * the given palette — for native clients that can't use CSS variables. Plain
+ * colors pass through; unknown vars fall back to their literal fallback if any.
+ */
+export function resolveColorToken(value: string, palette: Palette): string {
+  const m = /^var\(--chaos-([a-z0-9-]+)\s*(?:,\s*([^)]+))?\)$/i.exec(value.trim());
+  if (!m) return value;
+  const key = camel(m[1]!) as keyof Palette;
+  return palette[key] ?? m[2]?.trim() ?? value;
+}

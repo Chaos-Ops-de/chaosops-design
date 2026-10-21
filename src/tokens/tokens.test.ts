@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { palettes, paletteKeys } from './colors';
+import { palettes, paletteKeys, resolveColorToken } from './colors';
 import { getItemTypeColor, SCHEDULE_ITEM_TYPES } from './itemTypes';
 import { spacing } from './spacing';
 import { radii, innerRadius, ringRadius } from './radii';
@@ -15,6 +15,18 @@ describe('tokens/colors', () => {
   it('keeps the brand amber identical across themes', () => {
     expect(palettes.light.amber).toBe('#fbbf24');
     expect(palettes.dark.amber).toBe('#fbbf24');
+  });
+});
+
+describe('tokens/resolveColorToken', () => {
+  it('resolves chaos css vars against a palette', () => {
+    expect(resolveColorToken('var(--chaos-amber)', palettes.light)).toBe('#fbbf24');
+    expect(resolveColorToken('var(--chaos-ink-muted)', palettes.dark)).toBe(palettes.dark.inkMuted);
+  });
+
+  it('uses the fallback for unknown vars and passes plain colors through', () => {
+    expect(resolveColorToken('var(--chaos-nope, #123456)', palettes.light)).toBe('#123456');
+    expect(resolveColorToken('#abcdef', palettes.light)).toBe('#abcdef');
   });
 });
 
