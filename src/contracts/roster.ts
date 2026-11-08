@@ -78,7 +78,10 @@ export interface RosterAssignment {
 
 export interface RosterLogEntry {
   id: string;
+  /** Start day (YYYY-MM-DD…). */
   date: string;
+  /** Last day of a multi-day activity; null = single day. */
+  endDate: string | null;
   text: string;
   event: { id: string; name: string } | null;
 }
@@ -137,4 +140,13 @@ export interface RosterAuditEntry {
   entityType: string;
   entityId: string | null;
   createdAt: string;
+}
+
+export interface RosterLogEntryInput {
+  text: string;
+  /** Start day, YYYY-MM-DD. */
+  date: string;
+  /** Last day (YYYY-MM-DD); empty/null = single day. */
+  endDate?: string | null;
+  eventId?: string | null;
 }
