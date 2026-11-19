@@ -11,6 +11,8 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   indeterminate?: boolean;
   /** Marks the box invalid (danger border + `aria-invalid`). */
   invalid?: boolean;
+  /** `sm` is for dense filter bars and table toolbars (18 px box, small text); touch screens keep the 44 px row. */
+  size?: 'sm' | 'md';
 }
 
 /**
@@ -20,7 +22,7 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
  * `id` and `aria-*` through, it also works inside `FormField`.
  */
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
-  { label, description, indeterminate = false, invalid, className, disabled, id, 'aria-describedby': describedBy, ...rest },
+  { label, description, indeterminate = false, invalid, size = 'md', className, disabled, id, 'aria-describedby': describedBy, ...rest },
   ref,
 ) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -36,7 +38,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
 
   return (
     <label
-      className={['chaos-checkbox', className].filter(Boolean).join(' ')}
+      className={['chaos-checkbox', size === 'sm' ? 'chaos-checkbox--sm' : '', className].filter(Boolean).join(' ')}
       data-disabled={disabled || undefined}
     >
       <input
@@ -50,8 +52,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(functi
         {...rest}
       />
       <span className="chaos-checkbox__box" aria-hidden="true">
-        <Check className="chaos-checkbox__check" size={14} strokeWidth={3.5} />
-        <Minus className="chaos-checkbox__minus" size={14} strokeWidth={3.5} />
+        <Check className="chaos-checkbox__check" size={size === 'sm' ? 12 : 14} strokeWidth={3.5} />
+        <Minus className="chaos-checkbox__minus" size={size === 'sm' ? 12 : 14} strokeWidth={3.5} />
       </span>
       {(label != null || description != null) && (
         <span className="chaos-checkbox__text">

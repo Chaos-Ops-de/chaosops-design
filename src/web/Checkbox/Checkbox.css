@@ -110,3 +110,10 @@
   .chaos-checkbox__check,
   .chaos-checkbox__minus { transition: none; }
 }
+
+/* Dense variant for filter bars and toolbars. */
+.chaos-checkbox--sm { gap: var(--chaos-space-sm, 8px); min-height: 32px; padding: 6px 0; font-size: 0.85rem; }
+.chaos-checkbox--sm .chaos-checkbox__box { width: 18px; height: 18px; }
+@media (pointer: coarse) {
+  .chaos-checkbox--sm { min-height: var(--chaos-touch-target, 44px); padding: 11px 0; }
+}

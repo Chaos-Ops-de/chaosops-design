@@ -16,6 +16,7 @@ export const Success: Story = { args: { variant: 'success' } };
 export const Danger: Story = { args: { variant: 'danger', children: 'Löschen' } };
 /** Destructive buttons name the action ("Projekt löschen"), not a generic "OK". */
 export const Destructive: Story = { args: { variant: 'danger', children: 'Projekt löschen' } };
+export const DangerOutline: Story = { args: { variant: 'danger-outline', children: 'Löschen' } };
 export const Outline: Story = { args: { variant: 'outline', children: 'Abbrechen' } };
 export const Ghost: Story = { args: { variant: 'ghost', children: 'Mehr' } };
 /** Inline text action, e.g. "Passwort vergessen?". */

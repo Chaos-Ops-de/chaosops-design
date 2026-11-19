@@ -1,11 +1,11 @@
 import React, { useId } from 'react';
 import './Button.css';
 
-export type ButtonVariant = 'primary' | 'accent' | 'success' | 'danger' | 'outline' | 'ghost' | 'link';
+export type ButtonVariant = 'primary' | 'accent' | 'success' | 'danger' | 'outline' | 'ghost' | 'link' | 'danger-outline';
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 
 export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
-  /** `primary` = info-blue fill, `accent` = amber sticker, `outline`/`ghost` are transparent, `link` reads as inline text. */
+  /** `primary` = info-blue fill, `accent` = amber sticker, `outline`/`ghost` are transparent, `link` reads as inline text, `danger-outline` is a quiet destructive action. */
   variant?: ButtonVariant;
   /** `xs` is for dense rows (table actions, toolbars); it keeps the full touch target on touch screens. */
   size?: ButtonSize;

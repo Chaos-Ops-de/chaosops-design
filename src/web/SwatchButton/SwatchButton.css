@@ -3,6 +3,9 @@
   flex-shrink: 0;
   width: var(--chaos-swatch-size, 24px);
   height: var(--chaos-swatch-size, 24px);
+  /* Apps often set a global `button { min-height }`; a swatch must stay a circle. */
+  min-width: 0;
+  min-height: 0;
   padding: 0;
   border: 2px solid transparent;
   border-radius: 50%;

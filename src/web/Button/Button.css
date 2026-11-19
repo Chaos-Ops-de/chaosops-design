@@ -64,6 +64,12 @@
   --chaos-btn-border: var(--chaos-border);
   box-shadow: none;
 }
+.chaos-btn--danger-outline {
+  --chaos-btn-bg: transparent;
+  --chaos-btn-fg: var(--chaos-danger);
+  --chaos-btn-border: var(--chaos-danger);
+  box-shadow: none;
+}
 .chaos-btn--ghost {
   --chaos-btn-bg: transparent;
   --chaos-btn-fg: var(--chaos-ink);
@@ -89,6 +95,7 @@
   }
   .chaos-btn--link:not(:disabled):hover { transform: none; box-shadow: none; text-decoration-thickness: 2px; }
   .chaos-btn--outline:not(:disabled):hover,
+  .chaos-btn--danger-outline:not(:disabled):hover,
   .chaos-btn--ghost:not(:disabled):hover {
     background: var(--chaos-ripple);
     box-shadow: none;
@@ -111,6 +118,7 @@
   cursor: not-allowed;
 }
 .chaos-btn--outline:disabled,
+.chaos-btn--danger-outline:disabled,
 .chaos-btn--ghost:disabled,
 .chaos-btn--link:disabled { background: transparent; }
 
