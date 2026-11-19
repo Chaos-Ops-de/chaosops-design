@@ -44,6 +44,7 @@ export * from './useUnsavedChangesGuard';
 export * from './useBlurValidation';
 export * from './Avatar';
 export * from './Button';
+export * from './ChoiceCard';
 export * from './IconButton';
 export * from './SegmentedControl';
 export * from './SwatchButton';

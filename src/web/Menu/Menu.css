@@ -28,6 +28,14 @@
 
 /* Menu */
 .chaos-menu { min-width: 200px; padding: var(--chaos-space-xs, 4px); }
+.chaos-menu__header {
+  display: flex;
+  align-items: center;
+  gap: var(--chaos-space-md, 12px);
+  padding: var(--chaos-space-sm, 8px) var(--chaos-space-md, 12px) var(--chaos-space-md, 12px);
+  margin-bottom: var(--chaos-space-xs, 4px);
+  border-bottom: 1px solid var(--chaos-border);
+}
 
 .chaos-menu__item {
   display: flex;

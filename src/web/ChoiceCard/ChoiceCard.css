@@ -1,0 +1,42 @@
+.chaos-choice-card {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--chaos-space-md, 12px);
+  width: 100%;
+  min-height: var(--chaos-touch-target, 44px);
+  padding: var(--chaos-space-md, 12px) var(--chaos-space-lg, 16px);
+  border: 2px solid var(--chaos-input-border);
+  border-radius: var(--chaos-radius-lg, 12px);
+  background: var(--chaos-surface-elevated);
+  color: var(--chaos-ink);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    border-color var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease),
+    background-color var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease),
+    transform var(--chaos-timing-feedback, 90ms) ease-out;
+}
+.chaos-choice-card__leading { display: inline-flex; flex-shrink: 0; }
+.chaos-choice-card__text { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 2px; }
+.chaos-choice-card__title { font-size: 1rem; font-weight: 700; }
+.chaos-choice-card__desc { font-size: 0.85rem; color: var(--chaos-ink-muted); }
+.chaos-choice-card__trailing { display: inline-flex; flex-shrink: 0; color: var(--chaos-ink-muted); }
+
+@media (hover: hover) and (pointer: fine) {
+  .chaos-choice-card:not(:disabled):hover { border-color: var(--chaos-ink-muted); background: var(--chaos-ripple); }
+}
+.chaos-choice-card--selected,
+.chaos-choice-card--selected:not(:disabled):hover {
+  border-color: var(--chaos-ink);
+  background: color-mix(in srgb, var(--chaos-info) 14%, var(--chaos-surface-elevated));
+}
+.chaos-choice-card:not(:disabled):active { transform: scale(0.99); }
+.chaos-choice-card:focus-visible { outline: 3px solid var(--chaos-focus-ring); outline-offset: 2px; }
+.chaos-choice-card:disabled { opacity: 0.6; cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) {
+  .chaos-choice-card { transition: none; }
+  .chaos-choice-card:not(:disabled):active { transform: none; }
+}

@@ -32,6 +32,8 @@ export interface MenuProps {
   items?: readonly MenuItem[];
   groups?: readonly (readonly MenuItem[])[];
   placement?: PopoverPlacement;
+  /** Non-interactive content above the items, e.g. who is signed in. Kept out of keyboard navigation. */
+  header?: React.ReactNode;
   'aria-label'?: string;
   className?: string;
 }
@@ -54,6 +56,7 @@ export const Menu: React.FC<MenuProps> = ({
   items,
   groups,
   placement = 'bottom-start',
+  header,
   'aria-label': ariaLabel,
   className,
 }) => {
@@ -91,7 +94,10 @@ export const Menu: React.FC<MenuProps> = ({
       className={['chaos-menu', className].filter(Boolean).join(' ')}
     >
       {({ close, ready }) => (
-        <MenuList groups={shown} ready={ready} focusIntent={intent.current} closeAll={close} depth={0} />
+        <>
+          {header != null && <div className="chaos-menu__header">{header}</div>}
+          <MenuList groups={shown} ready={ready} focusIntent={intent.current} closeAll={close} depth={0} />
+        </>
       )}
     </Popover>
   );

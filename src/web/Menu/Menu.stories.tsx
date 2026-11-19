@@ -44,6 +44,18 @@ export const Basic: Story = {
 };
 
 /** Groups get dividers; the destructive item always ends up last, alone, and red. */
+/** A header says who or what the menu is about; it is skipped by arrow-key navigation. */
+export const WithHeader: Story = {
+  render: (args) => (
+    <Menu
+      {...args}
+      aria-label="Konto"
+      header={<div><strong>Luca</strong><div style={{ fontSize: '0.8rem' }}>Product Owner</div></div>}
+      items={[item('profile', 'Nutzerprofil'), item('logout', 'Abmelden')]}
+    />
+  ),
+};
+
 export const WithGroupsAndDanger: Story = {
   render: (args) => {
     const { last, item } = useLog();
