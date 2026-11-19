@@ -1,0 +1,47 @@
+.chaos-icon-btn {
+  --chaos-icon-btn-fg: var(--chaos-ink-muted);
+  --chaos-icon-btn-border: transparent;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--chaos-touch-target, 44px);
+  height: var(--chaos-touch-target, 44px);
+  padding: 0;
+  border: 2px solid var(--chaos-icon-btn-border);
+  border-radius: var(--chaos-radius-md, 8px);
+  background: transparent;
+  color: var(--chaos-icon-btn-fg);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease),
+    color var(--chaos-duration-fast, 120ms) var(--chaos-ease-standard, ease),
+    transform var(--chaos-timing-feedback, 90ms) ease-out;
+}
+.chaos-icon-btn__icon { display: inline-flex; }
+
+.chaos-icon-btn--sm { width: 28px; height: 28px; }
+@media (pointer: coarse) {
+  .chaos-icon-btn--sm { width: var(--chaos-touch-target, 44px); height: var(--chaos-touch-target, 44px); }
+}
+
+.chaos-icon-btn--outline { --chaos-icon-btn-fg: var(--chaos-ink); --chaos-icon-btn-border: var(--chaos-border); }
+.chaos-icon-btn--primary { --chaos-icon-btn-fg: var(--chaos-info); }
+.chaos-icon-btn--danger { --chaos-icon-btn-fg: var(--chaos-danger); }
+
+@media (hover: hover) and (pointer: fine) {
+  .chaos-icon-btn:not(:disabled):hover { background: var(--chaos-ripple); color: var(--chaos-ink); }
+  .chaos-icon-btn--danger:not(:disabled):hover { color: var(--chaos-danger); }
+  .chaos-icon-btn--primary:not(:disabled):hover { color: var(--chaos-info); }
+}
+.chaos-icon-btn[aria-pressed="true"] { background: var(--chaos-ripple); color: var(--chaos-ink); }
+.chaos-icon-btn:not(:disabled):active { transform: scale(0.94); }
+.chaos-icon-btn:focus-visible { outline: 3px solid var(--chaos-focus-ring); outline-offset: 2px; }
+.chaos-icon-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+@media (prefers-reduced-motion: reduce) {
+  .chaos-icon-btn { transition: none; }
+  .chaos-icon-btn:not(:disabled):active { transform: none; }
+}

@@ -29,9 +29,12 @@
     transform var(--chaos-timing-feedback, 90ms) ease-out;
 }
 
+.chaos-btn--xs { min-height: 28px; padding: 0.2rem 0.6rem; gap: 0.35rem; font-size: 0.78rem; border-radius: var(--chaos-radius-md, 8px); }
+.chaos-btn--xs .chaos-btn__content { gap: 0.35rem; }
 .chaos-btn--sm { min-height: 36px; padding: 0.4rem 0.9rem; font-size: 0.875rem; border-radius: var(--chaos-radius-md, 8px); }
 /* Touch screens get the full 44 px target even on the small size. */
 @media (pointer: coarse) {
+  .chaos-btn--xs,
   .chaos-btn--sm { min-height: var(--chaos-touch-target, 44px); }
 }
 .chaos-btn--lg { min-height: 52px; padding: 0.9rem 1.5rem; font-size: 1.0625rem; }
@@ -66,12 +69,25 @@
   --chaos-btn-fg: var(--chaos-ink);
   box-shadow: none;
 }
+.chaos-btn--link {
+  --chaos-btn-bg: transparent;
+  --chaos-btn-fg: var(--chaos-info);
+  min-height: 0;
+  padding: 0.1rem 0.2rem;
+  border-radius: var(--chaos-radius-sm, 4px);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  box-shadow: none;
+}
+@media (pointer: coarse) { .chaos-btn--link { min-height: var(--chaos-touch-target, 44px); } }
 
 @media (hover: hover) and (pointer: fine) {
   .chaos-btn:not(:disabled):not([aria-disabled="true"]):hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px var(--chaos-btn-glow);
   }
+  .chaos-btn--link:not(:disabled):hover { transform: none; box-shadow: none; text-decoration-thickness: 2px; }
   .chaos-btn--outline:not(:disabled):hover,
   .chaos-btn--ghost:not(:disabled):hover {
     background: var(--chaos-ripple);
@@ -95,7 +111,8 @@
   cursor: not-allowed;
 }
 .chaos-btn--outline:disabled,
-.chaos-btn--ghost:disabled { background: transparent; }
+.chaos-btn--ghost:disabled,
+.chaos-btn--link:disabled { background: transparent; }
 
 .chaos-btn__content {
   display: inline-flex;

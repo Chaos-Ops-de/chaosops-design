@@ -18,6 +18,8 @@ export const Danger: Story = { args: { variant: 'danger', children: 'Löschen' }
 export const Destructive: Story = { args: { variant: 'danger', children: 'Projekt löschen' } };
 export const Outline: Story = { args: { variant: 'outline', children: 'Abbrechen' } };
 export const Ghost: Story = { args: { variant: 'ghost', children: 'Mehr' } };
+/** Inline text action, e.g. "Passwort vergessen?". */
+export const Link: Story = { args: { variant: 'link', children: 'Mehr erfahren' } };
 export const Loading: Story = { args: { loading: true, children: 'Wird erstellt…' } };
 export const Disabled: Story = { args: { disabled: true } };
 /** A disabled button says why: the reason is announced and shown as a tooltip. */
@@ -28,6 +30,7 @@ export const Block: Story = { args: { block: true, size: 'lg' } };
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+      <Button size="xs">Kompakt</Button>
       <Button size="sm">Klein</Button>
       <Button>Mittel</Button>
       <Button size="lg">Groß</Button>
