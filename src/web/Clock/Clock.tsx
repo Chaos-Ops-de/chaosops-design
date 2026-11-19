@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { ArrowRight, Clock as ClockIcon } from 'lucide-react';
 import './Clock.css';
 
 const suggestionConfig = {
@@ -69,50 +70,45 @@ export const Clock: React.FC<ClockProps> = ({ time, nextEventTime, viewType = 'p
   const showSuggestions = isDisplayView && (showCountdown || isNachts);
   const suggestions = suggestionConfig[timePeriod] || [];
 
+  const countdownTone = diffMinutes < 2 ? 'urgent' : diffMinutes < 5 ? 'warning' : 'calm';
+  const showHurry = showCountdown && diffMinutes < 2;
+
   return (
-    <div className="chaos-clock-widget-container">
-      <aside className="chaos-clock-side" aria-label="Aktuelle Uhrzeit Seitenanzeige">
-        <span className="chaos-clock-label">UHR</span>
-        <span style={{ fontFamily: 'monospace', fontVariantNumeric: 'tabular-nums' }}>
+    <div className="chaos-clock">
+      <aside className="chaos-clock__face" aria-label="Aktuelle Uhrzeit Seitenanzeige">
+        <span className="chaos-clock__label">
+          <ClockIcon size={14} strokeWidth={2.5} aria-hidden="true" />
+          UHR
+        </span>
+        <span className="chaos-clock__time">
           {time.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
         </span>
       </aside>
 
-      <div className={`chaos-clock-suggestion-panel-wrapper ${showSuggestions ? 'chaos-clock-suggestion-panel-wrapper--open' : ''}`}>
-        <div className={`chaos-clock-suggestion-panel ${showSuggestions ? 'chaos-clock-suggestion-panel--open' : ''}`}>
-          {showCountdown && !isNachts && (
-            <div className="chaos-clock-countdown-box">
-              <div className="chaos-clock-countdown-label">Nächster Punkt in:</div>
-              <div
-                className="chaos-clock-countdown-timer"
-                style={{
-                  color: diffMinutes < 2 ? 'var(--chaos-danger)' : diffMinutes < 5 ? 'var(--chaos-amber-700, #a16207)' : 'var(--chaos-green)'
-                }}
-              >
-                {String(diffMinutes).padStart(2, '0')}:{String(diffSeconds).padStart(2, '0')}
-              </div>
+      <div className={`chaos-clock__panel${showSuggestions ? ' chaos-clock__panel--open' : ''}`} aria-hidden={!showSuggestions}>
+        {showCountdown && !isNachts && (
+          <div className="chaos-clock__countdown">
+            <div className="chaos-clock__countdown-label">Nächster Punkt in:</div>
+            <div className={`chaos-clock__countdown-timer chaos-clock__countdown-timer--${countdownTone}`}>
+              {String(diffMinutes).padStart(2, '0')}:{String(diffSeconds).padStart(2, '0')}
             </div>
-          )}
-          <div className="chaos-clock-suggestion-content">
-            {showCountdown && diffMinutes < 2 ? (
-              <div
-                className="chaos-clock-suggestion-heading"
-                style={{ textAlign: 'center', fontSize: '1.05rem', margin: '0.5rem 0', color: 'var(--chaos-amber-700, #a16207)' }}
-              >
-                Schonmal in den Raum gehen!
-              </div>
-            ) : (
-              <>
-                <div className="chaos-clock-suggestion-heading">In dieser Zeit könntest du:</div>
-                <ul className="chaos-clock-suggestion-list">
-                  {suggestions.map((sug, i) => (
-                    <li key={i}>{sug}</li>
-                  ))}
-                </ul>
-              </>
-            )}
           </div>
-        </div>
+        )}
+        {showHurry ? (
+          <div className="chaos-clock__hurry">Schonmal in den Raum gehen!</div>
+        ) : (
+          <>
+            <div className="chaos-clock__heading">In dieser Zeit könntest du:</div>
+            <ul className="chaos-clock__list">
+              {suggestions.map((sug) => (
+                <li key={sug}>
+                  <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" />
+                  <span>{sug}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
     </div>
   );

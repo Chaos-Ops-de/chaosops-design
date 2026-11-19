@@ -35,6 +35,49 @@ export const Single: Story = {
   },
 };
 
+const manyOptions: SelectOption[] = Array.from({ length: 30 }, (_, i) => ({
+  value: `item-${i + 1}`,
+  label: `Eintrag ${i + 1}`,
+}));
+
+/** More than 10 options turns on the search field automatically; arrow keys work from it into the list. */
+export const ManyOptionsSearchable: Story = {
+  render: () => {
+    const [value, setValue] = useState('');
+    return (
+      <Select
+        label="Eintrag"
+        options={manyOptions}
+        value={value}
+        onChange={(v) => setValue(v as string)}
+      />
+    );
+  },
+};
+
+/** Near the viewport bottom there is no room below, so the list opens upward. */
+export const NearViewportBottom: Story = {
+  parameters: { layout: 'fullscreen' },
+  decorators: [
+    (Story) => (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'flex-end', padding: 24, boxSizing: 'border-box' }}>
+        <div style={{ width: 320 }}><Story /></div>
+      </div>
+    ),
+  ],
+  render: () => {
+    const [value, setValue] = useState('');
+    return (
+      <Select
+        label="Typ"
+        options={options}
+        value={value}
+        onChange={(v) => setValue(v as string)}
+      />
+    );
+  },
+};
+
 export const Multiple: Story = {
   render: () => {
     const [value, setValue] = useState<string[]>(['session']);

@@ -1,0 +1,7 @@
+.chaos-dashed-divider {
+  height: 0;
+  margin: var(--chaos-space-sm, 8px) 0;
+  border: 0;
+  border-bottom: 2px dashed var(--chaos-border);
+  opacity: 0.5;
+}

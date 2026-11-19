@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { paletteKeys, palettes, amberShades, type ThemeName } from '../tokens/colors';
-import { cssShadows } from '../tokens/shadows';
+import { cssShadows, cssElevation } from '../tokens/shadows';
 import { radii } from '../tokens/radii';
 import { spacing } from '../tokens/spacing';
 import { itemTypeStyles } from '../tokens/itemTypes';
-import { durations, easings } from '../tokens/motion';
+import { durations, easings, timings } from '../tokens/motion';
+import { touchTarget, rowHeights, gutters } from '../tokens/layout';
+import { zIndex } from '../tokens/zIndex';
 import { useTheme } from './ThemeContext';
 
 const kebab = (s: string) => s.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase());
@@ -27,6 +29,12 @@ export const staticCssVars: Record<string, string> = (() => {
   for (const [type, style] of Object.entries(itemTypeStyles)) out[`--chaos-item-${kebab(type)}`] = style.bgLight;
   for (const [k, v] of Object.entries(durations)) out[`--chaos-duration-${kebab(k)}`] = `${v}ms`;
   for (const [k, v] of Object.entries(easings)) out[`--chaos-ease-${kebab(k)}`] = v;
+  for (const [k, v] of Object.entries(timings)) out[`--chaos-timing-${kebab(k)}`] = `${v}ms`;
+  for (const [k, v] of Object.entries(cssElevation)) out[`--chaos-elevation-${kebab(k)}`] = v;
+  for (const [k, v] of Object.entries(zIndex)) out[`--chaos-z-${kebab(k)}`] = String(v);
+  out['--chaos-touch-target'] = `${touchTarget}px`;
+  for (const [k, v] of Object.entries(rowHeights)) out[`--chaos-row-${kebab(k)}`] = `${v}px`;
+  for (const [k, v] of Object.entries(gutters)) out[`--chaos-gutter-${kebab(k)}`] = `${v}px`;
   return out;
 })();
 

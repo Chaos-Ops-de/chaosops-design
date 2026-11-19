@@ -43,7 +43,7 @@ export const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = ({ className,
       position: 'fixed',
       top: '1.25rem',
       right: '1.25rem',
-      zIndex: 1000,
+      zIndex: 'var(--chaos-z-fab, 1000)',
     } : {}),
   };
 

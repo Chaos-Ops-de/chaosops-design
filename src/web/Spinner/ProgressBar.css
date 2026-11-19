@@ -1,0 +1,77 @@
+.chaos-progress {
+  --chaos-progress-tone: var(--chaos-info);
+  --chaos-progress-height: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  width: 100%;
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+}
+
+.chaos-progress--success { --chaos-progress-tone: var(--chaos-green); }
+.chaos-progress--warning { --chaos-progress-tone: var(--chaos-amber); }
+.chaos-progress--danger { --chaos-progress-tone: var(--chaos-danger); }
+.chaos-progress--sm { --chaos-progress-height: 8px; }
+
+.chaos-progress__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.chaos-progress__label {
+  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--chaos-ink-muted);
+}
+
+.chaos-progress__percent {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--chaos-ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.chaos-progress__track {
+  position: relative;
+  box-sizing: border-box;
+  height: var(--chaos-progress-height);
+  overflow: hidden;
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-full, 9999px);
+  background: var(--chaos-chip-inactive-bg);
+}
+
+.chaos-progress__bar {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--chaos-progress-tone);
+  transition: width var(--chaos-timing-enter, 250ms) var(--chaos-ease-standard, ease-out);
+}
+
+.chaos-progress__bar--indeterminate {
+  width: 40%;
+  transition: none;
+  animation: chaos-progress-slide 1400ms var(--chaos-ease-standard, ease-in-out) infinite;
+}
+
+@keyframes chaos-progress-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+
+/* No sliding under reduced motion: a slow pulse still shows that work is going on. */
+@media (prefers-reduced-motion: reduce) {
+  .chaos-progress__bar { transition: none; }
+  .chaos-progress__bar--indeterminate {
+    width: 100%;
+    animation: chaos-progress-pulse 2400ms ease-in-out infinite;
+  }
+}
+
+@keyframes chaos-progress-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}

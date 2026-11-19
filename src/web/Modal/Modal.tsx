@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import { AnimatePresence, MotionConfig } from 'motion/react';
 import { AlertCircle, CheckCircle, Info, AlertTriangle } from 'lucide-react';
 import { useUnsavedChangesGuard } from '../useUnsavedChangesGuard';
@@ -6,6 +6,7 @@ import { UnsavedChangesPrompt } from '../UnsavedChangesPrompt';
 import { usePalette } from '../../theme/ThemeContext';
 import { DialogOverlay, DialogCard, DialogCloseButton, DialogButton } from './DialogPrimitives';
 import { useFocusTrap, useScrollLock } from './useFocusTrap';
+import { Input } from '../Input';
 
 interface ModalProps {
   isOpen: boolean;
@@ -39,6 +40,7 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   const palette = usePalette();
   const cardRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
   const { showConfirm, guardedClose, confirmClose, cancelConfirm, dirtyTrackingProps } = useUnsavedChangesGuard({
     enabled: confirmOnClose && isOpen,
   });
@@ -91,7 +93,7 @@ export const Modal: React.FC<ModalProps> = ({
       <MotionConfig reducedMotion="user">
         <AnimatePresence>
           {isOpen && (
-            <DialogOverlay onClick={handleClose} role="dialog" aria-modal="true">
+            <DialogOverlay onClick={handleClose} role="dialog" aria-modal="true" aria-labelledby={title ? titleId : undefined}>
               <DialogCard ref={cardRef} maxWidth={maxWidth} onClick={(e) => e.stopPropagation()}>
                 {/* Decorative tape */}
                 <div
@@ -127,6 +129,7 @@ export const Modal: React.FC<ModalProps> = ({
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                         {getIcon()}
                         <h2
+                          id={titleId}
                           style={{
                             fontFamily: '"Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif',
                             fontSize: '1.5rem',
@@ -251,6 +254,96 @@ export const AlertModal: React.FC<AlertModalProps> = ({ isOpen, onClose, title, 
           {buttonText}
         </DialogButton>
       </div>
+    </Modal>
+  );
+};
+
+interface PromptModalProps {
+  isOpen: boolean;
+  title: string;
+  message?: string;
+  placeholder: string;
+  initialValue?: string;
+  confirmLabel: string;
+  cancelLabel?: string;
+  /** Shown when the user submits an empty value. */
+  emptyError?: string;
+  /** Fallback message when `onSubmit` rejects with an error that has no message. */
+  failedError?: string;
+  inputProps?: Pick<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'inputMode' | 'autoCapitalize' | 'autoComplete' | 'maxLength'>;
+  /** Extra controls rendered between the input and the buttons (e.g. a role picker). */
+  children?: React.ReactNode;
+  onCancel: () => void;
+  /** Resolves when done; rejects with an Error whose message is shown inside the card. */
+  onSubmit: (value: string) => Promise<void>;
+}
+
+/** Single-input dialog (rename, invite by email, new zone ...). */
+export const PromptModal: React.FC<PromptModalProps> = ({
+  isOpen, title, message, placeholder, initialValue = '', confirmLabel, cancelLabel = 'Abbrechen',
+  emptyError = 'Bitte gib etwas ein.', failedError = 'Das hat nicht geklappt. Bitte versuch es erneut.',
+  inputProps, children, onCancel, onSubmit,
+}) => {
+  const [value, setValue] = useState(initialValue);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Start fresh every time the dialog opens.
+  useEffect(() => {
+    if (isOpen) {
+      setValue(initialValue);
+      setError(null);
+    }
+  }, [isOpen, initialValue]);
+
+  const close = () => {
+    if (!busy) onCancel();
+  };
+
+  const submit = async (e?: React.FormEvent) => {
+    e?.preventDefault();
+    const trimmed = value.trim();
+    if (!trimmed) return setError(emptyError);
+    setError(null);
+    setBusy(true);
+    try {
+      await onSubmit(trimmed);
+    } catch (err) {
+      setError((err as Error | undefined)?.message || failedError);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={close} title={title} showCloseButton={false}>
+      <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+        {message && (
+          <p style={{ fontFamily: '"Inter", "Roboto", Arial, sans-serif', fontSize: '1rem', color: 'var(--chaos-ink-muted)', lineHeight: 1.6, margin: 0 }}>
+            {message}
+          </p>
+        )}
+        <Input
+          autoFocus
+          autoCorrect="off"
+          placeholder={placeholder}
+          aria-label={placeholder}
+          value={value}
+          disabled={busy}
+          onChange={(e) => setValue(e.target.value)}
+          {...inputProps}
+        />
+        {children}
+        {error && <p role="alert" style={{ color: 'var(--chaos-danger)', fontSize: '0.875rem', margin: 0 }}>{error}</p>}
+        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+          <DialogButton type="button" variant="secondary" onClick={close} disabled={busy}>
+            {cancelLabel}
+          </DialogButton>
+          <DialogButton type="submit" variant="primary" disabled={busy}>
+            {confirmLabel}
+          </DialogButton>
+        </div>
+      </form>
     </Modal>
   );
 };

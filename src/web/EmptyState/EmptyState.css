@@ -1,0 +1,50 @@
+.chaos-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--chaos-space-md, 12px);
+  box-sizing: border-box;
+  max-width: 440px;
+  margin-inline: auto;
+  padding: var(--chaos-space-xxxl, 32px) var(--chaos-space-xxl, 24px);
+  border: 2px dashed var(--chaos-tab-bar-border);
+  border-radius: var(--chaos-radius-xl, 16px);
+  text-align: center;
+}
+
+.chaos-empty__illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+.chaos-empty__illustration img,
+.chaos-empty__illustration svg { max-width: 100%; height: auto; }
+
+.chaos-empty__title {
+  margin: 0;
+  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--chaos-ink);
+}
+
+.chaos-empty__description {
+  margin: 0;
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--chaos-ink-muted);
+}
+
+.chaos-empty__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--chaos-space-sm, 8px);
+  margin-top: var(--chaos-space-sm, 8px);
+}
+
+/* A failed load gets the danger-tinted edge so it isn't mistaken for "nothing here yet". */
+.chaos-empty--error { border-color: color-mix(in srgb, var(--chaos-danger) 55%, transparent); }

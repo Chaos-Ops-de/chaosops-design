@@ -9,7 +9,7 @@ import { spacing } from '../tokens/spacing';
 export interface TabBarItem {
   key: string;
   label: string;
-  /** Icon node or emoji string. */
+  /** Icon node (a lucide icon). */
   icon: React.ReactNode;
 }
 

@@ -1,0 +1,92 @@
+.chaos-pagination { font-family: "Inter", "Roboto", Arial, sans-serif; }
+
+.chaos-pagination__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--chaos-space-xs, 4px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chaos-pagination__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: var(--chaos-touch-target, 44px);
+  min-height: var(--chaos-touch-target, 44px);
+  padding: 0 var(--chaos-space-sm, 8px);
+  border: 2px solid transparent;
+  border-radius: var(--chaos-radius-md, 8px);
+  background: transparent;
+  color: var(--chaos-ink);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--chaos-timing-feedback, 90ms) ease-out,
+    border-color var(--chaos-timing-feedback, 90ms) ease-out;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chaos-pagination__btn:not(:disabled):not(.chaos-pagination__btn--current):hover { background: var(--chaos-ripple); }
+}
+
+/* Current page: sticker-style amber chip, so it never relies on color alone (it is also bold and aria-current). */
+.chaos-pagination__btn--current {
+  border-color: var(--chaos-ink);
+  background: var(--chaos-amber);
+  color: var(--chaos-surface-inverse);
+  font-weight: 700;
+  box-shadow: var(--chaos-shadow-offset-ink-sm, 2px 3px 0 var(--chaos-ink));
+  cursor: default;
+}
+
+.chaos-pagination__btn:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: 2px;
+}
+
+.chaos-pagination__btn:disabled {
+  color: var(--chaos-ink-muted);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* The chevrons point the other way in a right-to-left layout. */
+[dir="rtl"] .chaos-pagination__icon { transform: scaleX(-1); }
+
+.chaos-pagination__gap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  color: var(--chaos-ink-muted);
+  user-select: none;
+}
+
+.chaos-pagination-summary {
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--chaos-ink-muted);
+}
+
+.chaos-load-more { display: flex; justify-content: center; margin: 0; }
+.chaos-load-more--done {
+  align-items: center;
+  gap: var(--chaos-space-sm, 8px);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-size: 0.9rem;
+  color: var(--chaos-ink-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chaos-pagination__btn { transition: none; }
+}

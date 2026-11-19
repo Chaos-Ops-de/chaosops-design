@@ -1,0 +1,101 @@
+.chaos-otp {
+  --chaos-otp-border: var(--chaos-ink-muted);
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+}
+
+.chaos-otp__slots {
+  display: flex;
+  gap: var(--chaos-space-sm, 8px);
+  pointer-events: none;
+}
+
+.chaos-otp__slot {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 36px;
+  max-width: 56px;
+  /* Taller than the 44 px minimum so a thumb lands easily. */
+  height: 56px;
+  border: 2px solid var(--chaos-otp-border);
+  border-radius: var(--chaos-radius-lg, 12px);
+  background: var(--chaos-input-bg);
+  color: var(--chaos-ink);
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  transition:
+    border-color var(--chaos-timing-feedback, 90ms) ease-out,
+    box-shadow var(--chaos-timing-feedback, 90ms) ease-out;
+}
+
+.chaos-otp__slot[data-filled] { border-color: var(--chaos-ink); }
+
+.chaos-otp__slot[data-active] {
+  border-color: var(--chaos-focus-ring);
+  box-shadow: 0 0 0 3px var(--chaos-glow-info);
+}
+
+.chaos-otp__caret {
+  width: 2px;
+  height: 1.6rem;
+  background: var(--chaos-ink);
+  animation: chaos-otp-blink 1s steps(1) infinite;
+}
+@keyframes chaos-otp-blink { 50% { opacity: 0; } }
+
+/* The one real input lies transparently over the slots and takes every tap. */
+.chaos-otp__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  /* 16px or larger, so iOS Safari does not zoom on focus. */
+  font-size: 16px;
+  opacity: 0;
+  cursor: text;
+}
+
+.chaos-otp--error { --chaos-otp-border: var(--chaos-danger); }
+.chaos-otp--error .chaos-otp__slot[data-filled] { border-color: var(--chaos-danger); }
+.chaos-otp--error .chaos-otp__slots { animation: chaos-otp-shake var(--chaos-timing-attention, 600ms) ease-in-out; }
+@keyframes chaos-otp-shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-8px); }
+  30% { transform: translateX(7px); }
+  45% { transform: translateX(-6px); }
+  60% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+  90% { transform: translateX(2px); }
+}
+
+.chaos-otp--success { --chaos-otp-border: var(--chaos-green); }
+.chaos-otp--success .chaos-otp__slot {
+  border-color: var(--chaos-green);
+  background: var(--chaos-green-tint);
+  color: var(--chaos-green-ink);
+}
+.chaos-otp--success .chaos-otp__input { cursor: default; }
+
+.chaos-otp[data-disabled] { opacity: 0.5; }
+.chaos-otp[data-disabled] .chaos-otp__input { cursor: not-allowed; }
+
+@media (prefers-reduced-motion: reduce) {
+  .chaos-otp__slot { transition: none; }
+  .chaos-otp__caret { animation: none; }
+  .chaos-otp--error .chaos-otp__slots { animation: none; }
+}

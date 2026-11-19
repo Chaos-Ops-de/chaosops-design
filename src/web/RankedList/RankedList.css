@@ -1,0 +1,26 @@
+.chaos-ranked-list__title { margin-bottom: 0.25rem; }
+.chaos-ranked-list__items { list-style: none; margin: 0; padding: 0; }
+.chaos-ranked-list__row {
+  display: flex;
+  align-items: center;
+  gap: var(--chaos-space-md, 12px);
+  min-height: var(--chaos-touch-target, 44px);
+  padding: 0.5rem 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+.chaos-ranked-list__row + .chaos-ranked-list__row { border-top: 1px solid var(--chaos-input-border); }
+.chaos-ranked-list__tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-md, 8px);
+  background: var(--chaos-green-tint);
+  color: var(--chaos-green-ink, var(--chaos-ink));
+}
+.chaos-ranked-list__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.chaos-ranked-list__count { font-size: 1rem; font-weight: 700; font-variant-numeric: tabular-nums; }

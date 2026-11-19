@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Modal, ConfirmModal, AlertModal } from './Modal';
+import { Modal, ConfirmModal, AlertModal, PromptModal } from './Modal';
 
 const meta = {
   title: 'Web/Modal',
@@ -67,6 +67,20 @@ export const Alert: StoryObj<typeof AlertModal> = {
       onClose={() => {}}
       title="Nicht möglich"
       message="Diese Veranstaltung hat bereits aktive Anmeldungen."
+    />
+  ),
+};
+
+export const Prompt: StoryObj<typeof PromptModal> = {
+  render: () => (
+    <PromptModal
+      isOpen
+      title="Zone umbenennen"
+      placeholder="Name der Zone"
+      initialValue="Lager"
+      confirmLabel="Speichern"
+      onCancel={() => {}}
+      onSubmit={async () => {}}
     />
   ),
 };

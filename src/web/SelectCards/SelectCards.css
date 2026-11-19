@@ -1,0 +1,42 @@
+.chaos-select-cards__label { display: block; margin-bottom: 0.5rem; }
+.chaos-select-cards__row { display: flex; gap: 0.5rem; }
+.chaos-select-cards__option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  box-sizing: border-box;
+  min-height: var(--chaos-touch-target, 44px);
+  padding: 0.5rem 0.25rem;
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-lg, 12px);
+  background: var(--chaos-card-bg);
+  color: var(--chaos-ink);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--chaos-duration-base, 200ms) var(--chaos-ease-standard, ease),
+    transform var(--chaos-timing-feedback, 90ms) ease-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  .chaos-select-cards__option:not(:disabled):hover { background: var(--chaos-ripple); }
+}
+.chaos-select-cards__option:not(:disabled):active { transform: scale(0.98); }
+.chaos-select-cards__option:focus-visible { outline: 3px solid var(--chaos-focus-ring); outline-offset: 2px; }
+.chaos-select-cards__option:disabled { opacity: 0.55; cursor: not-allowed; }
+.chaos-select-cards__option--selected,
+.chaos-select-cards__option--selected:hover {
+  background: var(--chaos-amber);
+  /* Amber is a light fill: fixed dark chrome, not --chaos-ink (cream in dark mode). */
+  color: var(--chaos-surface-inverse);
+  font-weight: 700;
+}
+.chaos-select-cards__image { display: inline-flex; font-size: 1.75rem; }
+@media (prefers-reduced-motion: reduce) {
+  .chaos-select-cards__option { transition: none; }
+  .chaos-select-cards__option:active { transform: none; }
+}

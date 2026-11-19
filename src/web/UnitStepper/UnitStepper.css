@@ -1,0 +1,51 @@
+.chaos-unit-stepper__row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+.chaos-unit-stepper__chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  box-sizing: border-box;
+  min-height: var(--chaos-touch-target, 44px);
+  min-width: 56px;
+  padding: 0 0.75rem;
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-lg, 12px);
+  background: var(--chaos-card-bg);
+  color: var(--chaos-ink);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+}
+.chaos-unit-stepper__value { font-size: 1.25rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.chaos-unit-stepper__unit {
+  background: var(--chaos-green-tint);
+  color: var(--chaos-green-ink, var(--chaos-ink));
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform var(--chaos-timing-feedback, 90ms) ease-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  .chaos-unit-stepper__unit:not(:disabled):hover { background: var(--chaos-ripple); }
+}
+.chaos-unit-stepper__unit:not(:disabled):active { transform: scale(0.97); }
+.chaos-unit-stepper__unit:disabled { cursor: default; }
+.chaos-unit-stepper__unit:focus-visible,
+.chaos-unit-stepper__ruler:focus-visible { outline: 3px solid var(--chaos-focus-ring); outline-offset: 2px; }
+.chaos-unit-stepper__ruler {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 32px;
+  margin-top: var(--chaos-space-md, 12px);
+  border-radius: var(--chaos-radius-sm, 4px);
+}
+.chaos-unit-stepper__tick-hit { flex: 1; display: flex; align-items: flex-end; justify-content: center; height: 100%; cursor: pointer; }
+.chaos-unit-stepper__tick { display: block; width: 2px; border-radius: 1px; background: var(--chaos-ink-muted); }
+.chaos-unit-stepper__tick--mid { width: 3px; background: var(--chaos-amber); }
+@media (hover: hover) and (pointer: fine) {
+  .chaos-unit-stepper__tick-hit:hover .chaos-unit-stepper__tick { background: var(--chaos-ink); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chaos-unit-stepper__unit { transition: none; }
+  .chaos-unit-stepper__unit:active { transform: none; }
+}

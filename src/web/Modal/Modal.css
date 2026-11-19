@@ -25,6 +25,8 @@
   border: none;
   cursor: pointer;
   padding: 0.5rem;
+  min-width: var(--chaos-touch-target, 44px);
+  min-height: var(--chaos-touch-target, 44px);
   display: flex;
   align-items: center;
   justify-content: center;

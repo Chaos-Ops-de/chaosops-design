@@ -1,0 +1,20 @@
+/* Resting surface: solid outline plus the signature offset "sticker" block. SketchCard reuses this. */
+.chaos-sticker-card {
+  --chaos-sticker-offset: 4px;
+  --chaos-sticker-radius: var(--chaos-radius-lg, 12px);
+  --chaos-sticker-padding: calc(var(--chaos-space-md, 12px) + 2px);
+  position: relative;
+  /* Reserve room for the offset so the block never overflows the layout. */
+  padding: 0 var(--chaos-sticker-offset) var(--chaos-sticker-offset) 0;
+}
+.chaos-sticker-card__card {
+  position: relative;
+  box-sizing: border-box;
+  padding: var(--chaos-sticker-padding);
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-sticker-radius);
+  background: var(--chaos-card-bg);
+  color: var(--chaos-ink);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  box-shadow: var(--chaos-sticker-offset) var(--chaos-sticker-offset) 0 var(--chaos-sticker-color, var(--chaos-border));
+}

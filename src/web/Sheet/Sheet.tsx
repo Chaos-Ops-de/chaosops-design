@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useId, useRef } from 'react';
 import { motion, AnimatePresence, MotionConfig, useReducedMotion, useDragControls, type PanInfo } from 'motion/react';
 import { X } from 'lucide-react';
 import { useFocusTrap, useScrollLock } from '../Modal/useFocusTrap';
@@ -40,6 +40,8 @@ export const Sheet: React.FC<SheetProps> = ({
 
   const cardRef = useRef<HTMLDivElement>(null);
   const dragControls = useDragControls();
+  // Generated, not a fixed id, so two sheets on one page never share a title id.
+  const titleId = useId();
 
   useScrollLock(isOpen);
   useFocusTrap(isOpen, cardRef);
@@ -80,7 +82,7 @@ export const Sheet: React.FC<SheetProps> = ({
             style={{
               position: 'fixed',
               inset: 0,
-              zIndex: 9999,
+              zIndex: 'var(--chaos-z-modal, 9999)',
               background: 'var(--chaos-overlay-scrim)',
               backdropFilter: 'blur(4px)',
               display: 'flex',
@@ -95,7 +97,7 @@ export const Sheet: React.FC<SheetProps> = ({
               role="dialog"
               aria-modal="true"
               aria-label={ariaLabel}
-              aria-labelledby={title ? 'sheet-title' : undefined}
+              aria-labelledby={title ? titleId : undefined}
               tabIndex={-1}
               onClick={(e) => e.stopPropagation()}
               drag={useDragSheet ? 'y' : false}
@@ -160,7 +162,7 @@ export const Sheet: React.FC<SheetProps> = ({
                 >
                   {title && (
                     <h2
-                      id="sheet-title"
+                      id={titleId}
                       style={{
                         fontFamily: '"Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif',
                         fontSize: '1.4rem',
@@ -181,8 +183,13 @@ export const Sheet: React.FC<SheetProps> = ({
                         background: 'none',
                         border: 'none',
                         cursor: 'pointer',
-                        padding: '0.5rem',
+                        padding: 0,
+                        // 44 px hit area around the 22 px icon
+                        minWidth: 'var(--chaos-touch-target, 44px)',
+                        minHeight: 'var(--chaos-touch-target, 44px)',
                         display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
                         borderRadius: 'var(--chaos-radius-sm)',
                         color: 'var(--chaos-ink-muted)',
                       }}

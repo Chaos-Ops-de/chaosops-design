@@ -1,0 +1,349 @@
+/*
+ * DataTable. Colors, spacing, radius, motion and row heights come from
+ * --chaos-* variables. Container breakpoint: the phone-card layout starts
+ * below `breakpoints.cards` (640 px) of the table's OWN width; a container
+ * condition can't read a CSS variable, so the number is written out here.
+ */
+.chaos-dt {
+  --chaos-dt-row: var(--chaos-row-default, 48px);
+  --chaos-dt-cell-x: var(--chaos-space-md, 12px);
+  --chaos-dt-hover: color-mix(in srgb, var(--chaos-card-bg) 94%, var(--chaos-ink));
+  container-type: inline-size;
+  container-name: chaos-dt;
+  min-width: 0;
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  color: var(--chaos-ink);
+}
+.chaos-dt[data-density="compact"] { --chaos-dt-row: var(--chaos-row-compact, 40px); }
+.chaos-dt[data-density="comfortable"] { --chaos-dt-row: var(--chaos-row-comfortable, 56px); }
+
+.chaos-dt__scroll {
+  overflow: auto;
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-lg, 12px);
+  background: var(--chaos-card-bg);
+}
+.chaos-dt__scroll:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: 2px;
+}
+
+.chaos-dt__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9rem;
+}
+
+.chaos-dt__caption {
+  padding: var(--chaos-space-md, 12px) var(--chaos-dt-cell-x);
+  text-align: start;
+  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  caption-side: top;
+}
+
+.chaos-dt__th {
+  position: sticky;
+  top: 0;
+  z-index: var(--chaos-z-raised, 1);
+  box-sizing: border-box;
+  height: var(--chaos-dt-row);
+  padding: 0 var(--chaos-dt-cell-x);
+  border-bottom: 2px solid var(--chaos-border);
+  background: var(--chaos-card-bg);
+  color: var(--chaos-ink-muted);
+  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.chaos-dt__th--sortable { padding: 0; }
+
+.chaos-dt__td {
+  box-sizing: border-box;
+  height: var(--chaos-dt-row);
+  padding: 0 var(--chaos-dt-cell-x);
+  border-bottom: 1px solid var(--chaos-hairline);
+  background: var(--chaos-card-bg);
+  vertical-align: middle;
+}
+.chaos-dt__table tbody tr:last-child .chaos-dt__td { border-bottom: none; }
+
+.chaos-dt--start { text-align: start; }
+.chaos-dt--end { text-align: end; }
+.chaos-dt--center { text-align: center; }
+
+/* A clipped figure is a wrong figure: numbers never wrap or truncate. */
+.chaos-dt__td--numeric { white-space: nowrap; }
+
+.chaos-dt__text--truncate {
+  display: block;
+  max-width: var(--chaos-dt-truncate, 24rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Pinned columns stay put while the table scrolls sideways. */
+.chaos-dt__th[data-pinned],
+.chaos-dt__td[data-pinned] {
+  position: sticky;
+  inset-inline-start: var(--chaos-dt-pin-offset, 0px);
+  border-inline-end: 1px solid var(--chaos-hairline);
+}
+.chaos-dt__td[data-pinned] { z-index: var(--chaos-z-raised, 1); }
+.chaos-dt__th[data-pinned] { z-index: calc(var(--chaos-z-raised, 1) + 1); }
+
+/* Sorting: an arrow only on the active column; the others hint on hover or focus. */
+.chaos-dt__sort {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--chaos-dt-row);
+  padding: 0 var(--chaos-dt-cell-x);
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.chaos-dt--end .chaos-dt__sort { justify-content: flex-end; }
+.chaos-dt--center .chaos-dt__sort { justify-content: center; }
+.chaos-dt__sort:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: -3px;
+  border-radius: var(--chaos-radius-sm, 4px);
+}
+.chaos-dt__sort-icon { flex-shrink: 0; color: var(--chaos-ink); }
+.chaos-dt__sort-icon--quiet {
+  opacity: 0;
+  color: var(--chaos-ink-muted);
+  transition: opacity var(--chaos-timing-feedback, 90ms) var(--chaos-ease-standard, ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .chaos-dt__th:hover .chaos-dt__sort-icon--quiet { opacity: 0.6; }
+}
+.chaos-dt__sort:focus-visible .chaos-dt__sort-icon--quiet { opacity: 0.6; }
+.chaos-dt__th[aria-sort="ascending"],
+.chaos-dt__th[aria-sort="descending"] { color: var(--chaos-ink); }
+
+/* Row states */
+.chaos-dt__row--clickable { cursor: pointer; }
+.chaos-dt__row--clickable:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: -3px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .chaos-dt__row:not(.chaos-dt__row--loading):not(.chaos-dt__row--empty):hover .chaos-dt__td { background: var(--chaos-dt-hover); }
+}
+
+/* Row actions: revealed on hover or focus with a mouse, always shown on touch. */
+.chaos-dt__actions { width: 1%; text-align: end; white-space: nowrap; }
+.chaos-dt__actions-inner { display: inline-flex; align-items: center; gap: var(--chaos-space-xs, 4px); }
+@media (hover: hover) and (pointer: fine) {
+  .chaos-dt__actions-inner {
+    opacity: 0;
+    transition: opacity var(--chaos-timing-feedback, 90ms) var(--chaos-ease-standard, ease);
+  }
+  .chaos-dt__row:hover .chaos-dt__actions-inner,
+  .chaos-dt__row:focus-within .chaos-dt__actions-inner { opacity: 1; }
+}
+
+@media (pointer: coarse) {
+  .chaos-dt__th,
+  .chaos-dt__td,
+  .chaos-dt__sort { height: max(var(--chaos-dt-row), var(--chaos-touch-target, 44px)); }
+}
+
+.chaos-dt__td--empty { height: auto; padding: var(--chaos-space-xxxl, 32px) var(--chaos-dt-cell-x); text-align: center; }
+.chaos-dt__empty-text { margin: 0; color: var(--chaos-ink-muted); }
+
+.chaos-dt__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Sorting control for the card layout; hidden while the real header shows. */
+.chaos-dt__cardsort {
+  display: none;
+  align-items: center;
+  gap: var(--chaos-space-sm, 8px);
+  margin-bottom: var(--chaos-space-md, 12px);
+}
+.chaos-dt__cardsort-label {
+  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-size: 0.95rem;
+  color: var(--chaos-ink-muted);
+}
+.chaos-dt__cardsort-select {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  min-height: var(--chaos-touch-target, 44px);
+  padding: 0 var(--chaos-space-sm, 8px);
+  border: 2px solid var(--chaos-input-border);
+  border-radius: var(--chaos-radius-md, 8px);
+  background: var(--chaos-input-bg);
+  color: var(--chaos-ink);
+  font: inherit;
+}
+.chaos-dt__cardsort-dir {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: var(--chaos-touch-target, 44px);
+  height: var(--chaos-touch-target, 44px);
+  border: 2px solid var(--chaos-input-border);
+  border-radius: var(--chaos-radius-md, 8px);
+  background: var(--chaos-input-bg);
+  color: var(--chaos-ink);
+  cursor: pointer;
+}
+.chaos-dt__cardsort-dir:disabled { opacity: 0.5; cursor: not-allowed; }
+.chaos-dt__cardsort-select:focus-visible,
+.chaos-dt__cardsort-dir:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Zebra only where there is room for it. */
+@container chaos-dt (min-width: 640px) {
+  .chaos-dt__scroll[data-striped="true"] .chaos-dt__row:nth-child(even) .chaos-dt__td {
+    background: color-mix(in srgb, var(--chaos-card-bg) 97%, var(--chaos-ink));
+  }
+}
+
+/* Phone cards: below 640 px of the table's own width. */
+@container chaos-dt (max-width: 639.98px) {
+  .chaos-dt__cardsort { display: flex; }
+  .chaos-dt__scroll {
+    overflow: visible;
+    max-height: none !important;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+  }
+  .chaos-dt__table,
+  .chaos-dt__table tbody { display: block; }
+  /* Header stays in the accessibility tree; sorting moves to the control above. */
+  .chaos-dt__table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .chaos-dt__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--chaos-space-md, 12px);
+    row-gap: var(--chaos-space-xs, 4px);
+    margin-bottom: var(--chaos-space-md, 12px);
+    padding: var(--chaos-space-md, 12px) var(--chaos-space-lg, 16px);
+    border: 2px solid var(--chaos-border);
+    border-radius: var(--chaos-radius-lg, 12px);
+    background: var(--chaos-card-bg);
+    box-shadow: var(--chaos-shadow-offset-ink-sm, 2px 3px 0 var(--chaos-ink));
+  }
+  .chaos-dt__td {
+    display: block;
+    position: static;
+    height: auto;
+    min-width: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    text-align: start;
+    inset-inline-start: auto;
+  }
+  .chaos-dt__td[data-card-role="identity"] { grid-column: 1; grid-row: 1; font-weight: 700; }
+  .chaos-dt__td[data-card-role="amount"] { grid-column: 2; grid-row: 1; font-weight: 700; text-align: end; }
+  .chaos-dt__td[data-card-role="rest"],
+  .chaos-dt__td[data-card-role="empty"] { grid-column: 1 / -1; }
+  .chaos-dt__td[data-card-role="actions"] { grid-column: 1 / -1; justify-self: end; width: auto; }
+  .chaos-dt__td[data-card-label="true"]::before {
+    content: attr(data-label) ": ";
+    font-weight: 400;
+    color: var(--chaos-ink-muted);
+  }
+  .chaos-dt__row:hover .chaos-dt__td { background: transparent; }
+  .chaos-dt__row--empty { display: block; border-style: dashed; box-shadow: none; }
+  .chaos-dt__actions-inner { opacity: 1; }
+}
+
+/* No container-query support: fall back to the viewport width. */
+@supports not (container-type: inline-size) {
+  @media (max-width: 639.98px) {
+    .chaos-dt__cardsort { display: flex; }
+    .chaos-dt__scroll {
+      overflow: visible;
+      max-height: none !important;
+      border: none;
+      border-radius: 0;
+      background: transparent;
+    }
+    .chaos-dt__table,
+    .chaos-dt__table tbody { display: block; }
+    /* Header stays in the accessibility tree; sorting moves to the control above. */
+    .chaos-dt__table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+    .chaos-dt__row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: var(--chaos-space-md, 12px);
+      row-gap: var(--chaos-space-xs, 4px);
+      margin-bottom: var(--chaos-space-md, 12px);
+      padding: var(--chaos-space-md, 12px) var(--chaos-space-lg, 16px);
+      border: 2px solid var(--chaos-border);
+      border-radius: var(--chaos-radius-lg, 12px);
+      background: var(--chaos-card-bg);
+      box-shadow: var(--chaos-shadow-offset-ink-sm, 2px 3px 0 var(--chaos-ink));
+    }
+    .chaos-dt__td {
+      display: block;
+      position: static;
+      height: auto;
+      min-width: 0;
+      padding: 0;
+      border: none;
+      background: transparent;
+      text-align: start;
+      inset-inline-start: auto;
+    }
+    .chaos-dt__td[data-card-role="identity"] { grid-column: 1; grid-row: 1; font-weight: 700; }
+    .chaos-dt__td[data-card-role="amount"] { grid-column: 2; grid-row: 1; font-weight: 700; text-align: end; }
+    .chaos-dt__td[data-card-role="rest"],
+    .chaos-dt__td[data-card-role="empty"] { grid-column: 1 / -1; }
+    .chaos-dt__td[data-card-role="actions"] { grid-column: 1 / -1; justify-self: end; width: auto; }
+    .chaos-dt__td[data-card-label="true"]::before {
+      content: attr(data-label) ": ";
+      font-weight: 400;
+      color: var(--chaos-ink-muted);
+    }
+    .chaos-dt__row:hover .chaos-dt__td { background: transparent; }
+    .chaos-dt__row--empty { display: block; border-style: dashed; box-shadow: none; }
+    .chaos-dt__actions-inner { opacity: 1; }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chaos-dt__sort-icon--quiet,
+  .chaos-dt__actions-inner { transition: none; }
+}

@@ -14,6 +14,9 @@ importers:
       motion:
         specifier: ^13.0.0
         version: 13.0.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      react-native-svg:
+        specifier: '*'
+        version: 15.15.5(react-native@0.86.2(@babel/core@7.29.7(supports-color@8.1.1))(@types/react@19.2.18)(react@19.2.8)(supports-color@8.1.1))(react@19.2.8)
     devDependencies:
       '@sentry/react':
         specifier: ^10.69.0

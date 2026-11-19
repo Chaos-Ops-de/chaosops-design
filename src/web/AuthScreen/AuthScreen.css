@@ -1,0 +1,14 @@
+.chaos-auth-screen {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--chaos-space-lg, 16px);
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--chaos-space-xxl, 24px) var(--chaos-gutter, 16px);
+  background: var(--chaos-bg);
+  color: var(--chaos-ink);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+}

@@ -1,5 +1,6 @@
 import * as Sentry from '@sentry/react'
 import { useState, type ReactNode } from 'react'
+import { Check } from 'lucide-react'
 import { isCloudflareError, type CloudflareError } from '../../utils/errors'
 
 export interface ErrorReportDetails {
@@ -97,7 +98,11 @@ function ReportButton({ onReport }: { onReport: () => Promise<void> | void }) {
     }
   }
 
-  const label = status === 'sending' ? 'Sende…' : status === 'sent' ? 'Gemeldet ✓' : status === 'error' ? 'Fehlgeschlagen — erneut?' : 'Fehler melden'
+  const label: ReactNode = status === 'sending'
+    ? 'Sende…'
+    : status === 'sent'
+      ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}><Check size={16} aria-hidden="true" />Gemeldet</span>
+      : status === 'error' ? 'Fehlgeschlagen — erneut?' : 'Fehler melden'
 
   return (
     <ActionButton onClick={handleClick} primary={false}>

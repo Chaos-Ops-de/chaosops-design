@@ -23,3 +23,22 @@
   font-size: 0.8rem;
   color: var(--chaos-amber-ink, var(--chaos-amber-900));
 }
+
+.chaos-field__icon { flex-shrink: 0; }
+
+.chaos-field__valid {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8rem;
+  color: var(--chaos-green-ink, var(--chaos-green));
+}
+
+/* Room for one message line — an error appearing here replaces blank space
+   instead of pushing the content below it down. */
+.chaos-field__messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  min-height: 1.125rem;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, StyleSheet, TextInput, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Mic, Search, SlidersHorizontal } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
-import { Text } from './Text';
 import { useSketchTone } from './SketchCard';
 import { fontFamilies } from '../tokens/fonts';
 import { radii } from '../tokens/radii';
@@ -15,32 +15,34 @@ export interface SearchBarProps {
   onMicPress?: () => void;
   /** Shows a separate square filter button next to the field when given. */
   onFilterPress?: () => void;
+  /** Replaces the default lucide `Mic` icon. */
   micIcon?: React.ReactNode;
+  /** Replaces the default lucide `SlidersHorizontal` icon. */
   filterIcon?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
 
 /** Outlined pill search field with leading magnifier, optional mic, and an optional mint filter button beside it. */
 export const SearchBar: React.FC<SearchBarProps> = ({
-  value, onChangeText, placeholder = 'Suchen', onMicPress, onFilterPress, micIcon = '🎤', filterIcon = '🎚', style,
+  value, onChangeText, placeholder = 'Suchen', onMicPress, onFilterPress, micIcon, filterIcon, style,
 }) => {
   const { palette } = useTheme();
   const mint = useSketchTone('mint');
   return (
     <View style={[styles.row, style]}>
       <View style={[styles.field, { borderColor: palette.border, backgroundColor: palette.cardBg }]}>
-        <Text muted>🔍</Text>
+        <Search size={18} color={palette.inkMuted} aria-hidden />
         <TextInput
           accessibilityRole="search"
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
-          placeholderTextColor={palette.inkFaint}
+          placeholderTextColor={palette.inkMuted}
           style={[styles.input, { color: palette.ink, fontFamily: fontFamilies.body }]}
         />
         {onMicPress ? (
           <Pressable accessibilityRole="button" accessibilityLabel="Spracheingabe" hitSlop={8} onPress={onMicPress}>
-            {typeof micIcon === 'string' ? <Text>{micIcon}</Text> : micIcon}
+            {micIcon ?? <Mic size={20} color={palette.ink} />}
           </Pressable>
         ) : null}
       </View>
@@ -51,7 +53,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           onPress={onFilterPress}
           style={[styles.filter, { borderColor: palette.border, backgroundColor: mint }]}
         >
-          {typeof filterIcon === 'string' ? <Text>{filterIcon}</Text> : filterIcon}
+          {filterIcon ?? <SlidersHorizontal size={20} color={palette.ink} />}
         </Pressable>
       ) : null}
     </View>

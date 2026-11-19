@@ -1,0 +1,16 @@
+.chaos-time-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  min-height: var(--chaos-touch-target, 44px);
+  padding: 0 0.75rem;
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-lg, 12px);
+  background: var(--chaos-card-bg);
+  color: var(--chaos-ink);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+}
+.chaos-time-row__icon { display: inline-flex; color: var(--chaos-ink-muted); }
+.chaos-time-row__time { flex: 1; font-size: 0.9375rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.chaos-time-row__value { font-weight: 700; font-variant-numeric: tabular-nums; }

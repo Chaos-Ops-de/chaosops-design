@@ -1,0 +1,34 @@
+.chaos-bar-chart { position: relative; margin-inline: 0; }
+.chaos-bar-chart__top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--chaos-ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+.chaos-bar-chart__plot { display: block; }
+.chaos-bar-chart__seg { fill: var(--chaos-teal); }
+.chaos-bar-chart__seg--active { fill: var(--chaos-amber); }
+.chaos-bar-chart__bar--interactive { cursor: pointer; }
+@media (hover: hover) and (pointer: fine) {
+  .chaos-bar-chart__bar--interactive:hover .chaos-bar-chart__seg { fill: var(--chaos-teal-ink, var(--chaos-teal)); }
+  .chaos-bar-chart__bar--interactive:hover .chaos-bar-chart__seg--active { fill: var(--chaos-amber); }
+}
+.chaos-bar-chart__bubble {
+  position: absolute;
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  border-radius: var(--chaos-radius-sm, 4px);
+  background: var(--chaos-ink);
+  color: var(--chaos-bg);
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.chaos-bar-chart__labels { display: flex; gap: 0.25rem; margin-top: 0.5rem; }
+.chaos-bar-chart__label { flex: 1; text-align: center; font-size: 0.75rem; font-weight: 600; color: var(--chaos-ink-muted); }
+.chaos-bar-chart__label--active { font-weight: 700; color: var(--chaos-ink); }

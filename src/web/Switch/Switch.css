@@ -1,0 +1,98 @@
+.chaos-switch {
+  --chaos-switch-knob: 20px;
+  --chaos-switch-inset: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--chaos-space-md, 12px);
+  box-sizing: border-box;
+  /* Pad the hit area, not the rail. */
+  min-height: var(--chaos-touch-target, 44px);
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--chaos-ink);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.3;
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.chaos-switch--sm { --chaos-switch-knob: 16px; }
+
+.chaos-switch__rail {
+  position: relative;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  /* Rail width is twice the knob diameter. */
+  width: calc(var(--chaos-switch-knob) * 2);
+  height: calc(var(--chaos-switch-knob) + var(--chaos-switch-inset) * 2);
+  border-radius: var(--chaos-radius-full, 9999px);
+  background: var(--chaos-chip-inactive-bg);
+  box-shadow: inset 0 0 0 2px var(--chaos-border);
+  transition:
+    background-color var(--chaos-timing-toggle, 250ms) ease-out,
+    box-shadow var(--chaos-timing-toggle, 250ms) ease-out;
+}
+
+.chaos-switch__knob {
+  position: absolute;
+  top: var(--chaos-switch-inset);
+  left: var(--chaos-switch-inset);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--chaos-switch-knob);
+  height: var(--chaos-switch-knob);
+  border: 2px solid var(--chaos-border);
+  border-radius: 50%;
+  background: var(--chaos-card-bg);
+  box-shadow: 0 0 0 var(--chaos-ink);
+  transform: translateX(0);
+  transition:
+    transform var(--chaos-timing-toggle, 250ms) ease-out,
+    box-shadow var(--chaos-timing-toggle, 250ms) ease-out;
+}
+
+[dir="rtl"] .chaos-switch__knob { left: auto; right: var(--chaos-switch-inset); }
+
+.chaos-switch--checked .chaos-switch__rail { background: var(--chaos-green); }
+.chaos-switch--checked .chaos-switch__knob {
+  /* Travel = rail width − knob − both insets. */
+  transform: translateX(calc(var(--chaos-switch-knob) - var(--chaos-switch-inset) * 2));
+  box-shadow: 1px 2px 0 var(--chaos-ink);
+}
+[dir="rtl"] .chaos-switch--checked .chaos-switch__knob {
+  transform: translateX(calc((var(--chaos-switch-knob) - var(--chaos-switch-inset) * 2) * -1));
+}
+
+.chaos-switch:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--chaos-radius-md, 8px);
+}
+
+.chaos-switch--pending { cursor: progress; }
+
+.chaos-switch:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chaos-switch__spinner {
+  width: 60%;
+  height: 60%;
+  border-radius: 50%;
+  border: 2px solid var(--chaos-ink);
+  border-right-color: transparent;
+  animation: chaos-switch-spin 700ms linear infinite;
+}
+@keyframes chaos-switch-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .chaos-switch__rail,
+  .chaos-switch__knob { transition: none; }
+  .chaos-switch__spinner { animation-duration: 1800ms; }
+}

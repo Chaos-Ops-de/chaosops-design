@@ -13,12 +13,12 @@ import './Modal.css';
  */
 
 interface DialogOverlayProps extends Omit<React.ComponentProps<typeof motion.div>, 'style'> {
-  zIndex?: number;
+  zIndex?: number | string;
   style?: React.CSSProperties;
 }
 
 export const DialogOverlay = forwardRef<HTMLDivElement, DialogOverlayProps>(function DialogOverlay(
-  { children, style, zIndex = 9999, ...props },
+  { children, style, zIndex = 'var(--chaos-z-modal, 9999)', ...props },
   ref,
 ) {
   return (

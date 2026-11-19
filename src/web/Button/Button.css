@@ -3,12 +3,13 @@
   --chaos-btn-fg: var(--chaos-on-accent);
   --chaos-btn-border: transparent;
   --chaos-btn-glow: var(--chaos-glow-info);
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   box-sizing: border-box;
-  min-height: 44px;
+  min-height: var(--chaos-touch-target, 44px);
   padding: 0.75rem 1.25rem;
   border: 2px solid var(--chaos-btn-border);
   border-radius: var(--chaos-radius-lg, 12px);
@@ -25,17 +26,22 @@
   transition:
     background-color var(--chaos-duration-base, 200ms) var(--chaos-ease-standard, ease),
     box-shadow var(--chaos-duration-base, 200ms) var(--chaos-ease-standard, ease),
-    transform 100ms ease-out;
+    transform var(--chaos-timing-feedback, 90ms) ease-out;
 }
 
 .chaos-btn--sm { min-height: 36px; padding: 0.4rem 0.9rem; font-size: 0.875rem; border-radius: var(--chaos-radius-md, 8px); }
+/* Touch screens get the full 44 px target even on the small size. */
+@media (pointer: coarse) {
+  .chaos-btn--sm { min-height: var(--chaos-touch-target, 44px); }
+}
 .chaos-btn--lg { min-height: 52px; padding: 0.9rem 1.5rem; font-size: 1.0625rem; }
 .chaos-btn--block { display: flex; width: 100%; }
 
 .chaos-btn--primary { /* defaults above: info fill */ }
 .chaos-btn--accent {
   --chaos-btn-bg: var(--chaos-amber);
-  --chaos-btn-fg: var(--chaos-ink);
+  /* Fixed dark chrome, not --chaos-ink: ink turns cream in dark mode (1.4:1 on amber). */
+  --chaos-btn-fg: var(--chaos-surface-inverse);
   --chaos-btn-border: var(--chaos-ink);
   --chaos-btn-glow: var(--chaos-glow-amber);
 }
@@ -91,7 +97,29 @@
 .chaos-btn--outline:disabled,
 .chaos-btn--ghost:disabled { background: transparent; }
 
+.chaos-btn__content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* opacity (not visibility) so the label keeps its width and its accessible name */
+.chaos-btn--loading .chaos-btn__content { opacity: 0; }
+
+.chaos-btn__reason {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .chaos-btn__spinner {
+  position: absolute;
+  inset: 0;
+  margin: auto;
   width: 1em;
   height: 1em;
   border-radius: 50%;

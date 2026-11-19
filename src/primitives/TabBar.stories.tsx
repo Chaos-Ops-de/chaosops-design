@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { View } from 'react-native';
+import { CalendarDays, House, User } from 'lucide-react-native';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { TabBar } from './TabBar';
 
@@ -13,7 +14,7 @@ export const Default: Story = {
     const [k, setK] = useState('home');
     return (
       <View style={{ width: 300 }}>
-        <TabBar activeKey={k} onChange={setK} items={[{ key: 'home', label: 'Start', icon: '🏠' }, { key: 'plan', label: 'Plan', icon: '🗓' }, { key: 'me', label: 'Profil', icon: '👤' }]} />
+        <TabBar activeKey={k} onChange={setK} items={[{ key: 'home', label: 'Start', icon: <House size={22} /> }, { key: 'plan', label: 'Plan', icon: <CalendarDays size={22} /> }, { key: 'me', label: 'Profil', icon: <User size={22} /> }]} />
       </View>
     );
   },

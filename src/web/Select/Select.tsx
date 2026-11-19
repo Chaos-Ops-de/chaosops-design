@@ -1,7 +1,17 @@
-import React, { useState, useRef, useEffect, useId } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect, useId, useMemo } from 'react';
 import { ChevronDown, Check, X } from 'lucide-react';
 import { motion, AnimatePresence, MotionConfig } from 'motion/react';
 import { ICON_MAP } from '../IconPicker';
+import { timings } from '../../tokens';
+import {
+    NAV_KEYS,
+    filterOptions,
+    nextIndex,
+    placeDropdown,
+    shouldBeSearchable,
+    type DropdownPlacement,
+    type NavKey,
+} from './selectLogic';
 import './Select.css';
 
 export interface SelectOption {
@@ -19,6 +29,9 @@ export interface SelectProps {
     multiple?: boolean;
     label?: string;
     onCreateNew?: () => void;
+    /** Shows a filter field above the options. Defaults to on when there are more than 10 options. */
+    searchable?: boolean;
+    searchPlaceholder?: string;
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -28,12 +41,68 @@ export const Select: React.FC<SelectProps> = ({
     placeholder = 'Bitte wählen...',
     multiple = false,
     label,
-    onCreateNew
+    onCreateNew,
+    searchable: searchableProp,
+    searchPlaceholder = 'Suchen…',
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const triggerRef = useRef<HTMLDivElement>(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const listboxId = useId();
+    const [query, setQuery] = useState('');
+    const [placement, setPlacement] = useState<DropdownPlacement>('down');
+    // Which control should take focus once the dropdown has mounted.
+    const focusOnOpen = useRef<'search' | 'item' | null>(null);
+
+    const searchable = shouldBeSearchable(searchableProp, options.length);
+    const visibleOptions = useMemo(
+        () => (searchable ? filterOptions(options, query) : options),
+        [searchable, options, query],
+    );
+
+    useEffect(() => {
+        if (!isOpen) setQuery('');
+    }, [isOpen]);
+
+    // Flip upward when the list would be clipped by the viewport bottom. Runs
+    // before paint so the dropdown never flashes in the wrong place.
+    useLayoutEffect(() => {
+        if (!isOpen) return;
+        const trigger = triggerRef.current;
+        const dropdown = dropdownRef.current;
+        if (!trigger || !dropdown) return;
+        const rect = trigger.getBoundingClientRect();
+        setPlacement(placeDropdown({
+            triggerTop: rect.top,
+            triggerBottom: rect.bottom,
+            dropdownHeight: dropdown.offsetHeight,
+            viewportHeight: window.innerHeight,
+            gap: 8,
+        }));
+    }, [isOpen]);
+
+    const getItems = () =>
+        Array.from(dropdownRef.current?.querySelectorAll<HTMLElement>('[data-select-item]') ?? []);
+
+    const focusItem = (which: 'selected' | 'last') => {
+        const items = getItems();
+        if (which === 'last') items[items.length - 1]?.focus();
+        else (items.find(el => el.getAttribute('aria-selected') === 'true') ?? items[0])?.focus();
+    };
+
+    useEffect(() => {
+        if (!isOpen) return;
+        const mode = focusOnOpen.current;
+        focusOnOpen.current = null;
+        if (mode === 'item') focusItem('selected');
+        else if (mode === 'search') dropdownRef.current?.querySelector<HTMLInputElement>('.chaos-select-search')?.focus();
+    }, [isOpen]);
+
+    const toggleOpen = () => {
+        if (!isOpen && searchable) focusOnOpen.current = 'search';
+        setIsOpen(!isOpen);
+    };
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -78,11 +147,41 @@ export const Select: React.FC<SelectProps> = ({
     const handleTriggerKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
-            setIsOpen(v => !v);
-        } else if (event.key === 'ArrowDown' && !isOpen) {
+            toggleOpen();
+        } else if (event.key === 'ArrowDown') {
             event.preventDefault();
-            setIsOpen(true);
+            if (isOpen) {
+                focusItem('selected');
+            } else {
+                focusOnOpen.current = 'item';
+                setIsOpen(true);
+            }
+        } else if (event.key === 'ArrowUp' && isOpen) {
+            event.preventDefault();
+            focusItem('last');
         }
+    };
+
+    // Arrow keys walk the options (wrapping), Home/End jump, Tab leaves and
+    // closes. Escape is handled at the document level above.
+    const handleDropdownKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'Tab') {
+            setIsOpen(false);
+            return;
+        }
+        if (!NAV_KEYS.includes(event.key)) return;
+        const inSearch = event.target instanceof HTMLInputElement;
+        // Home/End belong to the caret while typing a search.
+        if (inSearch && (event.key === 'Home' || event.key === 'End')) return;
+        const items = getItems();
+        if (items.length === 0) return;
+        event.preventDefault();
+        const current = inSearch ? -1 : items.indexOf(document.activeElement as HTMLElement);
+        if (searchable && event.key === 'ArrowUp' && current === 0) {
+            dropdownRef.current?.querySelector<HTMLInputElement>('.chaos-select-search')?.focus();
+            return;
+        }
+        items[nextIndex(current, event.key as NavKey, items.length)]?.focus();
     };
 
     const getSelectedOptions = () => {
@@ -101,7 +200,7 @@ export const Select: React.FC<SelectProps> = ({
             <div
                 ref={triggerRef}
                 className={`chaos-select-button ${isOpen ? 'chaos-select-button--active' : ''}`}
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={toggleOpen}
                 onKeyDown={handleTriggerKeyDown}
                 role="button"
                 tabIndex={0}
@@ -167,50 +266,70 @@ export const Select: React.FC<SelectProps> = ({
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
-                            id={listboxId}
-                            className="chaos-select-dropdown"
-                            role="listbox"
-                            aria-multiselectable={multiple || undefined}
-                            initial={{ opacity: 0, scale: 0.96, y: -4 }}
+                            ref={dropdownRef}
+                            className={`chaos-select-dropdown ${placement === 'up' ? 'chaos-select-dropdown--up' : ''}`}
+                            onKeyDown={handleDropdownKeyDown}
+                            initial={{ opacity: 0, scale: 0.96, y: placement === 'up' ? 4 : -4 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.96, y: -4 }}
-                            transition={{ type: 'spring', bounce: 0, duration: 0.18 }}
-                            style={{ transformOrigin: 'top center' }}
+                            exit={{ opacity: 0, scale: 0.96, y: placement === 'up' ? 4 : -4 }}
+                            transition={{ type: 'spring', bounce: 0, duration: timings.dropdown / 1000 }}
+                            style={{ transformOrigin: placement === 'up' ? 'bottom center' : 'top center' }}
                         >
-                            {options.map(option => {
-                                const isSelected = multiple
-                                    ? (Array.isArray(value) ? value : []).includes(option.value)
-                                    : value === option.value;
+                            {searchable && (
+                                <input
+                                    type="search"
+                                    className="chaos-select-search"
+                                    aria-label={searchPlaceholder}
+                                    aria-controls={listboxId}
+                                    placeholder={searchPlaceholder}
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && visibleOptions[0]) {
+                                            e.preventDefault();
+                                            handleSelect(visibleOptions[0].value);
+                                        }
+                                    }}
+                                />
+                            )}
+                            <div id={listboxId} role="listbox" aria-multiselectable={multiple || undefined}>
+                                {visibleOptions.map(option => {
+                                    const isSelected = multiple
+                                        ? (Array.isArray(value) ? value : []).includes(option.value)
+                                        : value === option.value;
 
-                                return (
-                                    <button
-                                        key={option.value}
-                                        type="button"
-                                        role="option"
-                                        aria-selected={isSelected}
-                                        className={`chaos-select-option ${isSelected ? 'chaos-select-option--selected' : ''}`}
-                                        onClick={() => handleSelect(option.value)}
-                                    >
-                                        {option.color && (
-                                            <div
-                                                className="chaos-select-option-icon"
-                                                style={{
-                                                    backgroundColor: option.color + '20',
-                                                    color: option.color
-                                                }}
-                                            >
-                                                {option.icon && ICON_MAP[option.icon]
-                                                    ? React.createElement(ICON_MAP[option.icon]!, { size: 18, strokeWidth: 2.5 })
-                                                    : <div style={{ width: 14, height: 14, borderRadius: '50%', background: option.color }} />
-                                                }
-                                            </div>
-                                        )}
-                                        <span>{option.label}</span>
-                                        {isSelected && <Check size={16} className="chaos-select-checkmark" />}
-                                    </button>
-                                );
-                            })}
-                            {options.length === 0 && !onCreateNew && (
+                                    return (
+                                        <button
+                                            key={option.value}
+                                            type="button"
+                                            role="option"
+                                            aria-selected={isSelected}
+                                            data-select-item
+                                            tabIndex={-1}
+                                            className={`chaos-select-option ${isSelected ? 'chaos-select-option--selected' : ''}`}
+                                            onClick={() => handleSelect(option.value)}
+                                        >
+                                            {option.color && (
+                                                <div
+                                                    className="chaos-select-option-icon"
+                                                    style={{
+                                                        backgroundColor: option.color + '20',
+                                                        color: option.color
+                                                    }}
+                                                >
+                                                    {option.icon && ICON_MAP[option.icon]
+                                                        ? React.createElement(ICON_MAP[option.icon]!, { size: 18, strokeWidth: 2.5 })
+                                                        : <div style={{ width: 14, height: 14, borderRadius: '50%', background: option.color }} />
+                                                    }
+                                                </div>
+                                            )}
+                                            <span>{option.label}</span>
+                                            {isSelected && <Check size={16} className="chaos-select-checkmark" />}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                            {visibleOptions.length === 0 && (!onCreateNew || query) && (
                                 <div style={{ padding: '0.5rem', textAlign: 'center', color: 'var(--chaos-ink-muted)', fontSize: '0.9rem' }}>
                                     Keine Optionen verfügbar
                                 </div>
@@ -218,6 +337,8 @@ export const Select: React.FC<SelectProps> = ({
                             {onCreateNew && (
                                 <button
                                     type="button"
+                                    data-select-item
+                                    tabIndex={-1}
                                     style={{
                                         width: '100%',
                                         padding: '0.6rem 0.75rem',

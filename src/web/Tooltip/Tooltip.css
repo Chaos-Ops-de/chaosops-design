@@ -1,0 +1,39 @@
+.chaos-tooltip {
+  position: fixed;
+  z-index: var(--chaos-z-tooltip, 10002);
+  box-sizing: border-box;
+  max-width: 300px;
+  padding: var(--chaos-space-sm, 8px) var(--chaos-space-md, 12px);
+  border-radius: var(--chaos-radius-md, 8px);
+  background: var(--chaos-surface-inverse);
+  color: var(--chaos-on-inverse);
+  box-shadow: var(--chaos-elevation-float);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  /* A hint must never get in the way of what it explains. */
+  pointer-events: none;
+  animation: chaos-tooltip-in var(--chaos-timing-feedback, 90ms) var(--chaos-ease-standard, ease-out);
+}
+
+/* Arrow: a rotated square on the side facing the trigger, centred on it. */
+.chaos-tooltip::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+  transform: rotate(45deg);
+}
+.chaos-tooltip--top::after { bottom: -4px; left: var(--chaos-tooltip-arrow); margin-left: -4px; }
+.chaos-tooltip--bottom::after { top: -4px; left: var(--chaos-tooltip-arrow); margin-left: -4px; }
+.chaos-tooltip--left::after { right: -4px; top: var(--chaos-tooltip-arrow); margin-top: -4px; }
+.chaos-tooltip--right::after { left: -4px; top: var(--chaos-tooltip-arrow); margin-top: -4px; }
+
+@keyframes chaos-tooltip-in { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .chaos-tooltip { animation: none; }
+}

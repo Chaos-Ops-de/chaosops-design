@@ -184,7 +184,7 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
                     borderRadius: 'var(--chaos-radius-lg)',
                     border: '1px solid var(--chaos-input-border, #e2e8f0)',
                     boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-                    zIndex: 9999,
+                    zIndex: 'var(--chaos-z-modal, 9999)',
                     padding: '1rem',
                 }} role="listbox" aria-label={label}>
                     <div style={{

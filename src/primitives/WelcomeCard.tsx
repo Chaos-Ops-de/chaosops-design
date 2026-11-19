@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
+import { ArrowRight } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { SketchCard, useSketchTone } from './SketchCard';
 import { Text } from './Text';
@@ -32,7 +33,7 @@ export const WelcomeCard: React.FC<WelcomeCardProps> = ({ title, text, actionLab
         >
           <Text variant="bodyBold" style={styles.ctaLabel}>{actionLabel}</Text>
           <View style={[styles.arrow, { backgroundColor: palette.ink }]}>
-            <Text variant="bodyBold" style={{ color: palette.bg }}>→</Text>
+            <ArrowRight size={18} color={palette.bg} />
           </View>
         </Pressable>
       </View>

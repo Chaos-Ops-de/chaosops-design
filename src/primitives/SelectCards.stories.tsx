@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { View } from 'react-native';
+import { User, UserRound } from 'lucide-react-native';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { SelectCards } from './SelectCards';
 
@@ -13,7 +14,7 @@ export const Default: Story = {
     const [v, setV] = useState<string | null>('f');
     return (
       <View style={{ width: 300 }}>
-        <SelectCards label="Dein Geschlecht" value={v} onChange={setV} options={[{ value: 'm', label: 'Männlich', image: '🧍' }, { value: 'f', label: 'Weiblich', image: '🧍‍♀️' }]} />
+        <SelectCards label="Dein Geschlecht" value={v} onChange={setV} options={[{ value: 'm', label: 'Männlich', image: <User size={28} /> }, { value: 'f', label: 'Weiblich', image: <UserRound size={28} /> }]} />
       </View>
     );
   },

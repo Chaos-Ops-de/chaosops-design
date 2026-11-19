@@ -1,0 +1,50 @@
+.chaos-welcome-card__title {
+  margin: 0;
+  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+.chaos-welcome-card__text { margin: 0.5rem 0 0; font-size: 0.9375rem; line-height: 1.5; color: var(--chaos-ink-muted); }
+.chaos-welcome-card__cta {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--chaos-touch-target, 44px);
+  margin-top: var(--chaos-space-md, 12px);
+  padding: 3px 3px 3px 1.25rem;
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-full, 9999px);
+  background: var(--chaos-green-tint);
+  color: var(--chaos-green-ink, var(--chaos-ink));
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--chaos-duration-base, 200ms) var(--chaos-ease-standard, ease),
+    transform var(--chaos-timing-feedback, 90ms) ease-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  .chaos-welcome-card__cta:hover { background: var(--chaos-ripple); }
+  .chaos-welcome-card__cta:hover .chaos-welcome-card__arrow { transform: translateX(2px); }
+}
+.chaos-welcome-card__cta:active { transform: scale(0.98); }
+.chaos-welcome-card__cta:focus-visible { outline: 3px solid var(--chaos-focus-ring); outline-offset: 2px; }
+.chaos-welcome-card__label { flex: 1; }
+.chaos-welcome-card__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--chaos-ink);
+  color: var(--chaos-bg);
+  transition: transform var(--chaos-duration-base, 200ms) var(--chaos-ease-standard, ease);
+}
+@media (prefers-reduced-motion: reduce) {
+  .chaos-welcome-card__cta, .chaos-welcome-card__arrow { transition: none; }
+  .chaos-welcome-card__cta:active { transform: none; }
+}

@@ -1,0 +1,100 @@
+.chaos-popover__anchor { display: inline-flex; max-width: 100%; }
+
+.chaos-popover {
+  position: fixed;
+  z-index: var(--chaos-z-popover, 10000);
+  box-sizing: border-box;
+  min-width: 160px;
+  max-width: calc(100vw - 16px);
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+  padding: var(--chaos-space-md, 12px);
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-lg, 12px);
+  background: var(--chaos-surface-elevated);
+  color: var(--chaos-ink);
+  box-shadow: var(--chaos-elevation-float);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  animation: chaos-popover-in var(--chaos-timing-dropdown, 120ms) var(--chaos-ease-standard, ease-out);
+}
+.chaos-popover:focus { outline: none; }
+.chaos-popover[data-side="bottom"] { transform-origin: top center; }
+.chaos-popover[data-side="top"] { transform-origin: bottom center; }
+
+@keyframes chaos-popover-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Menu */
+.chaos-menu { min-width: 200px; padding: var(--chaos-space-xs, 4px); }
+
+.chaos-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--chaos-space-md, 12px);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 36px;
+  padding: 0 var(--chaos-space-md, 12px);
+  border: none;
+  border-radius: var(--chaos-radius-md, 8px);
+  background: transparent;
+  color: var(--chaos-ink);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: start;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+/* 44 px rows for fingers; denser with a mouse. */
+@media (pointer: coarse) {
+  .chaos-menu__item { min-height: var(--chaos-touch-target, 44px); }
+  .chaos-menu__shortcut { display: none; }
+}
+
+.chaos-menu__item:focus { background: var(--chaos-ripple); outline: none; }
+.chaos-menu__item:focus-visible { outline: 3px solid var(--chaos-focus-ring); outline-offset: -3px; }
+@media (hover: hover) and (pointer: fine) {
+  .chaos-menu__item:not(.chaos-menu__item--disabled):hover { background: var(--chaos-ripple); }
+}
+
+.chaos-menu__chevron { display: inline-flex; flex-shrink: 0; margin-inline-start: var(--chaos-space-lg, 16px); color: var(--chaos-ink-muted); }
+[dir="rtl"] .chaos-menu__chevron svg { transform: scaleX(-1); }
+/* The parent item stays lit while its submenu is open. */
+.chaos-menu__item[aria-expanded="true"] { background: var(--chaos-ripple); }
+
+.chaos-menu--sub[data-side="right"] { transform-origin: left top; }
+.chaos-menu--sub[data-side="left"] { transform-origin: right top; }
+
+.chaos-menu__icon { display: inline-flex; flex-shrink: 0; color: var(--chaos-ink-muted); }
+.chaos-menu__label { flex: 1; min-width: 0; }
+.chaos-menu__shortcut {
+  flex-shrink: 0;
+  margin-inline-start: var(--chaos-space-lg, 16px);
+  font: inherit;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--chaos-ink-muted);
+}
+
+/* The destructive action lives alone at the bottom and is the only red in the menu. */
+.chaos-menu__item--danger,
+.chaos-menu__item--danger .chaos-menu__icon { color: var(--chaos-danger-ink); }
+.chaos-menu__item--danger:focus { background: var(--chaos-danger-tint); }
+@media (hover: hover) and (pointer: fine) {
+  .chaos-menu__item--danger:hover { background: var(--chaos-danger-tint); }
+}
+
+.chaos-menu__item--disabled { opacity: 0.45; cursor: not-allowed; }
+
+.chaos-menu__separator {
+  height: 0;
+  margin: var(--chaos-space-xs, 4px) var(--chaos-space-sm, 8px);
+  border-top: 2px dashed var(--chaos-tab-bar-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chaos-popover { animation: none; }
+}

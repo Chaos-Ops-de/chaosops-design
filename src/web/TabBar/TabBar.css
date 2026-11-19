@@ -1,0 +1,55 @@
+.chaos-tab-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-sizing: border-box;
+  padding: 4px;
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-full, 9999px);
+  background: var(--chaos-green-tint);
+  color: var(--chaos-ink);
+  /* Floating chrome: soft lift, not the sticker offset. */
+  box-shadow: var(--chaos-elevation-float, 0 8px 24px var(--chaos-shadow-color));
+}
+.chaos-tab-bar__tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--chaos-touch-target, 44px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--chaos-radius-full, 9999px);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.chaos-tab-bar__tab:focus-visible { outline: 3px solid var(--chaos-focus-ring); outline-offset: 2px; }
+.chaos-tab-bar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  transition:
+    background-color var(--chaos-duration-base, 200ms) var(--chaos-ease-standard, ease),
+    transform var(--chaos-timing-feedback, 90ms) ease-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  .chaos-tab-bar__tab:hover .chaos-tab-bar__icon:not(.chaos-tab-bar__icon--active) { background: var(--chaos-ripple); }
+}
+.chaos-tab-bar__tab:active .chaos-tab-bar__icon { transform: scale(0.94); }
+.chaos-tab-bar__icon--active {
+  background: var(--chaos-amber);
+  border-color: var(--chaos-border);
+  /* Amber is a light fill: fixed dark chrome, not --chaos-ink (cream in dark mode). */
+  color: var(--chaos-surface-inverse);
+}
+@media (prefers-reduced-motion: reduce) {
+  .chaos-tab-bar__icon { transition: none; }
+  .chaos-tab-bar__tab:active .chaos-tab-bar__icon { transform: none; }
+}

@@ -19,5 +19,5 @@
     "types": ["react", "react-native"]
   },
   "include": ["src"],
-  "exclude": ["dist", "node_modules", "src/**/*.stories.tsx"]
+  "exclude": ["dist", "node_modules", "src/**/*.stories.tsx", "src/noEmoji.test.ts"]
 }

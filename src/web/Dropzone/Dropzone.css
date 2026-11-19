@@ -1,0 +1,183 @@
+.chaos-dropzone-wrap { display: flex; flex-direction: column; gap: 0.75rem; width: 100%; }
+
+.chaos-dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  box-sizing: border-box;
+  min-height: 9rem;
+  padding: 1.5rem 1rem;
+  border: 2px dashed var(--chaos-ink-muted);
+  border-radius: var(--chaos-radius-xl, 16px);
+  background: var(--chaos-card-bg);
+  color: var(--chaos-ink);
+  text-align: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    border-color var(--chaos-timing-feedback, 90ms) var(--chaos-ease-standard, ease),
+    background-color var(--chaos-timing-feedback, 90ms) var(--chaos-ease-standard, ease),
+    box-shadow var(--chaos-timing-feedback, 90ms) var(--chaos-ease-standard, ease);
+}
+
+.chaos-dropzone__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.chaos-dropzone__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid var(--chaos-ink);
+  border-radius: var(--chaos-radius-full, 9999px);
+  background: var(--chaos-amber);
+  color: var(--chaos-surface-inverse);
+  box-shadow: var(--chaos-shadow-offset-ink-sm);
+}
+
+.chaos-dropzone__title {
+  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.chaos-dropzone__sub { font-family: "Inter", "Roboto", Arial, sans-serif; font-size: 0.9rem; color: var(--chaos-ink-muted); }
+.chaos-dropzone__hint { font-family: "Inter", "Roboto", Arial, sans-serif; font-size: 0.8rem; color: var(--chaos-ink-muted); }
+
+@media (hover: hover) and (pointer: fine) {
+  .chaos-dropzone:not([aria-disabled="true"]):not([data-dragging]):hover {
+    border-color: var(--chaos-ink);
+    background: var(--chaos-chip-inactive-bg);
+  }
+}
+
+/* Dragging a file over: border turns solid and colored, a glow appears, and the copy changes. */
+.chaos-dropzone[data-dragging] {
+  border-style: solid;
+  border-color: var(--chaos-info);
+  background: var(--chaos-info-tint);
+  box-shadow: 0 0 0 4px var(--chaos-glow-info);
+}
+
+.chaos-dropzone:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: 2px;
+}
+
+.chaos-dropzone[aria-disabled="true"] {
+  border-color: var(--chaos-tab-bar-border);
+  color: var(--chaos-ink-muted);
+  cursor: not-allowed;
+}
+.chaos-dropzone[aria-disabled="true"] .chaos-dropzone__icon { background: var(--chaos-tab-bar-border); box-shadow: none; }
+
+/* Rejected files */
+.chaos-dropzone__rejected {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.chaos-dropzone__rejected-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--chaos-radius-md, 8px);
+  background-color: var(--chaos-card-bg);
+  background-image: linear-gradient(var(--chaos-danger-tint), var(--chaos-danger-tint));
+  color: var(--chaos-danger-ink);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-size: 0.85rem;
+}
+.chaos-dropzone__rejected-item svg { flex-shrink: 0; }
+.chaos-dropzone__rejected-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+.chaos-dropzone__rejected-reason { flex-shrink: 0; }
+
+/* Upload list */
+.chaos-upload-list { display: flex; flex-direction: column; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+
+.chaos-upload {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-sizing: border-box;
+  padding: 0.625rem 0.75rem;
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-lg, 12px);
+  background: var(--chaos-card-bg);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+}
+.chaos-upload[data-status="error"] { border-color: var(--chaos-danger); }
+
+.chaos-upload__thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  overflow: hidden;
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-md, 8px);
+  background: var(--chaos-chip-inactive-bg);
+  color: var(--chaos-ink-muted);
+}
+.chaos-upload__thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.chaos-upload__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+.chaos-upload__row { display: flex; align-items: baseline; gap: 0.5rem; }
+.chaos-upload__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; font-size: 0.9rem; color: var(--chaos-ink); }
+.chaos-upload__size { flex-shrink: 0; font-size: 0.8rem; color: var(--chaos-ink-muted); font-variant-numeric: tabular-nums; }
+
+.chaos-upload__progress { display: flex; align-items: center; gap: 0.5rem; }
+.chaos-upload__bar { flex: 1; height: 0.5rem; overflow: hidden; border-radius: var(--chaos-radius-full, 9999px); background: var(--chaos-chip-inactive-bg); }
+.chaos-upload__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--chaos-info);
+  transition: width var(--chaos-timing-enter, 250ms) var(--chaos-ease-standard, ease);
+}
+
+.chaos-upload__meta { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.8rem; color: var(--chaos-ink-muted); font-variant-numeric: tabular-nums; }
+.chaos-upload__meta--done { color: var(--chaos-green-ink); }
+.chaos-upload__meta--error { color: var(--chaos-danger-ink); }
+
+.chaos-upload__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: var(--chaos-touch-target, 44px);
+  min-height: var(--chaos-touch-target, 44px);
+  margin-inline-end: -0.5rem;
+  padding: 0;
+  border: none;
+  border-radius: var(--chaos-radius-md, 8px);
+  background: transparent;
+  color: var(--chaos-ink-muted);
+  cursor: pointer;
+}
+@media (hover: hover) and (pointer: fine) {
+  .chaos-upload__action:hover { background: var(--chaos-ripple); color: var(--chaos-ink); }
+}
+.chaos-upload__action:focus-visible { outline: 3px solid var(--chaos-focus-ring); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .chaos-dropzone, .chaos-upload__fill { transition: none; }
+}

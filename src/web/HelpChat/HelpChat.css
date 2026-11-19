@@ -9,7 +9,7 @@
   box-shadow: 0 4px 32px rgba(0,0,0,0.18);
   border: 2.5px solid var(--chaos-amber);
   font-family: 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif;
-  z-index: 10000;
+  z-index: var(--chaos-z-popover, 10000);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -50,7 +50,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  z-index: 2;
+  z-index: calc(var(--chaos-z-raised, 1) + 1);
 }
 .chaos-help-chat-close-btn:hover, .chaos-help-chat-close-btn:focus {
   color: var(--chaos-amber);

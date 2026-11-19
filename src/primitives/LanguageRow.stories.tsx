@@ -7,7 +7,7 @@ const meta = { title: 'Primitives/LanguageRow', component: LanguageRow } satisfi
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const LANGS = [{ code: 'de', label: 'Deutsch', flag: '🇩🇪' }, { code: 'en', label: 'English', flag: '🇬🇧' }, { code: 'fr', label: 'Français', flag: '🇫🇷' }];
+const LANGS = [{ code: 'de', label: 'Deutsch', flag: 'DE' }, { code: 'en', label: 'English', flag: 'EN' }, { code: 'fr', label: 'Français', flag: 'FR' }];
 
 export const Picker: Story = {
   args: { label: 'Deutsch', selected: true, onPress: () => {} },

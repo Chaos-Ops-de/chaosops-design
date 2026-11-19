@@ -1,0 +1,12 @@
+/* Layers tone, header band and body on top of the shared sticker card (StickerCard.css). */
+.chaos-sketch__card { padding: 0; overflow: hidden; }
+.chaos-sketch__card--card { background: var(--chaos-card-bg); }
+.chaos-sketch__card--mint { background: var(--chaos-green-tint); }
+.chaos-sketch__card--lime { background: var(--chaos-amber-tint); }
+.chaos-sketch__card--yellow { background: var(--chaos-amber); color: var(--chaos-surface-inverse); }
+.chaos-sketch__header {
+  padding: var(--chaos-space-sm, 8px) var(--chaos-space-md, 12px);
+  border-bottom: 2px solid var(--chaos-border);
+  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+}
+.chaos-sketch__body { padding: var(--chaos-sticker-padding); }

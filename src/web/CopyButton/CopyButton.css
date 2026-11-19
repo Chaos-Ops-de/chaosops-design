@@ -1,0 +1,88 @@
+.chaos-copy {
+  --chaos-copy-size: 28px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--chaos-space-sm, 8px);
+  box-sizing: border-box;
+  /* Pad the hit area, not the visual button. */
+  min-width: var(--chaos-touch-target, 44px);
+  min-height: var(--chaos-touch-target, 44px);
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--chaos-ink-muted);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.chaos-copy--labelled { padding: 0 var(--chaos-space-sm, 8px); }
+
+.chaos-copy__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--chaos-copy-size);
+  height: var(--chaos-copy-size);
+  border: 2px solid var(--chaos-ink-muted);
+  border-radius: var(--chaos-radius-md, 8px);
+  background: var(--chaos-card-bg);
+  transition:
+    background-color var(--chaos-timing-feedback, 90ms) ease-out,
+    border-color var(--chaos-timing-feedback, 90ms) ease-out,
+    color var(--chaos-timing-feedback, 90ms) ease-out;
+}
+
+.chaos-copy--sm { --chaos-copy-size: 24px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .chaos-copy:not(:disabled):hover { color: var(--chaos-ink); }
+  .chaos-copy:not(:disabled):hover .chaos-copy__icon { border-color: var(--chaos-ink); }
+}
+
+.chaos-copy:not(:disabled):active .chaos-copy__icon { box-shadow: var(--chaos-shadow-offset-ink-press); }
+
+.chaos-copy:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--chaos-radius-md, 8px);
+}
+
+.chaos-copy--copied { color: var(--chaos-green-ink); }
+.chaos-copy--copied .chaos-copy__icon {
+  border-color: var(--chaos-green);
+  background: var(--chaos-green-tint);
+}
+
+.chaos-copy--failed { color: var(--chaos-danger-ink); }
+.chaos-copy--failed .chaos-copy__icon {
+  border-color: var(--chaos-danger);
+  background: var(--chaos-danger-tint);
+}
+
+.chaos-copy:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Visually hidden, still announced. */
+.chaos-copy__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chaos-copy__icon { transition: none; }
+}

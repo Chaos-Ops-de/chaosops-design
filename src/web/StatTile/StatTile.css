@@ -1,0 +1,22 @@
+.chaos-stat-tile { padding: var(--chaos-space-md, 12px); }
+.chaos-stat-tile__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.1rem 0.625rem;
+  border: 1.5px solid var(--chaos-green);
+  border-radius: var(--chaos-radius-full, 9999px);
+  background: var(--chaos-green-tint);
+  color: var(--chaos-green-ink, var(--chaos-ink));
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.chaos-stat-tile__row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; margin-top: 0.5rem; }
+.chaos-stat-tile__value {
+  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.chaos-stat-tile__detail { font-size: 0.875rem; font-weight: 600; color: var(--chaos-ink-muted); font-variant-numeric: tabular-nums; }

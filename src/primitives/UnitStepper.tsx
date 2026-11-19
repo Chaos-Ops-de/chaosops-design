@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
+import { ChevronDown } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { Text } from './Text';
 import { SketchCard } from './SketchCard';
@@ -47,7 +48,10 @@ export const UnitStepper: React.FC<UnitStepperProps> = ({
           onPress={cycleUnit}
           style={[styles.chip, { borderColor: palette.border, backgroundColor: palette.greenTint }]}
         >
-          <Text variant="bodyBold">{unit}{units ? ' ▾' : ''}</Text>
+          <View style={styles.unit}>
+            <Text variant="bodyBold">{unit}</Text>
+            {units ? <ChevronDown size={16} color={palette.ink} /> : null}
+          </View>
         </Pressable>
       </View>
       <View style={styles.ruler} accessibilityRole="adjustable" accessibilityValue={{ min, max, now: value }}
@@ -69,6 +73,7 @@ export const UnitStepper: React.FC<UnitStepperProps> = ({
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', gap: spacing.sm, marginTop: spacing.sm },
   chip: { minHeight: 36, minWidth: 56, paddingHorizontal: spacing.md, borderWidth: 2, borderRadius: radii.md, alignItems: 'center', justifyContent: 'center' },
+  unit: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs },
   ruler: { flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: spacing.md, height: 28 },
   tickHit: { flex: 1, alignItems: 'center', justifyContent: 'flex-end', height: 28 },
 });

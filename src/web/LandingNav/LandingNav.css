@@ -3,7 +3,7 @@
 .chaos-landing-navbar-sticky {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: var(--chaos-z-sticky, 100);
   padding: 1rem clamp(1rem, 4vw, 3rem) 0.5rem;
   background: color-mix(in srgb, var(--chaos-bg) 85%, transparent);
   backdrop-filter: blur(8px);
@@ -216,7 +216,7 @@
   border-radius: var(--chaos-radius-xl);
   box-shadow: 3px 4px 0 var(--chaos-ink);
   padding: 1rem;
-  z-index: 99;
+  z-index: calc(var(--chaos-z-sticky, 100) - 1);
   animation: slideDown 160ms ease-out;
 }
 

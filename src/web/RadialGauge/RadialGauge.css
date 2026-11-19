@@ -1,0 +1,20 @@
+.chaos-radial-gauge { position: relative; display: inline-block; color: var(--chaos-ink); font-family: "Inter", "Roboto", Arial, sans-serif; font-variant-numeric: tabular-nums; }
+.chaos-radial-gauge > svg { position: absolute; inset: 0; }
+.chaos-radial-gauge__tick { fill: var(--chaos-ink-muted); opacity: 0.4; }
+.chaos-radial-gauge__tick--lit { fill: var(--chaos-gauge-color, var(--chaos-green)); opacity: 1; }
+.chaos-radial-gauge__card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-xl, 16px);
+  background: var(--chaos-card-bg);
+  box-shadow: var(--chaos-shadow-offset-ink-sm, 2px 3px 0 var(--chaos-ink));
+}

@@ -1,0 +1,70 @@
+.chaos-drawer-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--chaos-z-drawer, 9990);
+  background: var(--chaos-overlay-scrim);
+}
+
+.chaos-drawer {
+  position: absolute;
+  inset-block: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  max-width: 100%;
+  background: var(--chaos-surface-elevated);
+  color: var(--chaos-ink);
+  box-shadow: var(--chaos-elevation-overlay);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+}
+.chaos-drawer:focus { outline: none; }
+
+/* Logical edges: `end` is the right side in LTR and the left in RTL. */
+.chaos-drawer--end { inset-inline-end: 0; border-inline-start: 3px solid var(--chaos-border); }
+.chaos-drawer--start { inset-inline-start: 0; border-inline-end: 3px solid var(--chaos-border); }
+
+.chaos-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--chaos-space-md, 12px);
+  flex-shrink: 0;
+  padding: var(--chaos-space-lg, 16px) var(--chaos-space-xl, 20px);
+  border-bottom: 2px dashed var(--chaos-tab-bar-border);
+}
+
+.chaos-drawer__title {
+  margin: 0;
+  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--chaos-ink);
+}
+
+.chaos-drawer__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: var(--chaos-touch-target, 44px);
+  min-height: var(--chaos-touch-target, 44px);
+  margin-inline-start: auto;
+  padding: 0;
+  border: none;
+  border-radius: var(--chaos-radius-md, 8px);
+  background: transparent;
+  color: var(--chaos-ink-muted);
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chaos-drawer__close:hover { background: var(--chaos-ripple); color: var(--chaos-ink); }
+}
+
+.chaos-drawer__close:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: 2px;
+}
+
+.chaos-drawer__body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.chaos-drawer__body--padded { padding: var(--chaos-space-xl, 20px); }

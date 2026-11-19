@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Check } from 'lucide-react-native';
 import { useTheme } from '../theme/ThemeContext';
 import { Text } from './Text';
 import { SketchCard } from './SketchCard';
@@ -8,7 +9,7 @@ import { spacing } from '../tokens/spacing';
 
 export interface LanguageRowProps {
   label: string;
-  /** Flag / icon node, or an emoji string. Shown in an outlined tile. */
+  /** Icon node (a lucide icon) or a short text code such as "DE". Shown in an outlined tile. */
   leading?: React.ReactNode;
   selected: boolean;
   onPress: () => void;
@@ -29,7 +30,7 @@ export const LanguageRow: React.FC<LanguageRowProps> = ({ label, leading, select
           ) : null}
           <Text variant="bodySemiBold" style={styles.label}>{label}</Text>
           <View style={[styles.check, { borderColor: palette.border, backgroundColor: selected ? palette.green : 'transparent' }]}>
-            {selected ? <Text variant="bodyBold" size="sm" style={{ color: palette.onAccent }}>✓</Text> : null}
+            {selected ? <Check size={14} strokeWidth={3} color={palette.onAccent} /> : null}
           </View>
         </View>
       </SketchCard>

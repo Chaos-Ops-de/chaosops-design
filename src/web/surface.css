@@ -1,0 +1,19 @@
+/* Resting card surface shared by the stat/list/chart components: solid outline plus the sticker offset shadow. */
+.chaos-surface {
+  box-sizing: border-box;
+  padding: var(--chaos-space-lg, 16px);
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-lg, 12px);
+  background: var(--chaos-card-bg);
+  box-shadow: var(--chaos-shadow-offset-ink, 2px 4px 0 var(--chaos-ink));
+  color: var(--chaos-ink);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+}
+.chaos-surface__title {
+  margin: 0;
+  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.chaos-surface__label { font-size: 0.875rem; font-weight: 600; color: var(--chaos-ink-muted); }

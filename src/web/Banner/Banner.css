@@ -1,0 +1,68 @@
+.chaos-banner {
+  --chaos-banner-tone: var(--chaos-info);
+  --chaos-banner-tint: var(--chaos-info-tint);
+  --chaos-banner-ink: var(--chaos-info-ink);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--chaos-banner-tone);
+  border-left-width: 6px;
+  border-radius: var(--chaos-radius-lg, 12px);
+  /* Dark tints are translucent, so they sit on an opaque surface to stay readable. */
+  background-color: var(--chaos-card-bg);
+  background-image: linear-gradient(var(--chaos-banner-tint), var(--chaos-banner-tint));
+  color: var(--chaos-banner-ink);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.chaos-banner--green {
+  --chaos-banner-tone: var(--chaos-green);
+  --chaos-banner-tint: var(--chaos-green-tint);
+  --chaos-banner-ink: var(--chaos-green-ink);
+}
+.chaos-banner--amber {
+  --chaos-banner-tone: var(--chaos-amber);
+  --chaos-banner-tint: var(--chaos-amber-tint);
+  --chaos-banner-ink: var(--chaos-amber-ink);
+}
+.chaos-banner--danger {
+  --chaos-banner-tone: var(--chaos-danger);
+  --chaos-banner-tint: var(--chaos-danger-tint);
+  --chaos-banner-ink: var(--chaos-danger-ink);
+}
+
+.chaos-banner__icon { display: flex; flex-shrink: 0; padding-top: 0.0625rem; }
+.chaos-banner__body { flex: 1; min-width: 0; }
+.chaos-banner__title { font-weight: 700; }
+.chaos-banner__text { font-weight: 500; }
+
+.chaos-banner__dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  /* 44 px hit area around a 16 px icon, pulled back so it doesn't grow the banner */
+  min-width: var(--chaos-touch-target, 44px);
+  min-height: var(--chaos-touch-target, 44px);
+  margin: -0.75rem -0.5rem -0.75rem 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--chaos-radius-md, 8px);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chaos-banner__dismiss:hover { background: var(--chaos-ripple); }
+}
+
+.chaos-banner__dismiss:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: 2px;
+}

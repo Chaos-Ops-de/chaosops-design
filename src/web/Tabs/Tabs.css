@@ -1,0 +1,184 @@
+.chaos-tabs {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  border-bottom: 2px dashed var(--chaos-tab-bar-border);
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+}
+
+.chaos-tabs__scroller {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  overflow-x: auto;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.chaos-tabs__scroller::-webkit-scrollbar { display: none; }
+
+/* Edge fades show only on the side that has more tabs. */
+.chaos-tabs[data-fade-start="true"] .chaos-tabs__scroller {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 32px);
+  mask-image: linear-gradient(to right, transparent, #000 32px);
+}
+.chaos-tabs[data-fade-end="true"] .chaos-tabs__scroller {
+  -webkit-mask-image: linear-gradient(to left, transparent, #000 32px);
+  mask-image: linear-gradient(to left, transparent, #000 32px);
+}
+.chaos-tabs[data-fade-start="true"][data-fade-end="true"] .chaos-tabs__scroller {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+}
+[dir="rtl"] .chaos-tabs[data-fade-start="true"] .chaos-tabs__scroller { mask-image: linear-gradient(to left, transparent, #000 32px); }
+[dir="rtl"] .chaos-tabs[data-fade-end="true"] .chaos-tabs__scroller { mask-image: linear-gradient(to right, transparent, #000 32px); }
+
+.chaos-tabs__list {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  min-width: 100%;
+}
+
+.chaos-tabs__tab {
+  position: relative;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  min-height: var(--chaos-touch-target, 44px);
+  padding: 0 var(--chaos-space-lg, 16px);
+  border: none;
+  background: none;
+  color: var(--chaos-ink-muted);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chaos-tabs__tab:not(:disabled):not(.chaos-tabs__tab--active):hover { color: var(--chaos-ink); }
+}
+
+/* Active state is an ink underline plus a heavier label; the focus ring below is a different color, so the two never read as one. */
+.chaos-tabs__tab--active { color: var(--chaos-ink); font-weight: 700; }
+
+.chaos-tabs__tab:focus-visible {
+  outline: 3px solid var(--chaos-focus-ring);
+  outline-offset: -3px;
+  border-radius: var(--chaos-radius-md, 8px);
+}
+
+.chaos-tabs__tab:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.chaos-tabs__label { position: relative; z-index: 1; }
+
+.chaos-tabs__indicator {
+  position: absolute;
+  inset-inline: var(--chaos-space-sm, 8px);
+  bottom: -2px;
+  height: 4px;
+  border-radius: var(--chaos-radius-full, 9999px);
+  background: var(--chaos-ink);
+}
+
+.chaos-tabs__chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--chaos-touch-target, 44px);
+  border: none;
+  background: var(--chaos-bg);
+  color: var(--chaos-ink-muted);
+  cursor: pointer;
+}
+.chaos-tabs__chevron[hidden] { display: none; }
+.chaos-tabs__chevron:hover { color: var(--chaos-ink); }
+.chaos-tabs__chevron:focus-visible { outline: 3px solid var(--chaos-focus-ring); outline-offset: -3px; }
+[dir="rtl"] .chaos-tabs__chevron svg { transform: scaleX(-1); }
+
+/* Touch scrolls by swiping; no chevrons there. */
+@media (pointer: coarse) {
+  .chaos-tabs__chevron { display: none; }
+}
+
+/* Phone, under five tabs: segmented control. */
+.chaos-tabs--segmented {
+  padding: 3px;
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-lg, 12px);
+  background: var(--chaos-chip-inactive-bg);
+}
+.chaos-tabs--segmented .chaos-tabs__list { width: 100%; }
+.chaos-tabs--segmented .chaos-tabs__tab {
+  flex: 1;
+  padding: 0 var(--chaos-space-sm, 8px);
+  border-radius: var(--chaos-radius-md, 8px);
+}
+.chaos-tabs--segmented .chaos-tabs__indicator {
+  inset: 0;
+  bottom: 0;
+  height: auto;
+  border-radius: var(--chaos-radius-md, 8px);
+  background: var(--chaos-card-bg);
+  box-shadow: var(--chaos-shadow-offset-ink-press);
+}
+
+/* Phone, five tabs or more: a trigger that opens a sheet. */
+.chaos-tabs--sheet { border-bottom: none; }
+.chaos-tabs__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--chaos-space-sm, 8px);
+  width: 100%;
+  box-sizing: border-box;
+  min-height: var(--chaos-touch-target, 44px);
+  padding: 0 var(--chaos-space-lg, 16px);
+  border: 2px solid var(--chaos-border);
+  border-radius: var(--chaos-radius-lg, 12px);
+  background: var(--chaos-card-bg);
+  color: var(--chaos-ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.chaos-tabs__trigger:focus-visible { outline: 3px solid var(--chaos-focus-ring); outline-offset: 2px; }
+
+.chaos-tabs__sheet-list { margin: 0; padding: var(--chaos-space-sm, 8px); list-style: none; }
+.chaos-tabs__sheet-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: var(--chaos-touch-target, 44px);
+  padding: 0 var(--chaos-space-lg, 16px);
+  border: none;
+  border-radius: var(--chaos-radius-md, 8px);
+  background: none;
+  color: var(--chaos-ink);
+  font: inherit;
+  font-size: 1rem;
+  text-align: start;
+  cursor: pointer;
+}
+.chaos-tabs__sheet-item[aria-current="true"] { background: var(--chaos-chip-inactive-bg); font-weight: 700; }
+.chaos-tabs__sheet-item:disabled { opacity: 0.45; cursor: not-allowed; }
+.chaos-tabs__sheet-item:focus-visible { outline: 3px solid var(--chaos-focus-ring); outline-offset: -3px; }
+
+/* Panels: opacity only, quick out, slower in. */
+.chaos-tabpanel {
+  opacity: 0;
+  transition: opacity var(--chaos-timing-exit, 180ms) var(--chaos-ease-standard, ease);
+}
+.chaos-tabpanel[data-visible="true"] {
+  opacity: 1;
+  transition-duration: var(--chaos-timing-enter, 250ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chaos-tabpanel { transition: none; }
+}
