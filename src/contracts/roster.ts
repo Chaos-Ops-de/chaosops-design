@@ -1,5 +1,5 @@
 // Roster (Personalverwaltung) contract — mirrors ChaosOps/src/types/roster.ts and
-// ChaosOps_Mobile_App/src/api/roster.ts.
+// chaosops-mobile/src/api/roster.ts.
 //
 // Reconciliation notes (web vs. mobile hand-written copies):
 //  - `RosterMember`: web includes `certs` + optional `_count`; mobile's `RosterMember`

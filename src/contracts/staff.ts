@@ -1,5 +1,5 @@
 // Platform-staff (Control Center) contract — mirrors ChaosOps/src/types/staff.ts and
-// ChaosOps_Mobile_App/src/api/staff.ts. The two copies agreed field for field;
+// chaosops-mobile/src/api/staff.ts. The two copies agreed field for field;
 // the only difference was mobile inlining the org member/invitation/event/display
 // shapes that web names (`OrgMember`, …). The web names are used.
 // Report/moderation types live in ./moderation, backups in ./backup.

@@ -1,5 +1,5 @@
 // Backup status contract — identical in ChaosOps/src/types/backup.ts and
-// ChaosOps_Mobile_App/src/api/staff.ts.
+// chaosops-mobile/src/api/staff.ts.
 
 export interface BackupRun {
   id: string;

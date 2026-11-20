@@ -1,5 +1,5 @@
 // Organisation extras + auth response shapes — mirrors
-// ChaosOps_Mobile_App/src/api/{organisations,auth}.ts. The web app declares these
+// chaosops-mobile/src/api/{organisations,auth}.ts. The web app declares these
 // inline in lib/api.ts; keep this file the shared source when it migrates.
 // `User` / `Organisation` themselves live in ./index.
 

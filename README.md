@@ -2,7 +2,7 @@
 
 Shared design system for **ChaosOps**. One source of truth for tokens,
 theme, cross-platform primitives, icons, and mascot assets — consumed
-by both `ChaosOps` (web) and `ChaosOps_Mobile_App`.
+by both `chaosops-app` (web) and `chaosops-mobile`.
 
 Primitives are written in **React Native** and run in the browser via
 [`react-native-web`](https://necolas.github.io/react-native-web/), but

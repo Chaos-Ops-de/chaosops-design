@@ -1,5 +1,5 @@
 // Platform-neutral formatting helpers (no DOM / React Native APIs), German by default.
-// Merged from ChaosOps_Mobile_App/src/utils/{format,date}.ts and
+// Merged from chaosops-mobile/src/utils/{format,date}.ts and
 // ChaosOps/src/utils/{dateTime,formatElapsed}.ts.
 //
 // Reconciliation: the mobile and web copies both exported `formatDate` /

@@ -1,5 +1,5 @@
 // Content moderation contract — identical in ChaosOps/src/types/staff.ts and
-// ChaosOps_Mobile_App/src/api/{staff,moderation}.ts (mobile declared the report
+// chaosops-mobile/src/api/{staff,moderation}.ts (mobile declared the report
 // enums twice; here they live once). Label maps (e.g. German reason labels) are
 // runtime values and intentionally stay in the apps.
 
