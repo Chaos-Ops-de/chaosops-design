@@ -18,3 +18,10 @@ export const Default: Story = {
     return <CookieBanner />;
   },
 };
+
+export const WithPrivacyLink: Story = {
+  render: () => {
+    localStorage.removeItem('cookieConsent');
+    return <CookieBanner privacyHref="/dsgvo" />;
+  },
+};

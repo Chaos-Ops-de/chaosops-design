@@ -1,23 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useId, useState } from 'react';
 import { motion, AnimatePresence, MotionConfig } from 'motion/react';
+import { Cookie } from 'lucide-react';
 import './CookieBanner.css';
 
 const COOKIE_KEY = 'cookieConsent';
 
-export const CookieBanner: React.FC = () => {
+export type CookieConsent = 'accepted' | 'necessary';
+
+/** Stored choice, or null if the visitor has not decided yet (or storage is unavailable). */
+export function getCookieConsent(): CookieConsent | null {
+  try {
+    const value = localStorage.getItem(COOKIE_KEY);
+    return value === 'accepted' || value === 'necessary' ? value : null;
+  } catch {
+    return null;
+  }
+}
+
+export interface CookieBannerProps {
+  /** Link to the privacy policy; the link is hidden when omitted. */
+  privacyHref?: string;
+  /** Called once when the visitor decides — use it to enable optional tooling. */
+  onConsent?: (consent: CookieConsent) => void;
+}
+
+export const CookieBanner: React.FC<CookieBannerProps> = ({ privacyHref, onConsent }) => {
   const [visible, setVisible] = useState(false);
+  const titleId = useId();
+  const textId = useId();
 
   useEffect(() => {
-    const consent = localStorage.getItem(COOKIE_KEY);
-    if (!consent) {
-      setVisible(true);
-    }
+    if (getCookieConsent() === null) setVisible(true);
   }, []);
 
-  const acceptCookies = () => {
-    localStorage.setItem(COOKIE_KEY, 'accepted');
-    setVisible(false);
-  };
+  const decide = useCallback(
+    (consent: CookieConsent) => {
+      try {
+        localStorage.setItem(COOKIE_KEY, consent);
+      } catch {
+        /* private mode: the banner just stays dismissed for this page view */
+      }
+      setVisible(false);
+      onConsent?.(consent);
+    },
+    [onConsent],
+  );
 
   return (
     <MotionConfig reducedMotion="user">
@@ -26,22 +53,48 @@ export const CookieBanner: React.FC = () => {
           <motion.div
             className="chaos-cookie-banner"
             role="dialog"
-            aria-label="Cookie-Hinweis"
-            style={{ x: '-50%' }}
-            initial={{ y: '100%', opacity: 0 }}
+            aria-labelledby={titleId}
+            aria-describedby={textId}
+            initial={{ y: 24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: '100%', opacity: 0 }}
-            transition={{ type: 'spring', bounce: 0.1, duration: 0.35 }}
+            exit={{ y: 24, opacity: 0 }}
+            transition={{ type: 'spring', bounce: 0.1, duration: 0.4 }}
           >
-            <span className="chaos-cookie-banner__text">
-              Diese Website verwendet Cookies, um die Nutzererfahrung zu verbessern. Mit der Nutzung akzeptierst du unsere Cookies.
-            </span>
-            <button
-              className="chaos-cookie-banner__button"
-              onClick={acceptCookies}
-            >
-              Akzeptieren
-            </button>
+            <div className="chaos-cookie-banner__icon" aria-hidden="true">
+              <Cookie size={22} />
+            </div>
+            <div className="chaos-cookie-banner__body">
+              <p id={titleId} className="chaos-cookie-banner__title">
+                Cookies &amp; Datenschutz
+              </p>
+              <p id={textId} className="chaos-cookie-banner__text">
+                Wir nutzen notwendige Cookies, damit die Seite funktioniert, und weitere, um sie zu verbessern.
+                {privacyHref && (
+                  <>
+                    {' '}
+                    <a className="chaos-cookie-banner__link" href={privacyHref}>
+                      Mehr erfahren
+                    </a>
+                  </>
+                )}
+              </p>
+            </div>
+            <div className="chaos-cookie-banner__actions">
+              <button
+                type="button"
+                className="chaos-cookie-banner__button chaos-cookie-banner__button--secondary"
+                onClick={() => decide('necessary')}
+              >
+                Nur notwendige
+              </button>
+              <button
+                type="button"
+                className="chaos-cookie-banner__button chaos-cookie-banner__button--primary"
+                onClick={() => decide('accepted')}
+              >
+                Akzeptieren
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
