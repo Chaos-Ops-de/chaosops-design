@@ -23,7 +23,7 @@
 
 .chaos-empty__title {
   margin: 0;
-  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-family: var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif);
   font-size: 1.4rem;
   font-weight: 700;
   line-height: 1.2;
@@ -32,7 +32,7 @@
 
 .chaos-empty__description {
   margin: 0;
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   font-size: 1rem;
   line-height: 1.5;
   color: var(--chaos-ink-muted);

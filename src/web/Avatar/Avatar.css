@@ -7,10 +7,10 @@
   flex-shrink: 0;
   box-sizing: border-box;
   border-radius: 50%;
-  border: 2px solid var(--chaos-ink);
+  border: 2px solid var(--chaos-outline, var(--chaos-ink));
   background: var(--chaos-ink);
   color: var(--chaos-bg);
-  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-family: var(--chaos-font-body, 'Inter', 'Roboto', Arial, sans-serif);
   font-weight: 700;
   line-height: 1;
   padding: 0;
@@ -46,12 +46,12 @@
   cursor: pointer;
   touch-action: manipulation;
   transition: box-shadow 150ms ease, transform 100ms ease-out;
-  box-shadow: 2px 3px 0 var(--chaos-ink);
+  box-shadow: var(--chaos-shadow-offset-ink-sm, 2px 3px 0 var(--chaos-ink));
 }
 
 @media (hover: hover) and (pointer: fine) {
   .chaos-avatar--interactive:hover {
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--chaos-ink) 15%, transparent), 2px 3px 0 var(--chaos-ink);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--chaos-ink) 15%, transparent), var(--chaos-shadow-offset-ink-sm, 2px 3px 0 var(--chaos-ink));
   }
 }
 

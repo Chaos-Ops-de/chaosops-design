@@ -6,7 +6,7 @@
   border-radius: var(--chaos-radius-full, 9999px);
   background: var(--chaos-ink);
   color: var(--chaos-bg);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
 }
 .chaos-level-badge__label { font-size: 0.875rem; font-weight: 700; }
 .chaos-level-badge__caption { font-size: 0.75rem; opacity: 0.75; font-variant-numeric: tabular-nums; }

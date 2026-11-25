@@ -43,7 +43,7 @@ function ActionButton({ children, onClick, primary = true }: { children: ReactNo
         borderRadius: 'var(--chaos-radius-md, 8px)',
         fontSize: '1rem',
         fontWeight: '700',
-        fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+        fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)',
         backgroundColor: primary ? 'var(--chaos-amber, #fbbf24)' : 'var(--chaos-surface-elevated, #fff)',
         color: 'var(--chaos-ink, #181818)',
         cursor: 'pointer',
@@ -123,7 +123,7 @@ function GenericErrorFallback({ error, downGremlinSrc, onReport }: { error: unkn
         justifyContent: 'center',
         padding: '2rem',
         background: 'repeating-linear-gradient(0deg, var(--chaos-bg, #fffbe7) 0px, var(--chaos-bg, #fffbe7) 39px, var(--chaos-tab-bar-border, #e5e7eb) 40px, var(--chaos-bg, #fffbe7) 41px)',
-        fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+        fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)',
       }}
     >
       <div
@@ -137,7 +137,7 @@ function GenericErrorFallback({ error, downGremlinSrc, onReport }: { error: unkn
           maxWidth: '480px',
           width: '100%',
           padding: '2rem',
-          transform: 'rotate(-0.3deg)',
+          transform: 'rotate(calc(-0.3deg * var(--chaos-tilt, 1)))',
           textAlign: 'center',
         }}
       >
@@ -147,7 +147,7 @@ function GenericErrorFallback({ error, downGremlinSrc, onReport }: { error: unkn
 
         <h2
           style={{
-            fontFamily: '"Gloria Hallelujah", "Caveat", cursive, sans-serif',
+            fontFamily: 'var(--chaos-font-display, "Gloria Hallelujah", "Caveat", cursive, sans-serif)',
             fontSize: '1.3rem',
             fontWeight: '700',
             letterSpacing: '-0.01em',
@@ -226,7 +226,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc, onReport }: { error: C
         justifyContent: 'center',
         padding: '2rem',
         background: 'var(--chaos-bg, #f8fafc)',
-        fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+        fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)',
       }}
     >
       <div
@@ -240,7 +240,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc, onReport }: { error: C
           maxWidth: '480px',
           width: '100%',
           padding: '2rem',
-          transform: 'rotate(-0.3deg)',
+          transform: 'rotate(calc(-0.3deg * var(--chaos-tilt, 1)))',
           textAlign: 'center',
         }}
       >
@@ -299,7 +299,7 @@ function CloudflareErrorFallback({ error, downGremlinSrc, onReport }: { error: C
         {/* Heading */}
         <h2
           style={{
-            fontFamily: '"Gloria Hallelujah", "Caveat", cursive, sans-serif',
+            fontFamily: 'var(--chaos-font-display, "Gloria Hallelujah", "Caveat", cursive, sans-serif)',
             fontSize: '1.3rem',
             fontWeight: '700',
             letterSpacing: '-0.01em',

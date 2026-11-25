@@ -15,7 +15,7 @@
   transition: transform var(--chaos-timing-feedback, 90ms) ease-out, box-shadow var(--chaos-duration-fast, 120ms) ease;
 }
 .chaos-swatch--selected {
-  border-color: var(--chaos-ink);
+  border-color: var(--chaos-outline, var(--chaos-ink));
   box-shadow: 0 0 0 2px var(--chaos-bg), 0 0 0 4px var(--chaos-ink);
 }
 @media (hover: hover) and (pointer: fine) {

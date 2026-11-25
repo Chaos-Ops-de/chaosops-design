@@ -13,7 +13,7 @@
   border: none;
   background: none;
   color: var(--chaos-ink-muted);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
@@ -42,7 +42,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .chaos-copy:not(:disabled):hover { color: var(--chaos-ink); }
-  .chaos-copy:not(:disabled):hover .chaos-copy__icon { border-color: var(--chaos-ink); }
+  .chaos-copy:not(:disabled):hover .chaos-copy__icon { border-color: var(--chaos-outline, var(--chaos-ink)); }
 }
 
 .chaos-copy:not(:disabled):active .chaos-copy__icon { box-shadow: var(--chaos-shadow-offset-ink-press); }

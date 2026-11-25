@@ -11,7 +11,7 @@
   background: var(--chaos-amber);
   /* Fixed dark chrome: ink turns cream in dark mode (1.4:1 on amber). */
   color: var(--chaos-surface-inverse);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.2;

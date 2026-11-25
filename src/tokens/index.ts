@@ -1,4 +1,5 @@
 export * from './colors';
+export * from './orgThemes';
 export * from './fonts';
 export * from './spacing';
 export * from './radii';

@@ -42,7 +42,7 @@ export const UnsavedChangesPrompt: React.FC<UnsavedChangesPromptProps> = ({
                 <AlertTriangle size={24} color={palette.amber} aria-hidden="true" />
                 <h3
                   style={{
-                    fontFamily: '"Gloria Hallelujah", "Caveat", cursive, sans-serif',
+                    fontFamily: 'var(--chaos-font-display, "Gloria Hallelujah", "Caveat", cursive, sans-serif)',
                     fontSize: '1.2rem',
                     fontWeight: '700',
                     color: 'var(--chaos-ink)',
@@ -55,7 +55,7 @@ export const UnsavedChangesPrompt: React.FC<UnsavedChangesPromptProps> = ({
 
               <p
                 style={{
-                  fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+                  fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)',
                   fontSize: '0.95rem',
                   color: 'var(--chaos-ink-muted)',
                   lineHeight: '1.6',

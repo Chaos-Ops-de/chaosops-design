@@ -15,7 +15,7 @@
   background-color: var(--chaos-card-bg);
   background-image: linear-gradient(var(--chaos-banner-tint), var(--chaos-banner-tint));
   color: var(--chaos-banner-ink);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   font-size: 0.95rem;
   line-height: 1.4;
 }

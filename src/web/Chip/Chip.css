@@ -9,7 +9,7 @@
   border-radius: var(--chaos-radius-full, 9999px);
   background: var(--chaos-chip-bg, var(--chaos-chip-inactive-bg));
   color: var(--chaos-chip-fg, var(--chaos-ink-soft));
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   font-size: 0.8125rem;
   font-weight: 700;
   line-height: 1.2;
@@ -23,7 +23,7 @@
 /* Amber is a light fill: fixed dark chrome, not --chaos-ink. */
 .chaos-chip--active {
   background: var(--chaos-chip-bg, var(--chaos-amber));
-  border-color: var(--chaos-chip-border, var(--chaos-ink));
+  border-color: var(--chaos-chip-border, var(--chaos-outline, var(--chaos-ink)));
   color: var(--chaos-chip-fg, var(--chaos-surface-inverse));
 }
 @media (hover: hover) and (pointer: fine) {

@@ -3,14 +3,14 @@
   margin: 0;
   padding: 0;
   border: none;
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   color: var(--chaos-ink);
 }
 
 .chaos-radio-group__legend {
   padding: 0;
   margin-bottom: var(--chaos-space-xs, 4px);
-  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-family: var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif);
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--chaos-ink-muted);
@@ -78,11 +78,11 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .chaos-radio__input:not(:disabled):hover + .chaos-radio__dot { border-color: var(--chaos-ink); }
+  .chaos-radio__input:not(:disabled):hover + .chaos-radio__dot { border-color: var(--chaos-outline, var(--chaos-ink)); }
 }
 
 .chaos-radio__input:checked + .chaos-radio__dot {
-  border-color: var(--chaos-ink);
+  border-color: var(--chaos-outline, var(--chaos-ink));
   background: var(--chaos-amber);
   box-shadow: var(--chaos-shadow-offset-ink-press);
 }

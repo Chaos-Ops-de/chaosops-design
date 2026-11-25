@@ -10,7 +10,7 @@
   border-radius: var(--chaos-radius-lg, 12px);
   background: var(--chaos-input-bg);
   color: var(--chaos-ink);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   /* 16px minimum: smaller text makes Safari zoom the page on focus. */
   font-size: 1rem;
   line-height: 1.3;

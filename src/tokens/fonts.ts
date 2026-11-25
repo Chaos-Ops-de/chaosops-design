@@ -20,6 +20,7 @@ export const googleFontsHref =
     'family=Inter:wght@400;500;600;700',
     'family=Gloria+Hallelujah',
     'family=Comic+Neue:wght@400;700',
+    'family=Nunito:wght@400;600;700;800',
     'family=Roboto+Mono:wght@400;500',
     'display=swap',
   ].join('&');

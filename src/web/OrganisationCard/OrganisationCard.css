@@ -32,7 +32,7 @@
 .chaos-org-card.chaos-org-card--selected {
   background: var(--chaos-border);
   color: #fff;
-  border: 2px solid var(--chaos-ink);
+  border: 2px solid var(--chaos-outline, var(--chaos-ink));
   box-shadow: 0 2px 12px rgba(0,0,0,0.10);
   outline: 2px solid var(--chaos-focus-ring);
 }

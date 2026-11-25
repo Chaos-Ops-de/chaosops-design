@@ -1,4 +1,4 @@
-.chaos-radial-gauge { position: relative; display: inline-block; color: var(--chaos-ink); font-family: "Inter", "Roboto", Arial, sans-serif; font-variant-numeric: tabular-nums; }
+.chaos-radial-gauge { position: relative; display: inline-block; color: var(--chaos-ink); font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif); font-variant-numeric: tabular-nums; }
 .chaos-radial-gauge > svg { position: absolute; inset: 0; }
 .chaos-radial-gauge__tick { fill: var(--chaos-ink-muted); opacity: 0.4; }
 .chaos-radial-gauge__tick--lit { fill: var(--chaos-gauge-color, var(--chaos-green)); opacity: 1; }

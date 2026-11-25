@@ -5,7 +5,7 @@
   border-radius: var(--chaos-radius-lg, 12px);
   background: var(--chaos-card-bg);
   overflow: hidden;
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   color: var(--chaos-ink);
 }
 

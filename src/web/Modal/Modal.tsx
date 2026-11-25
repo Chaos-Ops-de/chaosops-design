@@ -7,6 +7,7 @@ import { usePalette } from '../../theme/ThemeContext';
 import { DialogOverlay, DialogCard, DialogCloseButton, DialogButton } from './DialogPrimitives';
 import { useFocusTrap, useScrollLock } from './useFocusTrap';
 import { Input } from '../Input';
+import { Tape } from '../Tape';
 
 interface ModalProps {
   isOpen: boolean;
@@ -96,23 +97,7 @@ export const Modal: React.FC<ModalProps> = ({
             <DialogOverlay onClick={handleClose} role="dialog" aria-modal="true" aria-labelledby={title ? titleId : undefined}>
               <DialogCard ref={cardRef} maxWidth={maxWidth} onClick={(e) => e.stopPropagation()}>
                 {/* Decorative tape */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '-14px',
-                    left: '40%',
-                    width: '90px',
-                    height: '28px',
-                    background: `repeating-linear-gradient(92deg, transparent 0px, rgba(255,255,255,0.12) 1px, transparent 2px, transparent 5px), linear-gradient(105deg, rgba(255,255,255,0.22) 0%, transparent 30%, transparent 55%, rgba(255,255,255,0.18) 70%, transparent 85%), linear-gradient(180deg, color-mix(in srgb, ${getTypeColor()} 85%, white) 0%, ${getTypeColor()} 40%, color-mix(in srgb, ${getTypeColor()} 90%, #806030) 100%)`,
-                    borderRadius: 'var(--chaos-radius-sm)',
-                    border: 'none',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.08), inset 0 0 8px rgba(0,0,0,0.06)',
-                    opacity: 0.82,
-                    transform: 'translateX(-50%) rotate(-2.5deg)',
-                    zIndex: 10,
-                    clipPath: 'polygon(0% 8%, 2% 0%, 5% 12%, 8% 2%, 12% 6%, 15% 0%, 18% 10%, 22% 3%, 100% 0%, 100% 5%, 98% 14%, 100% 28%, 99% 45%, 100% 62%, 98% 78%, 100% 90%, 99% 100%, 22% 100%, 18% 92%, 15% 100%, 12% 95%, 8% 100%, 5% 90%, 2% 100%, 0% 94%, 1% 78%, 0% 60%, 1% 42%, 0% 25%)',
-                  }}
-                />
+                <Tape color={getTypeColor()} style={{ left: '40%' }} />
 
                 {/* Header */}
                 {(title || showCloseButton) && (
@@ -131,7 +116,7 @@ export const Modal: React.FC<ModalProps> = ({
                         <h2
                           id={titleId}
                           style={{
-                            fontFamily: '"Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif',
+                            fontFamily: 'var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif)',
                             fontSize: '1.5rem',
                             fontWeight: '700',
                             color: 'var(--chaos-ink)',
@@ -200,7 +185,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
       <div style={{ marginBottom: '1.5rem' }}>
         <p
           style={{
-            fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+            fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)',
             fontSize: '1rem',
             color: 'var(--chaos-ink-muted)',
             lineHeight: '1.6',
@@ -238,7 +223,7 @@ export const AlertModal: React.FC<AlertModalProps> = ({ isOpen, onClose, title, 
       <div style={{ marginBottom: '1.5rem' }}>
         <p
           style={{
-            fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+            fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)',
             fontSize: '1rem',
             color: 'var(--chaos-ink-muted)',
             lineHeight: '1.6',
@@ -319,7 +304,7 @@ export const PromptModal: React.FC<PromptModalProps> = ({
     <Modal isOpen={isOpen} onClose={close} title={title} showCloseButton={false}>
       <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
         {message && (
-          <p style={{ fontFamily: '"Inter", "Roboto", Arial, sans-serif', fontSize: '1rem', color: 'var(--chaos-ink-muted)', lineHeight: 1.6, margin: 0 }}>
+          <p style={{ fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)', fontSize: '1rem', color: 'var(--chaos-ink-muted)', lineHeight: 1.6, margin: 0 }}>
             {message}
           </p>
         )}

@@ -41,7 +41,7 @@
   justify-content: center;
   width: 3rem;
   height: 3rem;
-  border: 2px solid var(--chaos-ink);
+  border: 2px solid var(--chaos-outline, var(--chaos-ink));
   border-radius: var(--chaos-radius-full, 9999px);
   background: var(--chaos-amber);
   color: var(--chaos-surface-inverse);
@@ -49,16 +49,16 @@
 }
 
 .chaos-dropzone__title {
-  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-family: var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif);
   font-size: 1.15rem;
   font-weight: 700;
 }
-.chaos-dropzone__sub { font-family: "Inter", "Roboto", Arial, sans-serif; font-size: 0.9rem; color: var(--chaos-ink-muted); }
-.chaos-dropzone__hint { font-family: "Inter", "Roboto", Arial, sans-serif; font-size: 0.8rem; color: var(--chaos-ink-muted); }
+.chaos-dropzone__sub { font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif); font-size: 0.9rem; color: var(--chaos-ink-muted); }
+.chaos-dropzone__hint { font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif); font-size: 0.8rem; color: var(--chaos-ink-muted); }
 
 @media (hover: hover) and (pointer: fine) {
   .chaos-dropzone:not([aria-disabled="true"]):not([data-dragging]):hover {
-    border-color: var(--chaos-ink);
+    border-color: var(--chaos-outline, var(--chaos-ink));
     background: var(--chaos-chip-inactive-bg);
   }
 }
@@ -101,7 +101,7 @@
   background-color: var(--chaos-card-bg);
   background-image: linear-gradient(var(--chaos-danger-tint), var(--chaos-danger-tint));
   color: var(--chaos-danger-ink);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   font-size: 0.85rem;
 }
 .chaos-dropzone__rejected-item svg { flex-shrink: 0; }
@@ -120,7 +120,7 @@
   border: 2px solid var(--chaos-border);
   border-radius: var(--chaos-radius-lg, 12px);
   background: var(--chaos-card-bg);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
 }
 .chaos-upload[data-status="error"] { border-color: var(--chaos-danger); }
 

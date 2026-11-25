@@ -10,7 +10,7 @@
   border-radius: var(--chaos-radius-lg, 12px);
   background: var(--chaos-surface-elevated);
   color: var(--chaos-ink);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   text-align: start;
   cursor: pointer;
   touch-action: manipulation;
@@ -30,7 +30,7 @@
 }
 .chaos-choice-card--selected,
 .chaos-choice-card--selected:not(:disabled):hover {
-  border-color: var(--chaos-ink);
+  border-color: var(--chaos-outline, var(--chaos-ink));
   background: color-mix(in srgb, var(--chaos-info) 14%, var(--chaos-surface-elevated));
 }
 .chaos-choice-card:not(:disabled):active { transform: scale(0.99); }

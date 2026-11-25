@@ -8,7 +8,7 @@
   border-radius: var(--chaos-radius-xl);
   box-shadow: 0 4px 32px rgba(0,0,0,0.18);
   border: 2.5px solid var(--chaos-amber);
-  font-family: 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif;
+  font-family: var(--chaos-font-display, 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif);
   z-index: var(--chaos-z-popover, 10000);
   display: flex;
   flex-direction: column;

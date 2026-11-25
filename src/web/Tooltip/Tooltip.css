@@ -8,7 +8,7 @@
   background: var(--chaos-surface-inverse);
   color: var(--chaos-on-inverse);
   box-shadow: var(--chaos-elevation-float);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   font-size: 0.85rem;
   font-weight: 500;
   line-height: 1.4;

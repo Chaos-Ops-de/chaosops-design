@@ -7,6 +7,6 @@
 .chaos-sketch__header {
   padding: var(--chaos-space-sm, 8px) var(--chaos-space-md, 12px);
   border-bottom: 2px solid var(--chaos-border);
-  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-family: var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif);
 }
 .chaos-sketch__body { padding: var(--chaos-sticker-padding); }

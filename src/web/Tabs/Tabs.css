@@ -4,7 +4,7 @@
   align-items: stretch;
   min-width: 0;
   border-bottom: 2px dashed var(--chaos-tab-bar-border);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
 }
 
 .chaos-tabs__scroller {

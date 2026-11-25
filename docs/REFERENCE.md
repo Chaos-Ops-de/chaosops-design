@@ -20,7 +20,7 @@ What the package exports and how to use it from web and Expo consumers.
 
 ### Theme
 
-- `<ThemeProvider storage={…} systemScheme={…}>` — cross-platform
+- `<ThemeProvider storage={…} systemScheme={…} defaultOrgTheme="classic">` — cross-platform
 - `useTheme()`, `usePalette()`
 - `<CssVariables />` (web-only) — writes `--chaos-*` variables onto `<html>`
 - `renderCssVariables(theme)` — SSR helper

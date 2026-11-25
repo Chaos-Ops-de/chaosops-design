@@ -1,4 +1,4 @@
-.chaos-pagination { font-family: "Inter", "Roboto", Arial, sans-serif; }
+.chaos-pagination { font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif); }
 
 .chaos-pagination__list {
   display: flex;
@@ -40,7 +40,7 @@
 
 /* Current page: sticker-style amber chip, so it never relies on color alone (it is also bold and aria-current). */
 .chaos-pagination__btn--current {
-  border-color: var(--chaos-ink);
+  border-color: var(--chaos-outline, var(--chaos-ink));
   background: var(--chaos-amber);
   color: var(--chaos-surface-inverse);
   font-weight: 700;
@@ -72,7 +72,7 @@
 }
 
 .chaos-pagination-summary {
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   font-size: 0.85rem;
   font-variant-numeric: tabular-nums;
   color: var(--chaos-ink-muted);
@@ -82,7 +82,7 @@
 .chaos-load-more--done {
   align-items: center;
   gap: var(--chaos-space-sm, 8px);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   font-size: 0.9rem;
   color: var(--chaos-ink-muted);
 }

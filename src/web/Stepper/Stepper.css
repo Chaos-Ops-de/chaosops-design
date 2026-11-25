@@ -1,4 +1,4 @@
-.chaos-stepper { font-family: "Inter", "Roboto", Arial, sans-serif; color: var(--chaos-ink); }
+.chaos-stepper { font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif); color: var(--chaos-ink); }
 
 .chaos-stepper__list { display: flex; margin: 0; padding: 0; list-style: none; }
 .chaos-stepper__sr {
@@ -20,7 +20,7 @@
 }
 .chaos-stepper__count { font-size: 0.8rem; color: var(--chaos-ink-muted); font-variant-numeric: tabular-nums; }
 .chaos-stepper__title {
-  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-family: var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif);
   font-size: 1.1rem;
   font-weight: 700;
 }
@@ -29,7 +29,7 @@
   position: relative;
   flex: 1;
   height: 8px;
-  border: 2px solid var(--chaos-ink);
+  border: 2px solid var(--chaos-outline, var(--chaos-ink));
   border-radius: var(--chaos-radius-full, 9999px);
   background: var(--chaos-card-bg);
   overflow: hidden;
@@ -49,7 +49,7 @@
   justify-content: center;
   box-sizing: border-box;
   width: 28px; height: 28px;
-  border: 2px solid var(--chaos-ink);
+  border: 2px solid var(--chaos-outline, var(--chaos-ink));
   border-radius: 50%;
   background: var(--chaos-card-bg);
   color: var(--chaos-ink);
@@ -58,7 +58,7 @@
   font-variant-numeric: tabular-nums;
 }
 .chaos-stepper--dots .chaos-stepper__dot { width: 22px; height: 22px; }
-.chaos-stepper__step--done .chaos-stepper__dot { background: var(--chaos-green); border-color: var(--chaos-ink); color: var(--chaos-surface-inverse); }
+.chaos-stepper__step--done .chaos-stepper__dot { background: var(--chaos-green); border-color: var(--chaos-outline, var(--chaos-ink)); color: var(--chaos-surface-inverse); }
 .chaos-stepper__step--current .chaos-stepper__dot {
   background: var(--chaos-amber);
   color: var(--chaos-surface-inverse);
@@ -84,15 +84,15 @@
   border-top: 2px dashed var(--chaos-tab-bar-border);
 }
 .chaos-stepper--labels .chaos-stepper__step--done:not(:first-child)::before,
-.chaos-stepper--labels .chaos-stepper__step--current:not(:first-child)::before { border-top-style: solid; border-top-color: var(--chaos-ink); }
+.chaos-stepper--labels .chaos-stepper__step--current:not(:first-child)::before { border-top-style: solid; border-top-color: var(--chaos-outline, var(--chaos-ink)); }
 .chaos-stepper__label { font-size: 0.8rem; color: var(--chaos-ink-muted); overflow-wrap: anywhere; }
 .chaos-stepper__step--current .chaos-stepper__label { color: var(--chaos-ink); font-weight: 700; }
 
 /* Wizard */
-.chaos-wizard { display: flex; flex-direction: column; gap: var(--chaos-space-lg, 16px); font-family: "Inter", "Roboto", Arial, sans-serif; color: var(--chaos-ink); }
+.chaos-wizard { display: flex; flex-direction: column; gap: var(--chaos-space-lg, 16px); font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif); color: var(--chaos-ink); }
 .chaos-wizard__heading {
   margin: 0 0 var(--chaos-space-md, 12px);
-  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-family: var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif);
   font-size: 1.4rem;
   font-weight: 700;
 }

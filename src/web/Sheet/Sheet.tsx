@@ -164,7 +164,7 @@ export const Sheet: React.FC<SheetProps> = ({
                     <h2
                       id={titleId}
                       style={{
-                        fontFamily: '"Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif',
+                        fontFamily: 'var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif)',
                         fontSize: '1.4rem',
                         fontWeight: 700,
                         color: 'var(--chaos-ink)',

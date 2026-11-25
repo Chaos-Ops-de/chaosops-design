@@ -12,7 +12,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ gremlinSrc }) => {
       background: 'repeating-linear-gradient(0deg, var(--chaos-bg) 0px, var(--chaos-bg) 39px, var(--chaos-tab-bar-border) 40px, var(--chaos-bg) 41px)',
       color: 'var(--chaos-ink)',
       boxSizing: 'border-box',
-      fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+      fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)',
       textAlign: 'center',
       padding: '4rem 2rem',
     }}>
@@ -21,10 +21,10 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ gremlinSrc }) => {
         borderRadius: 'var(--chaos-radius-xl)',
         boxShadow: '2px 4px 0 var(--chaos-tab-bar-border), 0 2px 8px 0 rgba(0,0,0,0.08)',
         padding: '3rem 2rem',
-        border: '2px solid var(--chaos-ink)',
+        border: '2px solid var(--chaos-outline, var(--chaos-ink))',
         maxWidth: '500px',
         margin: '0 auto',
-        transform: 'rotate(-0.5deg)',
+        transform: 'rotate(calc(-0.5deg * var(--chaos-tilt, 1)))',
       }}>
         <img
           src={gremlinSrc}
@@ -38,7 +38,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ gremlinSrc }) => {
         />
 
         <h1 style={{
-          fontFamily: '"Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif',
+          fontFamily: 'var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif)',
           fontSize: '2.5rem',
           color: 'var(--chaos-ink)',
           marginBottom: '1rem',
@@ -47,7 +47,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ gremlinSrc }) => {
         </h1>
 
         <p style={{
-          fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+          fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)',
           fontSize: '1.1rem',
           color: 'var(--chaos-ink-muted)',
           marginBottom: '2rem',
@@ -59,7 +59,7 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ gremlinSrc }) => {
           onClick={() => window.history.back()}
           style={{
             padding: '1rem 2rem',
-            border: '2px solid var(--chaos-ink)',
+            border: '2px solid var(--chaos-outline, var(--chaos-ink))',
             borderRadius: 'var(--chaos-radius-md)',
             fontSize: '1rem',
             fontWeight: '600',

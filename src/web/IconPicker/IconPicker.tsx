@@ -119,7 +119,7 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
             <label style={{
                 display: 'block',
                 marginBottom: '0.5rem',
-                fontFamily: '"Gloria Hallelujah", "Caveat", cursive',
+                fontFamily: 'var(--chaos-font-display, "Gloria Hallelujah", "Caveat", cursive)',
                 fontSize: 'clamp(0.9rem, 2.25vw, 1rem)',
                 fontWeight: '700',
                 color: 'var(--chaos-ink)',
@@ -157,7 +157,7 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
                         <SelectedIcon size={20} aria-hidden="true" />
                     </div>
                     <span style={{
-                        fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+                        fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)',
                         fontSize: '0.95rem',
                         color: 'var(--chaos-ink)'
                     }}>
@@ -218,7 +218,7 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
                                 fontSize: '0.95rem',
                                 background: 'var(--chaos-input-bg)',
                                 color: 'var(--chaos-ink)',
-                                fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+                                fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)',
                             }}
                         />
                     </div>
@@ -289,7 +289,7 @@ export const IconPicker: React.FC<IconPickerProps> = ({ value, onChange, color =
                             padding: '1.5rem',
                             color: 'var(--chaos-ink-muted, #94a3b8)',
                             fontSize: '0.9rem',
-                            fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+                            fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)',
                         }}>
                             Keine Icons gefunden
                         </div>

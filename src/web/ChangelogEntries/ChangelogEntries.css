@@ -38,11 +38,11 @@
 .chaos-changelog-date {
   font-size: 0.78rem;
   color: var(--chaos-ink-muted, #64748b);
-  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-family: var(--chaos-font-body, 'Inter', 'Roboto', Arial, sans-serif);
 }
 
 .chaos-changelog-title {
-  font-family: 'Gloria Hallelujah', 'Caveat', cursive, sans-serif;
+  font-family: var(--chaos-font-display, 'Gloria Hallelujah', 'Caveat', cursive, sans-serif);
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--chaos-ink, #181818);
@@ -50,7 +50,7 @@
 }
 
 .chaos-changelog-description {
-  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-family: var(--chaos-font-body, 'Inter', 'Roboto', Arial, sans-serif);
   font-size: 0.92rem;
   line-height: 1.55;
   color: var(--chaos-ink-muted, #475569);
@@ -58,7 +58,7 @@
 }
 
 .chaos-changelog-empty {
-  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  font-family: var(--chaos-font-body, 'Inter', 'Roboto', Arial, sans-serif);
   font-size: 0.92rem;
   color: var(--chaos-ink-muted, #64748b);
 }

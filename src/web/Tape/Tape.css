@@ -1,0 +1,29 @@
+/* Decorative masking tape. Hidden by org themes that set --chaos-decor-display: none. */
+.chaos-tape {
+  --chaos-tape-width: 90px;
+  --chaos-tape-height: 28px;
+  --chaos-tape-rotate: -2.5deg;
+  display: var(--chaos-decor-display, block);
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: var(--chaos-tape-width);
+  height: var(--chaos-tape-height);
+  background:
+    repeating-linear-gradient(92deg, transparent 0px, rgba(255, 255, 255, 0.12) 1px, transparent 2px, transparent 5px),
+    linear-gradient(105deg, rgba(255, 255, 255, 0.22) 0%, transparent 30%, transparent 55%, rgba(255, 255, 255, 0.18) 70%, transparent 85%),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--chaos-tape-color, var(--chaos-amber)) 85%, white) 0%,
+      var(--chaos-tape-color, var(--chaos-amber)) 40%,
+      color-mix(in srgb, var(--chaos-tape-color, var(--chaos-amber)) 90%, var(--chaos-tape-shade, #806030)) 100%
+    );
+  border-radius: var(--chaos-radius-sm);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.08), inset 0 0 8px rgba(0, 0, 0, 0.06);
+  opacity: 0.82;
+  transform: translateX(-50%) rotate(calc(var(--chaos-tape-rotate) * var(--chaos-tilt, 1)));
+  z-index: 10;
+  pointer-events: none;
+  /* Torn/rough edges on the left and right */
+  clip-path: polygon(0% 8%, 2% 0%, 5% 12%, 8% 2%, 12% 6%, 15% 0%, 18% 10%, 22% 3%, 100% 0%, 100% 5%, 98% 14%, 100% 28%, 99% 45%, 100% 62%, 98% 78%, 100% 90%, 99% 100%, 22% 100%, 18% 92%, 15% 100%, 12% 95%, 8% 100%, 5% 90%, 2% 100%, 0% 94%, 1% 78%, 0% 60%, 1% 42%, 0% 25%);
+}

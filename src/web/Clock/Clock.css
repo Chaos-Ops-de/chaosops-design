@@ -19,8 +19,8 @@
   border-radius: var(--chaos-radius-lg, 12px);
   background: var(--chaos-surface-elevated);
   color: var(--chaos-ink);
-  box-shadow: 3px 5px 0 var(--chaos-ink);
-  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  box-shadow: var(--chaos-shadow-offset-ink-md, 3px 5px 0 var(--chaos-ink));
+  font-family: var(--chaos-font-body, 'Inter', 'Roboto', Arial, sans-serif);
 }
 
 .chaos-clock__face {
@@ -105,7 +105,7 @@
 
 .chaos-clock__heading,
 .chaos-clock__hurry {
-  font-family: 'Gloria Hallelujah', 'Comic Neue', cursive;
+  font-family: var(--chaos-font-display, 'Gloria Hallelujah', 'Comic Neue', cursive);
   font-size: 1rem;
   color: var(--chaos-ink);
 }
@@ -164,7 +164,7 @@
     padding: 0.4rem 1.25rem;
     border-top-width: 0;
     border-radius: 0 0 var(--chaos-radius-lg, 12px) var(--chaos-radius-lg, 12px);
-    box-shadow: 2px 3px 0 var(--chaos-ink);
+    box-shadow: var(--chaos-shadow-offset-ink-sm, 2px 3px 0 var(--chaos-ink));
   }
 
   .chaos-clock__time { font-size: 1.3rem; }

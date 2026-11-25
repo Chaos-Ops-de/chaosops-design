@@ -16,7 +16,9 @@ export const Footer: React.FC<FooterProps> = ({ logoHref }) => (
             background: 'var(--chaos-bg)',
             borderRadius: '0 0 var(--chaos-radius-xl) var(--chaos-radius-xl)',
             margin: '0 auto',
-            position: 'relative',
+            // Deliberately not positioned: a positioned footer paints above a page wrapper that
+            // forms its own stacking context (FlipchartBackground isolates its parent), which
+            // left the footer un-dimmed on top of modal overlays.
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

@@ -11,7 +11,7 @@
   container-type: inline-size;
   container-name: chaos-dt;
   min-width: 0;
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   color: var(--chaos-ink);
 }
 .chaos-dt[data-density="compact"] { --chaos-dt-row: var(--chaos-row-compact, 40px); }
@@ -38,7 +38,7 @@
 .chaos-dt__caption {
   padding: var(--chaos-space-md, 12px) var(--chaos-dt-cell-x);
   text-align: start;
-  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-family: var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif);
   font-size: 1.1rem;
   font-weight: 700;
   caption-side: top;
@@ -54,7 +54,7 @@
   border-bottom: 2px solid var(--chaos-border);
   background: var(--chaos-card-bg);
   color: var(--chaos-ink-muted);
-  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-family: var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif);
   font-size: 0.95rem;
   font-weight: 600;
   white-space: nowrap;
@@ -181,7 +181,7 @@
   margin-bottom: var(--chaos-space-md, 12px);
 }
 .chaos-dt__cardsort-label {
-  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-family: var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif);
   font-size: 0.95rem;
   color: var(--chaos-ink-muted);
 }

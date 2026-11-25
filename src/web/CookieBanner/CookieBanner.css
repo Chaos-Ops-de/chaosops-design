@@ -13,10 +13,10 @@
   padding: 1.1rem 1.2rem;
   background: var(--chaos-bg);
   color: var(--chaos-ink);
-  border: 2px solid var(--chaos-ink);
+  border: 2px solid var(--chaos-outline, var(--chaos-ink));
   border-radius: var(--chaos-radius-xl, 1rem);
-  box-shadow: 4px 4px 0 var(--chaos-ink), 0 12px 32px rgba(0, 0, 0, 0.12);
-  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  box-shadow: var(--chaos-shadow-offset-ink-4, 4px 4px 0 var(--chaos-ink)), 0 12px 32px rgba(0, 0, 0, 0.12);
+  font-family: var(--chaos-font-body, 'Inter', 'Roboto', Arial, sans-serif);
   font-size: 0.9rem;
   line-height: 1.45;
 }
@@ -33,7 +33,7 @@
 
 .chaos-cookie-banner__title {
   margin: 0 0 0.2rem;
-  font-family: 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif;
+  font-family: var(--chaos-font-display, 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif);
   font-size: 1.15rem;
   font-weight: 700;
 }
@@ -60,7 +60,7 @@
   flex: 1 1 auto;
   min-height: 2.5rem;
   padding: 0.5rem 1rem;
-  border: 2px solid var(--chaos-ink);
+  border: 2px solid var(--chaos-outline, var(--chaos-ink));
   border-radius: var(--chaos-radius-xl, 1rem);
   font: inherit;
   font-weight: 700;

@@ -3,7 +3,7 @@
   text-align: center;
   color: var(--chaos-ink);
   font-size: 1.2rem;
-  font-family: 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif;
+  font-family: var(--chaos-font-display, 'Gloria Hallelujah', 'Caveat', 'Comic Neue', cursive, sans-serif);
   text-shadow: 0 2px 8px color-mix(in srgb, var(--chaos-amber) 45%, transparent);
   padding: 1.2rem 0 0.5rem 0;
 }

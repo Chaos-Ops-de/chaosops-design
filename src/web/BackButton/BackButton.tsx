@@ -29,7 +29,7 @@ export const BackButton: React.FC<BackButtonProps> = ({
 
   const baseStyle: React.CSSProperties = iconOnly ? {
     padding: '0.4rem',
-    border: '2px solid var(--chaos-ink)',
+    border: '2px solid var(--chaos-outline, var(--chaos-ink))',
     borderRadius: 'var(--chaos-radius-md)',
     width: '2.4rem',
     height: '2.4rem',
@@ -43,11 +43,11 @@ export const BackButton: React.FC<BackButtonProps> = ({
     transition: 'transform 0.15s, box-shadow 0.15s',
   } : {
     padding: '0.625rem 1rem',
-    border: '2px solid var(--chaos-ink)',
+    border: '2px solid var(--chaos-outline, var(--chaos-ink))',
     borderRadius: 'var(--chaos-radius-md)',
     fontSize: '0.95rem',
     fontWeight: '600',
-    fontFamily: '"Inter", "Roboto", Arial, sans-serif',
+    fontFamily: 'var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif)',
     backgroundColor: 'var(--chaos-bg)',
     color: 'var(--chaos-ink)',
     cursor: 'pointer',

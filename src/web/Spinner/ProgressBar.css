@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 0.375rem;
   width: 100%;
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
 }
 
 .chaos-progress--success { --chaos-progress-tone: var(--chaos-green); }
@@ -21,7 +21,7 @@
 }
 
 .chaos-progress__label {
-  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-family: var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif);
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--chaos-ink-muted);

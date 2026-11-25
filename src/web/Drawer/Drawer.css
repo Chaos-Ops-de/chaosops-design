@@ -15,7 +15,7 @@
   background: var(--chaos-surface-elevated);
   color: var(--chaos-ink);
   box-shadow: var(--chaos-elevation-overlay);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
 }
 .chaos-drawer:focus { outline: none; }
 
@@ -35,7 +35,7 @@
 
 .chaos-drawer__title {
   margin: 0;
-  font-family: "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif;
+  font-family: var(--chaos-font-display, "Gloria Hallelujah", "Caveat", "Comic Neue", cursive, sans-serif);
   font-size: 1.4rem;
   font-weight: 700;
   color: var(--chaos-ink);

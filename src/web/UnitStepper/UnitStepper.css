@@ -12,7 +12,7 @@
   border-radius: var(--chaos-radius-lg, 12px);
   background: var(--chaos-card-bg);
   color: var(--chaos-ink);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
 }
 .chaos-unit-stepper__value { font-size: 1.25rem; font-weight: 700; font-variant-numeric: tabular-nums; }
 .chaos-unit-stepper__unit {

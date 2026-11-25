@@ -15,6 +15,6 @@
   border-radius: var(--chaos-sticker-radius);
   background: var(--chaos-card-bg);
   color: var(--chaos-ink);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   box-shadow: var(--chaos-sticker-offset) var(--chaos-sticker-offset) 0 var(--chaos-sticker-color, var(--chaos-border));
 }

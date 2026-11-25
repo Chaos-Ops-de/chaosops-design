@@ -14,7 +14,7 @@
   background: var(--chaos-surface-elevated);
   color: var(--chaos-ink);
   box-shadow: var(--chaos-elevation-float);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   animation: chaos-popover-in var(--chaos-timing-dropdown, 120ms) var(--chaos-ease-standard, ease-out);
 }
 .chaos-popover:focus { outline: none; }

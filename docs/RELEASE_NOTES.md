@@ -1,6 +1,6 @@
 # Release notes
 
-Notes for the larger additive releases (0.12 and 0.15). Every release is published automatically, see the README.
+Notes for the larger additive releases (0.12, 0.15 and 0.20). Every release is published automatically, see the README.
 
 ## 0.12.0 notes
 
@@ -55,3 +55,29 @@ ink shadows, Gloria Hallelujah headings, dashed dividers) is unchanged.
 - **Sketchbook:** theme and text-direction toolbar, phone/cards/table viewports, and
   Layout, Contrast and Motion-roles token pages.
 
+
+## 0.20.0 notes — organisation themes
+
+Additive; with the default `classic` theme every component renders exactly as before.
+
+- **Org themes** (`orgThemeNames`: `classic` | `casual` | `corporate`) are a style axis
+  independent of light/dark. `ThemeProvider` takes `defaultOrgTheme` and `useTheme()` now
+  returns `orgTheme` and `setOrgTheme` (not persisted — it belongs to the organisation).
+  `useTheme().palette`/`usePalette()` already include the theme's overrides, so native
+  clients and non-CSS renderers get the right colours too. `CssVariables` applies the theme
+  and sets `html[data-chaos-org-theme]`; `renderCssVariables(mode, orgTheme)` supports SSR.
+- **Tokens:** `orgThemes`, `resolveOrgPalette`, `orgThemeCssVars`, `orgThemeBaseVars`,
+  `isOrgThemeName`. A test guarantees every variable a theme sets has a classic base value.
+- **New CSS variables** (all with the old literal as fallback): `--chaos-font-display`,
+  `--chaos-font-body`, `--chaos-outline` (colour of hard card/button/input outlines),
+  `--chaos-decor-display` (`block`/`none` for flipchart accents and tape), `--chaos-tilt`
+  (`1`/`0` multiplier for sticker-style rotations), and extra sticker-shadow tokens
+  `--chaos-shadow-offset-ink-{xs,2,3,4}`. Component CSS now uses these instead of
+  hard-coded `Inter`/`Gloria Hallelujah` stacks, `var(--chaos-ink)` outlines and
+  `Npx Npx 0 var(--chaos-ink)` shadows.
+- **`Tape`** component (replaces the inline tape inside `Modal`). Use it instead of
+  hand-rolled tape so themes can hide it. `googleFontsHref` now also loads Nunito (Casual).
+- **Consumers:** put app-level decoration behind `display: var(--chaos-decor-display, block)`,
+  fonts behind `var(--chaos-font-*, <stack>)`, hard outlines behind
+  `var(--chaos-outline, var(--chaos-ink))`, and rotations in
+  `calc(<n>deg * var(--chaos-tilt, 1))`.

@@ -57,6 +57,7 @@ export * from './PillButton';
 export * from './ActionButton';
 export * from './ActionPair';
 export * from './StickerCard';
+export * from './Tape';
 export * from './SketchCard';
 export * from './Chip';
 export * from './DashedDivider';

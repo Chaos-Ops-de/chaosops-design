@@ -10,5 +10,5 @@
   padding: var(--chaos-space-xxl, 24px) var(--chaos-gutter, 16px);
   background: var(--chaos-bg);
   color: var(--chaos-ink);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
 }

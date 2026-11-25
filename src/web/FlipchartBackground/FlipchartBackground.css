@@ -10,6 +10,7 @@
 }
 
 .chaos-flipchart-lines {
+  display: var(--chaos-decor-display, block);
   position: fixed;
   inset: 0;
   background: repeating-linear-gradient(
@@ -24,6 +25,7 @@
 }
 
 .chaos-flipchart-hole {
+  display: var(--chaos-decor-display, block);
   position: absolute;
   background: var(--chaos-tab-bar-border);
   border-radius: 50%;
@@ -37,6 +39,7 @@
 }
 
 .chaos-flipchart-torn-edge {
+  display: var(--chaos-decor-display, block);
   position: absolute;
   top: 0;
   left: 0;
@@ -47,6 +50,7 @@
 }
 
 .chaos-flipchart-doodle-star {
+  display: var(--chaos-decor-display, block);
   position: absolute;
   top: 30px;
   left: 8vw;
@@ -58,6 +62,7 @@
 }
 
 .chaos-flipchart-doodle-circle {
+  display: var(--chaos-decor-display, block);
   position: absolute;
   bottom: 40px;
   right: 6vw;
@@ -70,6 +75,7 @@
 }
 
 .chaos-flipchart-doodle-squiggle {
+  display: var(--chaos-decor-display, block);
   position: absolute;
   top: 70%;
   left: 50%;

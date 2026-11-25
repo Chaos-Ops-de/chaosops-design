@@ -12,7 +12,7 @@
   border-radius: var(--chaos-radius-full, 9999px);
   background: var(--chaos-pill-bg);
   color: var(--chaos-pill-fg);
-  font-family: "Inter", "Roboto", Arial, sans-serif;
+  font-family: var(--chaos-font-body, "Inter", "Roboto", Arial, sans-serif);
   font-size: 0.9375rem;
   font-weight: 700;
   line-height: 1.2;
@@ -23,7 +23,7 @@
     transform var(--chaos-timing-feedback, 90ms) ease-out;
 }
 /* Amber is a light fill: fixed dark chrome, not --chaos-ink (cream in dark mode). */
-.chaos-pill-btn--primary { --chaos-pill-bg: var(--chaos-amber); --chaos-pill-fg: var(--chaos-surface-inverse); --chaos-pill-border: var(--chaos-ink); }
+.chaos-pill-btn--primary { --chaos-pill-bg: var(--chaos-amber); --chaos-pill-fg: var(--chaos-surface-inverse); --chaos-pill-border: var(--chaos-outline, var(--chaos-ink)); }
 .chaos-pill-btn--danger { --chaos-pill-border: var(--chaos-danger); --chaos-pill-fg: var(--chaos-danger); }
 
 @media (hover: hover) and (pointer: fine) {
