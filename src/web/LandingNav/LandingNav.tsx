@@ -9,6 +9,22 @@ const navLinks = [
   { label: 'Kontakt', to: '/contact' },
 ];
 
+/**
+ * Plain left-clicks navigate in-app; modified clicks (new tab, etc.) fall
+ * through to the browser. Links are real <a href> so crawlers can follow them.
+ */
+const handleLinkClick = (
+  e: React.MouseEvent<HTMLAnchorElement>,
+  to: string,
+  onNavigate: (to: string) => void,
+  after?: () => void,
+) => {
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  onNavigate(to);
+  after?.();
+};
+
 export interface LandingNavProps {
   /** URL of the Chaos Ops logo (app-specific bundler resolves the path). */
   logoSrc: string;
@@ -39,24 +55,27 @@ export const LandingNav: React.FC<LandingNavProps> = ({
       <nav className="chaos-landing-navbar" aria-label="Hauptnavigation">
         <span className="chaos-landing-nav-tape" aria-hidden="true" />
 
-        <button
+        <a
+          href="/"
           className="chaos-landing-nav-logo-btn"
-          onClick={() => { onNavigate('/'); setMenuOpen(false); }}
+          onClick={(e) => handleLinkClick(e, '/', onNavigate, () => setMenuOpen(false))}
           aria-label="Zur Startseite"
         >
           <img src={logoSrc} alt="Chaos Ops" className="chaos-landing-nav-logo" />
-        </button>
+        </a>
 
         {/* Desktop links */}
         <ul className="chaos-landing-nav-links" role="list">
           {navLinks.map(({ label, to }) => (
             <li key={to}>
-              <button
+              <a
+                href={to}
                 className={`chaos-landing-nav-link ${activePath === to ? 'chaos-landing-nav-link--active' : ''}`}
-                onClick={() => onNavigate(to)}
+                aria-current={activePath === to ? 'page' : undefined}
+                onClick={(e) => handleLinkClick(e, to, onNavigate)}
               >
                 {label}
-              </button>
+              </a>
             </li>
           ))}
         </ul>
@@ -100,12 +119,14 @@ export const LandingNav: React.FC<LandingNavProps> = ({
             <ul role="list">
               {navLinks.map(({ label, to }) => (
                 <li key={to}>
-                  <button
+                  <a
+                    href={to}
                     className={`chaos-landing-nav-mobile-link ${activePath === to ? 'chaos-landing-nav-mobile-link--active' : ''}`}
-                    onClick={() => { onNavigate(to); setMenuOpen(false); }}
+                    aria-current={activePath === to ? 'page' : undefined}
+                    onClick={(e) => handleLinkClick(e, to, onNavigate, () => setMenuOpen(false))}
                   >
                     {label}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
